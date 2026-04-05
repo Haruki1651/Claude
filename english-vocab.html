@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>英語学習帳</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f13;
+    --surface: #1a1a24;
+    --surface2: #22222f;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0f0f5;
+    --text2: #8888a0;
+    --accent: #7c6aff;
+    --accent2: #ff6a8a;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-bottom: 90px;
+    overscroll-behavior: none;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    padding: 20px 20px 12px;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--text2);
+  }
+
+  /* ===== BOTTOM NAV ===== */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex;
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    cursor: pointer;
+    color: var(--text2);
+    font-size: 0.65rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    border: none;
+    background: none;
+    font-family: inherit;
+  }
+  .nav-item .icon { font-size: 1.4rem; line-height: 1; }
+  .nav-item.active { color: var(--accent); }
+  .nav-item.active .nav-dot {
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+
+  /* ===== PAGES ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+  .inner { max-width: 600px; margin: 0 auto; padding: 20px 16px; }
+
+  /* ===== SECTION HEADER ===== */
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .section-head h2 { font-size: 1rem; font-weight: 700; }
+  .badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--text2);
+  }
+
+  /* ===== CARDS ===== */
+  .glass-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* ===== INPUT ===== */
+  .input-group { margin-bottom: 14px; }
+  .input-group label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input[type="text"]::placeholder, textarea::placeholder { color: var(--text2); }
+  input[type="text"]:focus, textarea:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 140px; line-height: 1.7; }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+  .btn:active { transform: scale(0.97); opacity: 0.85; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-green { background: var(--green); color: #000; }
+  .btn-outline {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-sm { padding: 10px 18px; font-size: 0.82rem; width: auto; border-radius: 8px; }
+  .btn-danger { background: rgba(255,100,100,0.15); color: #ff6a6a; border: 1px solid rgba(255,100,100,0.2); }
+
+  .loading-msg {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    font-size: 0.83rem;
+    color: var(--text2);
+  }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-msg { display: none; color: var(--accent2); font-size: 0.82rem; margin-top: 10px; }
+
+  /* ===== WORD LIST ===== */
+  .word-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    user-select: none;
+  }
+  .word-card:active { opacity: 0.85; }
+  .word-card.flipped { border-color: var(--accent); }
+  .card-front {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .word-en {
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+  }
+  .flip-hint {
+    font-size: 0.72rem;
+    color: var(--text2);
+    white-space: nowrap;
+  }
+  .flip-arrow {
+    font-size: 1rem;
+    color: var(--text2);
+    transition: transform 0.2s;
+  }
+  .word-card.flipped .flip-arrow { transform: rotate(180deg); color: var(--accent); }
+  .card-back {
+    display: none;
+    padding: 0 20px 20px;
+    animation: fadeIn 0.2s ease;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+    padding-top: 16px;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  .word-card.flipped .card-back { display: block; }
+  .meaning-pill {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(124,106,255,0.2), rgba(255,106,138,0.2));
+    border: 1px solid rgba(124,106,255,0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .example-block {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .example-label { font-size: 0.65rem; color: var(--text2); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .example-en-text { font-size: 0.87rem; font-style: italic; color: var(--text); line-height: 1.6; margin-bottom: 6px; font-family: 'Inter', sans-serif; }
+  .example-ja-text { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+
+  /* ===== REVIEW ===== */
+  .review-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  .progress-text { font-size: 0.78rem; color: var(--text2); white-space: nowrap; }
+
+  .review-main-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 28px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .review-main-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(124,106,255,0.08), transparent 60%);
+    pointer-events: none;
+  }
+  .review-main-card:active { opacity: 0.9; }
+  .review-main-card.revealed { border-color: rgba(124,106,255,0.4); }
+  .review-word-display {
+    font-size: 2.4rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--text), rgba(240,240,245,0.7));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .tap-hint {
+    font-size: 0.78rem;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .review-answer-box {
+    display: none;
+    margin-bottom: 20px;
+    animation: fadeIn 0.25s ease;
+  }
+  .review-answer-meaning {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+  .review-btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* ===== PASSAGE ===== */
+  .passage-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+  }
+  .passage-info { flex: 1; min-width: 0; }
+  .passage-title-text {
+    font-size: 0.93rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .passage-meta { font-size: 0.72rem; color: var(--text2); }
+  .passage-btn-col { display: flex; flex-direction: column; gap: 8px; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 200;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 680px;
+    padding: 24px 20px;
+    margin: auto;
+    position: relative;
+  }
+  .modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .modal-title { font-size: 1.05rem; font-weight: 700; line-height: 1.4; }
+  .modal-close {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--text2);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .modal-subtitle { font-size: 0.78rem; color: var(--text2); margin-bottom: 16px; }
+  .reveal-all-btn { margin-bottom: 16px; }
+
+  .passage-parts { display: flex; flex-direction: column; gap: 10px; }
+  .part-block { border-radius: var(--radius-sm); overflow: hidden; }
+  .part-ja {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color 0.2s;
+    min-height: 56px;
+  }
+  .part-ja:active { opacity: 0.8; }
+  .part-ja-text { flex: 1; }
+  .reveal-icon { font-size: 1rem; color: var(--text2); transition: transform 0.2s; flex-shrink: 0; }
+  .part-block.revealed .part-ja { border-color: var(--accent2); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .part-block.revealed .reveal-icon { transform: rotate(180deg); color: var(--accent2); }
+  .part-en {
+    background: linear-gradient(135deg, rgba(124,106,255,0.12), rgba(255,106,138,0.08));
+    border: 1px solid rgba(124,106,255,0.25);
+    border-top: none;
+    border-bottom-left-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
+    padding: 14px 18px;
+    font-size: 0.87rem;
+    line-height: 1.8;
+    font-style: italic;
+    color: var(--text);
+    display: none;
+    animation: fadeIn 0.2s ease;
+    font-family: 'Inter', sans-serif;
+  }
+  .part-block.revealed .part-en { display: block; }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px 40px;
+    color: var(--text2);
+  }
+  .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+  .empty-state p { font-size: 0.88rem; line-height: 1.8; }
+
+  /* ===== SUCCESS TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green);
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 300;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <h1>📖 英語学習帳</h1>
+    <span class="header-badge" id="globalBadge">0語 / 0長文</span>
+  </div>
+</div>
+
+<!-- PAGES -->
+
+<!-- 単語一覧 -->
+<div id="page-list" class="page active">
+  <div class="inner">
+    <div class="section-head">
+      <h2>単語一覧</h2>
+      <span class="badge" id="countBadge">0 語</span>
+    </div>
+    <div id="wordList"></div>
+  </div>
+</div>
+
+<!-- ランダム復習 -->
+<div id="page-review" class="page">
+  <div class="inner">
+    <div id="reviewEmpty" class="empty-state" style="display:none;">
+      <div class="empty-icon">🎲</div>
+      <p>単語が登録されていません。<br>「追加」タブから単語を登録しましょう。</p>
+    </div>
+    <div id="reviewMain" style="display:none;">
+      <div class="review-progress">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        <span class="progress-text" id="reviewCounter">0 / 0</span>
+      </div>
+      <div class="review-main-card" id="reviewCard" onclick="revealAnswer()">
+        <div class="review-word-display" id="reviewWord">—</div>
+        <div class="tap-hint">👆 タップして意味を確認</div>
+      </div>
+      <div class="review-answer-box" id="reviewAnswer">
+        <div class="example-block" style="margin-bottom:12px;">
+          <div class="review-answer-meaning" id="reviewMeaning"></div>
+          <div class="example-label">EXAMPLE</div>
+          <div class="example-en-text" id="reviewExEn"></div>
+          <div class="example-ja-text" id="reviewExJa"></div>
+        </div>
+      </div>
+      <div class="review-btn-row">
+        <button class="btn btn-outline" onclick="startReview()">🔀 シャッフル</button>
+        <button class="btn btn-primary" onclick="nextCard()">次の単語 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 単語追加 -->
+<div id="page-add-word" class="page">
+  <div class="inner">
+    <div class="glass-card">
+      <div class="input-group">
+        <label>英単語</label>
+        <input type="text" id="wordInput" placeholder="例：perseverance" autocomplete="off" autocapitalize="none" />
+      </div>
+      <button class="btn btn-primary" id="addBtn" onclick="addWord()">✨ 追加する</button>
+      <div class="loading-msg" id="loadingMsg">
+        <div class="spinner"></div> AIが意味・例文を取得中...
+      </div>
+      <div class="error-msg" id="errorMsg">⚠️ 取得に失敗しました。もう一度お試しください。</div>
+    </div>
+    <p style="font-size:0.78rem;color:var(--text2);text-align:center;padding:8px;">AIが自動で日本語の意味と例文を入力します</p>
+  </div>
+</div>
+
+<!-- 長文一覧 -->
+<div id="page-passages" class="page">
+  <div class="inner">
+    <div class="section-head">
+      <h2>長文一覧</h2>
+      <span class="badge" id="passageCountBadge">0 件</span>
+    </div>
+    <div id="passageList"></div>
+  </div>
+</div>
+
+<!-- 長文追加 -->
+<div id="page-add-passage" class="page">
+  <div class="inner">
+    <div class="glass-card">
+      <div class="input-group">
+        <label>タイトル</label>
+        <input type="text" id="passageTitleInput" placeholder="例：センター試験2024 第1問" />
+      </div>
+      <div class="input-group">
+        <label>英文</label>
+        <textarea id="passageInput" placeholder="英文を貼り付けてください..."></textarea>
+      </div>
+      <button class="btn btn-green" id="addPassageBtn" onclick="addPassage()">📄 追加する</button>
+      <div class="loading-msg" id="passageLoadingMsg">
+        <div class="spinner"></div> AIが日本語訳を生成中...（少々お待ちください）
+      </div>
+      <div class="error-msg" id="passageErrorMsg">⚠️ 取得に失敗しました。もう一度お試しください。</div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item active" onclick="showTab('list')" id="nav-list">
+    <span class="icon">📚</span>
+    <span>単語帳</span>
+  </button>
+  <button class="nav-item" onclick="showTab('review')" id="nav-review">
+    <span class="icon">🎲</span>
+    <span>復習</span>
+  </button>
+  <button class="nav-item" onclick="showTab('add-word')" id="nav-add-word">
+    <span class="icon">➕</span>
+    <span>単語追加</span>
+  </button>
+  <button class="nav-item" onclick="showTab('passages')" id="nav-passages">
+    <span class="icon">📄</span>
+    <span>長文</span>
+  </button>
+  <button class="nav-item" onclick="showTab('add-passage')" id="nav-add-passage">
+    <span class="icon">📝</span>
+    <span>長文追加</span>
+  </button>
+</nav>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="passageModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <p class="modal-subtitle">各パートをタップすると英文が表示されます</p>
+    <button class="btn btn-outline btn-sm reveal-all-btn" onclick="revealAll()">すべて表示</button>
+    <div class="passage-parts" id="passageParts"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+let words = JSON.parse(localStorage.getItem('vocabWords') || '[]');
+let passages = JSON.parse(localStorage.getItem('vocabPassages') || '[]');
+let reviewQueue = [];
+let reviewIndex = 0;
+let answerRevealed = false;
+
+const tabs = ['list','review','add-word','passages','add-passage'];
+
+function showTab(tab) {
+  tabs.forEach(t => {
+    document.getElementById('page-' + t).classList.toggle('active', t === tab);
+    document.getElementById('nav-' + t).classList.toggle('active', t === tab);
+  });
+  if (tab === 'list') renderWordList();
+  if (tab === 'review') initReview();
+  if (tab === 'passages') renderPassageList();
+  updateGlobalBadge();
+}
+
+function updateGlobalBadge() {
+  document.getElementById('globalBadge').textContent = `${words.length}語 / ${passages.length}長文`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ===== 単語追加 =====
+async function addWord() {
+  const input = document.getElementById('wordInput');
+  const word = input.value.trim();
+  if (!word) return;
+  const btn = document.getElementById('addBtn');
+  const loading = document.getElementById('loadingMsg');
+  const errorMsg = document.getElementById('errorMsg');
+  btn.disabled = true;
+  loading.style.display = 'flex';
+  errorMsg.style.display = 'none';
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: `英単語「${word}」についてJSONのみ返してください（余分な文字不要）:\n{"word":"英単語","meaning":"日本語の意味（簡潔に）","example_en":"英語の例文","example_ja":"例文の日本語訳"}` }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(i => i.text || '').join('');
+    const parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
+    words.unshift({ ...parsed, id: Date.now() });
+    localStorage.setItem('vocabWords', JSON.stringify(words));
+    input.value = '';
+    showToast('✅ 単語を追加しました！');
+    showTab('list');
+  } catch(e) {
+    errorMsg.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    loading.style.display = 'none';
+  }
+}
+
+// ===== 単語一覧 =====
+function renderWordList() {
+  const list = document.getElementById('wordList');
+  document.getElementById('countBadge').textContent = words.length + ' 語';
+  if (words.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📝</div><p>まだ単語が登録されていません。<br>「単語追加」から英単語を登録しましょう。</p></div>`;
+    return;
+  }
+  list.innerHTML = words.map(w => `
+    <div class="word-card" id="wcard-${w.id}" onclick="toggleWord(${w.id})">
+      <div class="card-front">
+        <span class="word-en">${w.word}</span>
+        <span class="flip-arrow">⌄</span>
+      </div>
+      <div class="card-back">
+        <div class="meaning-pill">🇯🇵 ${w.meaning}</div>
+        <div class="example-block">
+          <div class="example-label">Example</div>
+          <div class="example-en-text">${w.example_en}</div>
+          <div class="example-ja-text">${w.example_ja}</div>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteWord(${w.id})">削除</button>
+      </div>
+    </div>`).join('');
+}
+
+function toggleWord(id) {
+  document.getElementById('wcard-' + id).classList.toggle('flipped');
+}
+
+function deleteWord(id) {
+  words = words.filter(w => w.id !== id);
+  localStorage.setItem('vocabWords', JSON.stringify(words));
+  renderWordList();
+  updateGlobalBadge();
+}
+
+// ===== ランダム復習 =====
+function initReview() {
+  if (words.length === 0) {
+    document.getElementById('reviewEmpty').style.display = 'block';
+    document.getElementById('reviewMain').style.display = 'none';
+  } else {
+    document.getElementById('reviewEmpty').style.display = 'none';
+    document.getElementById('reviewMain').style.display = 'block';
+    startReview();
+  }
+}
+
+function startReview() {
+  reviewQueue = [...words].sort(() => Math.random() - 0.5);
+  reviewIndex = 0;
+  showReviewCard();
+}
+
+function showReviewCard() {
+  answerRevealed = false;
+  document.getElementById('reviewAnswer').style.display = 'none';
+  document.getElementById('reviewCard').classList.remove('revealed');
+  const w = reviewQueue[reviewIndex];
+  document.getElementById('reviewWord').textContent = w.word;
+  const pct = ((reviewIndex) / reviewQueue.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('reviewCounter').textContent = `${reviewIndex + 1} / ${reviewQueue.length}`;
+}
+
+function revealAnswer() {
+  if (answerRevealed) return;
+  answerRevealed = true;
+  const w = reviewQueue[reviewIndex];
+  document.getElementById('reviewMeaning').textContent = w.meaning;
+  document.getElementById('reviewExEn').textContent = w.example_en;
+  document.getElementById('reviewExJa').textContent = w.example_ja;
+  document.getElementById('reviewAnswer').style.display = 'block';
+  document.getElementById('reviewCard').classList.add('revealed');
+}
+
+function nextCard() {
+  reviewIndex = (reviewIndex + 1) % reviewQueue.length;
+  showReviewCard();
+}
+
+// ===== 長文追加 =====
+async function addPassage() {
+  const titleInput = document.getElementById('passageTitleInput');
+  const passageInput = document.getElementById('passageInput');
+  const title = titleInput.value.trim() || '無題';
+  const text = passageInput.value.trim();
+  if (!text) return;
+  const btn = document.getElementById('addPassageBtn');
+  const loading = document.getElementById('passageLoadingMsg');
+  const errorMsg = document.getElementById('passageErrorMsg');
+  btn.disabled = true;
+  loading.style.display = 'flex';
+  errorMsg.style.display = 'none';
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 2000,
+        messages: [{ role: "user", content: `以下の英文を意味のまとまりで3〜8パートに分割し、各パートの英文と自然な日本語訳をJSONのみで返してください（コードブロック・説明文不要）:\n\n${text}\n\n形式:\n{"parts":[{"en":"英文","ja":"日本語訳"},...]}` }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.map(i => i.text || '').join('');
+    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+    passages.unshift({ id: Date.now(), title, parts: parsed.parts, date: new Date().toLocaleDateString('ja-JP') });
+    localStorage.setItem('vocabPassages', JSON.stringify(passages));
+    titleInput.value = '';
+    passageInput.value = '';
+    showToast('✅ 長文を追加しました！');
+    showTab('passages');
+  } catch(e) {
+    errorMsg.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    loading.style.display = 'none';
+  }
+}
+
+// ===== 長文一覧 =====
+function renderPassageList() {
+  const list = document.getElementById('passageList');
+  document.getElementById('passageCountBadge').textContent = passages.length + ' 件';
+  if (passages.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📄</div><p>まだ長文が登録されていません。<br>「長文追加」から英文を登録しましょう。</p></div>`;
+    return;
+  }
+  list.innerHTML = passages.map(p => `
+    <div class="passage-item">
+      <div class="passage-info">
+        <div class="passage-title-text">${p.title}</div>
+        <div class="passage-meta">${p.date}　${p.parts.length}パート</div>
+      </div>
+      <div class="passage-btn-col">
+        <button class="btn btn-primary btn-sm" onclick="openPassage(${p.id})">復習</button>
+        <button class="btn btn-outline btn-sm" onclick="deletePassage(${p.id})">削除</button>
+      </div>
+    </div>`).join('');
+}
+
+function deletePassage(id) {
+  passages = passages.filter(p => p.id !== id);
+  localStorage.setItem('vocabPassages', JSON.stringify(passages));
+  renderPassageList();
+  updateGlobalBadge();
+}
+
+// ===== 長文復習モーダル =====
+function openPassage(id) {
+  const p = passages.find(p => p.id === id);
+  if (!p) return;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('passageParts').innerHTML = p.parts.map((part, i) => `
+    <div class="part-block" id="part-${id}-${i}">
+      <div class="part-ja" onclick="togglePart('${id}-${i}')">
+        <span class="part-ja-text">${part.ja}</span>
+        <span class="reveal-icon">⌄</span>
+      </div>
+      <div class="part-en">${part.en}</div>
+    </div>`).join('');
+  document.getElementById('passageModal').classList.add('open');
+}
+
+function togglePart(key) {
+  document.getElementById('part-' + key).classList.toggle('revealed');
+}
+
+function revealAll() {
+  document.querySelectorAll('.part-block').forEach(b => b.classList.add('revealed'));
+}
+
+function closeModal() {
+  document.getElementById('passageModal').classList.remove('open');
+}
+
+document.getElementById('wordInput').addEventListener('keydown', e => { if (e.key === 'Enter') addWord(); });
+
+renderWordList();
+renderPassageList();
+updateGlobalBadge();
+</script>
+</body>
+</html>
