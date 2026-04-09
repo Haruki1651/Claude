@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///C:/Users/d19571/Downloads/index.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RF-1 CM出稿ダッシュボード</title>
+<script src="./index_files/xlsx.full.min.js.ダウンロード"></script>
+<script src="./index_files/chart.umd.min.js.ダウンロード"></script>
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef2f7;--sb:#3a5278;--sb2:#4a6492;--sb3:#5b7db5;
+  --surf:#fff;--surf2:#f5f8fc;--bdr:#dde4ef;
+  --txt:#2d3a4e;--mt:#6b7a8d;--dim:#a0aab8;
+  --blue:#4a90d9;--ora:#f59e42;--grn:#34c38f;--red:#f46a6a;
+  --pur:#9b6ecf;--tel:#14b8a6;--yel:#f7c948;
+  --sh:0 2px 12px rgba(60,80,120,.08);--shm:0 4px 20px rgba(60,80,120,.12);--r:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--txt);font-family:'Inter','Noto Sans JP',sans-serif;font-size:14px;display:flex;min-height:100vh;}
+.sidebar{width:220px;min-width:220px;background:var(--sb);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;box-shadow:2px 0 12px rgba(30,50,90,.15);}
+.sbl{padding:1.25rem 1.25rem .9rem;font-weight:700;font-size:1rem;color:#fff;border-bottom:1px solid rgba(255,255,255,.1);}
+.sbl span{color:rgba(255,255,255,.4);font-weight:300;font-size:.72rem;display:block;margin-top:.15rem;}
+.sbs{padding:.65rem 1rem .2rem;font-size:.6rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;}
+.sbn{flex:1;padding:.4rem 0;overflow-y:auto;}
+.ni{display:flex;align-items:center;gap:.65rem;padding:.58rem 1.2rem;cursor:pointer;transition:all .18s;color:rgba(255,255,255,.62);font-size:.8rem;border-left:3px solid transparent;}
+.ni:hover{background:var(--sb2);color:#fff;}
+.ni.on{background:var(--sb3);color:#fff;border-left-color:#7eb8f7;}
+.sbot{padding:.9rem 1.2rem;border-top:1px solid rgba(255,255,255,.1);}
+.sf{font-size:.66rem;color:rgba(255,255,255,.32);word-break:break-all;margin-bottom:.35rem;}
+.spb{display:inline-block;padding:.13rem .55rem;border-radius:4px;font-size:.63rem;}
+.spb.ok{background:rgba(52,195,143,.18);color:#5fddaf;border:1px solid rgba(52,195,143,.28);}
+.spb.no{background:rgba(255,255,255,.07);color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.1);}
+.main{margin-left:220px;flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.topbar{background:var(--surf);height:52px;display:flex;align-items:center;padding:0 1.5rem;gap:.65rem;border-bottom:1px solid var(--bdr);box-shadow:var(--sh);position:sticky;top:0;z-index:50;}
+.tbtl{font-weight:600;font-size:.92rem;flex:1;}
+.btn{padding:.4rem .95rem;border-radius:8px;border:none;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .16s;font-family:inherit;}
+.btn-bl{background:var(--blue);color:#fff;}.btn-bl:hover{opacity:.87;}
+.btn-gy{background:var(--surf2);color:var(--mt);border:1px solid var(--bdr);}.btn-gy:hover{border-color:var(--blue);color:var(--blue);}
+.btn-or{background:var(--ora);color:#fff;}.btn-or:hover{opacity:.87;}
+.btn-gn{background:var(--grn);color:#fff;}.btn-gn:hover{opacity:.87;}
+#fi,#pfi{display:none;}
+.fb{background:var(--surf);border-bottom:1px solid var(--bdr);padding:.52rem 1.5rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;}
+.fl{font-size:.68rem;color:var(--mt);font-weight:500;white-space:nowrap;}
+.pill{padding:.26rem .75rem;border-radius:20px;border:1.5px solid var(--bdr);font-size:.71rem;cursor:pointer;transition:all .14s;background:var(--surf2);color:var(--mt);font-weight:500;user-select:none;}
+.pill.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 6px rgba(74,144,217,.2);}
+.psep{width:1px;height:16px;background:var(--bdr);}
+.mb{background:var(--surf2);border-bottom:1px solid var(--bdr);padding:.42rem 1.5rem;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;}
+.mbtn{padding:.24rem .75rem;border-radius:6px;border:1.5px solid var(--bdr);font-size:.71rem;cursor:pointer;transition:all .14s;background:var(--surf);color:var(--mt);font-weight:500;font-family:inherit;}
+.mbtn.on{background:var(--ora);border-color:var(--ora);color:#fff;}
+.db{background:#fff;border-bottom:1px solid var(--bdr);padding:.42rem 1.5rem;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+input[type=date]{background:var(--surf2);border:1.5px solid var(--bdr);border-radius:8px;color:var(--txt);padding:.36rem .75rem;font-size:.76rem;font-family:inherit;cursor:pointer;}
+input[type=date]:focus{outline:none;border-color:var(--blue);}
+.dtb{padding:.28rem .85rem;background:#e8f3ff;border:1px solid #90c3f5;border-radius:6px;font-size:.73rem;font-weight:600;color:var(--blue);}
+.content{padding:1.1rem 1.5rem;flex:1;}
+.kr{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.85rem;margin-bottom:1rem;}
+.kc{background:var(--surf);border-radius:var(--r);padding:.95rem 1.15rem;box-shadow:var(--sh);border:1px solid var(--bdr);position:relative;overflow:hidden;transition:all .18s;}
+.kc:hover{box-shadow:var(--shm);transform:translateY(-1px);}
+.kct{position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r) var(--r) 0 0;}
+.kl{font-size:.64rem;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.28rem;}
+.kv{font-size:1.42rem;font-weight:700;line-height:1.1;margin-bottom:.12rem;}
+.ks{font-size:.64rem;color:var(--dim);}
+.tnv{display:flex;border-bottom:2px solid var(--bdr);margin-bottom:1rem;}
+.tbtn{padding:.52rem 1.15rem;background:none;border:none;font-size:.8rem;font-weight:500;color:var(--mt);cursor:pointer;position:relative;transition:color .16s;font-family:inherit;}
+.tbtn::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .18s;border-radius:2px;}
+.tbtn.on{color:var(--blue);}.tbtn.on::after{transform:scaleX(1);}
+.tp{display:none;}.tp.on{display:block;}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.cg3{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem;}
+.cc{background:var(--surf);border-radius:var(--r);padding:.95rem 1.15rem;box-shadow:var(--sh);border:1px solid var(--bdr);}
+.ct{font-size:.7rem;font-weight:600;color:var(--mt);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.8rem;display:flex;align-items:center;gap:.42rem;}
+.ctd{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.cw{position:relative;}.h240{height:240px;}.h200{height:200px;}.h300{height:300px;}.h320{height:320px;}.h260{height:260px;}
+.cr{display:flex;gap:.6rem;margin-bottom:.85rem;flex-wrap:wrap;align-items:center;}
+select{background:var(--surf);border:1.5px solid var(--bdr);border-radius:8px;color:var(--txt);padding:.38rem .82rem;font-size:.76rem;cursor:pointer;transition:all .14s;appearance:none;font-family:inherit;}
+select:focus{outline:none;border-color:var(--blue);}
+.tc{background:var(--surf);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--bdr);overflow:hidden;margin-bottom:1rem;}
+.th{padding:.7rem 1.15rem;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;background:var(--surf2);}
+.tht{font-size:.72rem;font-weight:600;color:var(--txt);}
+.tw{overflow:auto;max-height:400px;}
+table{width:100%;border-collapse:collapse;font-size:.74rem;}
+thead th{position:sticky;top:0;background:var(--surf2);font-weight:600;font-size:.63rem;text-transform:uppercase;letter-spacing:.04em;padding:.58rem .95rem;text-align:left;border-bottom:2px solid var(--bdr);color:var(--mt);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--bdr);transition:background .1s;}
+tbody tr:hover{background:#f0f6ff;}
+tbody td{padding:.5rem .95rem;color:var(--txt);white-space:nowrap;}
+.mono{font-family:'Inter',monospace;font-size:.71rem;}
+.badge{display:inline-block;padding:.13rem .52rem;border-radius:4px;font-size:.62rem;font-weight:600;}
+.bok{background:#e6f9f0;color:#1a9a5e;border:1px solid #7addb8;}
+.bng{background:#fdeaea;color:#c0392b;border:1px solid #f5a5a5;}
+.bpt{background:#fff4e0;color:#c47a00;border:1px solid #ffd96e;}
+.bbl{background:#e8f3ff;color:#1a6bc0;border:1px solid #90c3f5;}
+.pm{display:flex;flex-direction:column;gap:.58rem;overflow-y:auto;max-height:220px;}
+.pmr{display:grid;grid-template-columns:74px 1fr 50px;align-items:center;gap:.55rem;}
+.pma{font-size:.72rem;color:var(--mt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pmb{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--bdr);}
+.pmf{height:100%;border-radius:3px;transition:width .85s cubic-bezier(.4,0,.2,1);}
+.pmp{font-size:.68rem;font-weight:600;text-align:right;font-family:monospace;}
+.cpl{background:#fffde7;}.cpn{background:#e8f5e9;}
+.cdp{color:var(--grn);font-weight:600;}.cdn{color:var(--red);font-weight:600;}
+#upzone{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;}
+.upc{border:2px dashed var(--bdr);border-radius:var(--r);padding:3rem 4rem;text-align:center;background:var(--surf);max-width:500px;width:100%;box-shadow:var(--shm);transition:all .22s;cursor:pointer;}
+.upc:hover,.upc.drag{border-color:var(--blue);background:#f0f7ff;}
+.upt{font-size:1.1rem;font-weight:700;margin-bottom:.45rem;}
+.ups{color:var(--mt);font-size:.8rem;line-height:1.8;margin-bottom:1.3rem;}
+.ldg{display:flex;flex-direction:column;align-items:center;gap:.85rem;padding:4rem;}
+.sp{width:34px;height:34px;border:3px solid var(--bdr);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px;}
+@media(max-width:900px){.sidebar{display:none;}.main{margin-left:0;}.cg,.cg3{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sbl">RF-1 <span>CM出稿ダッシュボード</span></div>
+  <nav class="sbn">
+    <div class="sbs">メニュー</div>
+    <div class="ni on" onclick="gT(&#39;overview&#39;,this,&#39;概要&#39;)"><span>🏠</span>概要</div>
+    <div class="ni" onclick="gT(&#39;daily&#39;,this,&#39;日別推移&#39;)"><span>📅</span>日別推移</div>
+    <div class="ni" onclick="gT(&#39;area&#39;,this,&#39;エリア別&#39;)"><span>🗾</span>エリア別</div>
+    <div class="ni" onclick="gT(&#39;target&#39;,this,&#39;ターゲット&#39;)"><span>🎯</span>ターゲット</div>
+    <div class="ni" onclick="gT(&#39;compare&#39;,this,&#39;プラン比較&#39;)"><span>📊</span>プラン比較</div>
+    <div class="ni" onclick="gT(&#39;wpt&#39;,this,&#39;WPT&#39;)"><span>📺</span>WPT</div>
+    <div class="ni" onclick="gT(&#39;detail&#39;,this,&#39;明細&#39;)"><span>📋</span>明細</div>
+  </nav>
+  <div class="sbot">
+    <div class="sf" id="sf">初案: 未読込</div>
+    <div class="sf" id="spf">発注書: 未読込</div>
+    <span class="spb no" id="spb">発注書なし</span>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="tbtl" id="tbtl">概要</div>
+    <button class="btn btn-gy" onclick="document.getElementById(&#39;fi&#39;).click()">📂 初案ファイル</button>
+    <button class="btn btn-or" onclick="document.getElementById(&#39;pfi&#39;).click()">📋 発注書読込</button>
+    <input type="file" id="fi" accept=".xlsx,.xls">
+    <input type="file" id="pfi" accept=".xlsx,.xls">
+  </div>
+  <div id="upzone">
+    <div class="upc" id="dz">
+      <div style="font-size:2.6rem;margin-bottom:.85rem">📊</div>
+      <div class="upt">初案ファイルをアップロード</div>
+      <div class="ups">RF-1初案の .xlsx をドロップ or クリックして選択<br><small style="color:var(--dim)">「初案」シートを自動検出・ブラウザ内処理</small></div>
+      <button class="btn btn-bl" onclick="document.getElementById(&#39;fi&#39;).click()">ファイルを選択</button>
+    </div>
+  </div>
+  <div id="dashboard" style="display:none;flex-direction:column;flex:1;">
+    <div class="ldg" id="ldg"><div class="sp"></div><div style="font-size:.78rem;color:var(--mt)">解析中...</div></div>
+    <div id="dash" style="display:none;flex-direction:column;flex:1;">
+      <div class="fb"><span class="fl">🗾 エリア：</span><div id="apills" style="display:flex;gap:.38rem;flex-wrap:wrap;"></div></div>
+      <div class="mb">
+        <span class="fl">🎯 ターゲット：</span>
+        <button class="mbtn on" onclick="sM(&#39;all&#39;,this)">ALL</button>
+        <button class="mbtn" onclick="sM(&#39;18p&#39;,this)">18+</button>
+        <button class="mbtn" onclick="sM(&#39;mf1&#39;,this)">MF1</button>
+        <button class="mbtn" onclick="sM(&#39;hhld&#39;,this)">世帯</button>
+        <span style="font-size:.66rem;color:var(--dim);margin-left:.25rem">※15秒換算（30秒×2）</span>
+      </div>
+      <div class="db">
+        <span class="fl">📅 期間：</span>
+        <input type="date" id="dfrom" onchange="onDC()">
+        <span style="font-size:.78rem;color:var(--mt)">〜</span>
+        <input type="date" id="dto" onchange="onDC()">
+        <button class="btn btn-gy" onclick="rstD()" style="padding:.35rem .65rem;font-size:.7rem">リセット</button>
+        <div class="dtb" id="dtb" style="display:none">—</div>
+      </div>
+      <div class="content">
+        <div class="kr">
+          <div class="kc"><div class="kct" style="background:linear-gradient(90deg,#4a90d9,#38bdf8)"></div><div class="kl">総CM本数</div><div class="kv" id="k0" style="color:var(--blue)">—</div><div class="ks">表示エリア・期間</div></div>
+          <div class="kc"><div class="kct" style="background:linear-gradient(90deg,#f59e42,#f7c948)"></div><div class="kl"><span id="kml">ALL</span>_15秒換算</div><div class="kv" id="k1" style="color:var(--ora)">—</div><div class="ks">表示エリア・期間</div></div>
+          <div class="kc"><div class="kct" style="background:linear-gradient(90deg,#34c38f,#68d391)"></div><div class="kl">PTS比率（関東）</div><div class="kv" id="k2" style="color:var(--grn)">—</div><div class="ks">プライムタイム</div></div>
+          <div class="kc"><div class="kct" style="background:linear-gradient(90deg,#9b6ecf,#b794f4)"></div><div class="kl">期間</div><div class="kv" id="k3" style="color:var(--pur);font-size:.88rem;padding-top:.18rem">—</div><div class="ks" id="k3s">—</div></div>
+          <div class="kc"><div class="kct" style="background:linear-gradient(90deg,#14b8a6,#38bdf8)"></div><div class="kl">発注PRP（関東）</div><div class="kv" id="k4" style="color:var(--tel)">—</div><div class="ks" id="k4s">TARP —</div></div>
+        </div>
+        <div class="tnv">
+          <button class="tbtn on" onclick="gT(&#39;overview&#39;,this,&#39;概要&#39;)">概要</button>
+          <button class="tbtn" onclick="gT(&#39;daily&#39;,this,&#39;日別推移&#39;)">日別</button>
+          <button class="tbtn" onclick="gT(&#39;area&#39;,this,&#39;エリア別&#39;)">エリア別</button>
+          <button class="tbtn" onclick="gT(&#39;target&#39;,this,&#39;ターゲット&#39;)">ターゲット</button>
+          <button class="tbtn" onclick="gT(&#39;compare&#39;,this,&#39;プラン比較&#39;)">プラン比較</button>
+          <button class="tbtn" onclick="gT(&#39;wpt&#39;,this,&#39;WPT&#39;)">WPT</button>
+          <button class="tbtn" onclick="gT(&#39;detail&#39;,this,&#39;明細&#39;)">明細</button>
+        </div>
+        <!-- OVERVIEW -->
+        <div class="tp on" id="tp-overview">
+          <div class="cg">
+            <div class="cc"><div class="ct"><div class="ctd" style="background:var(--blue)"></div>エリア別 <span id="ov1">ALL</span>_15換算</div><div class="cw h240"><canvas id="ch1"></canvas></div></div>
+            <div class="cc"><div class="ct"><div class="ctd" style="background:var(--ora)"></div>エリア別 PTS比率</div><div class="pm" id="pmeter"></div></div>
+          </div>
+          <div class="cc"><div class="ct"><div class="ctd" style="background:var(--grn)"></div>日別 <span id="ov2">ALL</span>_15換算推移</div><div class="cw h240"><canvas id="ch2"></canvas></div></div>
+        </div>
+        <!-- DAILY -->
+        <div class="tp" id="tp-daily">
+          <div class="cr">
+            <span class="fl">エリア</span><select id="darea" onchange="rD()"></select>
+            <span class="fl">指標</span>
+            <select id="dmet" onchange="rD()"><option value="t15">ターゲット_15換算</option><option value="cm">CM本数</option></select>
+            <button class="btn btn-bl" onclick="exDcsv()">↓ CSV</button>
+          </div>
+          <div class="cc" style="margin-bottom:1rem">
+            <div class="ct"><div class="ctd" style="background:var(--blue)"></div><span id="dct">日別推移</span></div>
+            <div class="cw h320"><canvas id="ch3"></canvas></div>
+          </div>
+          <div class="tc">
+            <div class="th"><div class="tht">日別集計</div><div class="dtb" id="dptb" style="display:none">—</div></div>
+            <div class="tw"><table id="td"><thead><tr><th>日付</th><th>曜日</th><th>CM本数</th><th id="thdt">ALL_15換算</th><th>PTS分</th><th>PTS比率</th></tr></thead><tbody></tbody></table></div>
+          </div>
+        </div>
+        <!-- AREA -->
+        <div class="tp" id="tp-area">
+          <div class="cr"><button class="btn btn-bl" onclick="exAcsv()">↓ CSV</button></div>
+          <div class="cg" style="margin-bottom:1rem">
+            <div class="cc"><div class="ct"><div class="ctd" style="background:var(--blue)"></div>エリア別 <span id="ab1">ALL</span>_15換算</div><div class="cw h240"><canvas id="ch4"></canvas></div></div>
+            <div class="cc"><div class="ct"><div class="ctd" style="background:var(--grn)"></div>エリア別 PTS比率</div><div class="cw h240"><canvas id="ch5"></canvas></div></div>
+          </div>
+          <div class="tc"><div class="th"><div class="tht">エリア別集計</div></div><div class="tw"><table id="ta"><thead><tr><th>エリア</th><th>CM本数</th><th id="that">ALL_15換算</th><th>PTS分</th><th>PTS比率</th><th>WPT超過</th></tr></thead><tbody></tbody></table></div></div>
+        </div>
+        <!-- TARGET -->
+        <div class="tp" id="tp-target">
+          <div class="cr"><span style="font-size:.76rem;color:var(--mt)">選択：<strong id="tmd" style="color:var(--ora)">ALL</strong></span><button class="btn btn-gn" onclick="exTcsv()">↓ CSV</button></div>
+          <div id="tcards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:.7rem;margin-bottom:1rem;"></div>
+          <div class="cc" style="margin-bottom:1rem"><div class="ct"><div class="ctd" style="background:var(--ora)"></div>エリア別 <span id="tct">ALL</span>_15換算（PTS積み上げ）</div><div class="cw h300"><canvas id="ch6"></canvas></div></div>
+          <div class="tc"><div class="th"><div class="tht">ターゲット全指標比較</div></div><div class="tw"><table id="tt"><thead><tr><th>エリア</th><th>CM本数</th><th>ALL_15換算</th><th>18+_15換算</th><th>MF1_15換算</th><th>世帯_15換算</th><th>PTS比率(選択)</th></tr></thead><tbody></tbody></table></div></div>
+        </div>
+        <!-- COMPARE -->
+        <div class="tp" id="tp-compare">
+          <div id="npmsg" style="text-align:center;padding:3rem;color:var(--mt)">
+            <div style="font-size:2rem;margin-bottom:.85rem">📋</div>
+            <div style="font-weight:600;margin-bottom:.4rem">発注書が未読込です</div>
+            <div style="font-size:.8rem;margin-bottom:1.1rem">右上「発注書読込」から発注書Excelをアップロードしてください</div>
+            <button class="btn btn-or" onclick="document.getElementById(&#39;pfi&#39;).click()">📋 発注書を読込む</button>
+          </div>
+          <div id="pcont" style="display:none">
+            <div class="cr">
+              <span class="fl">発注書シート</span>
+              <select id="psel" onchange="rC()"></select>
+              <button class="btn btn-bl" onclick="exCcsv()">↓ CSV</button>
+            </div>
+            <div id="pkpis" class="kr" style="margin-bottom:1rem"></div>
+            <div class="cg" style="margin-bottom:1rem">
+              <div class="cc"><div class="ct"><div class="ctd" style="background:var(--blue)"></div>PRP比較（発注 vs 初案）</div><div class="cw h260"><canvas id="ch7"></canvas></div></div>
+              <div class="cc"><div class="ct"><div class="ctd" style="background:var(--tel)"></div>TARP vs 18+_15換算</div><div class="cw h260"><canvas id="ch8"></canvas></div></div>
+            </div>
+            <div class="tc">
+              <div class="th"><div class="tht">PRP・ターゲット量 比較テーブル</div><div style="font-size:.68rem;color:var(--dim)">発注PRP vs 初案</div></div>
+              <div class="tw"><table id="tcmp"><thead><tr>
+                <th>エリア</th>
+                <th style="background:#fffde7">発注PRP</th><th style="background:#fffde7">発注GRP(世帯)</th><th style="background:#fffde7">TARP(MF18+)</th>
+                <th style="background:#e8f5e9">初案ALL_15換算</th><th style="background:#e8f5e9">初案18+_15換算</th><th style="background:#e8f5e9">初案MF1_15換算</th>
+                <th>差分</th><th>達成率</th>
+              </tr></thead><tbody></tbody></table></div>
+            </div>
+            <div class="tc" style="margin-top:1rem">
+              <div class="th"><div class="tht">局別 PRP比較</div></div>
+              <div class="tw"><table id="tcmps"><thead><tr><th>エリア</th><th>局名</th><th>略称</th><th style="background:#fffde7">発注PRP</th><th style="background:#e8f5e9">初案ALL_15換算</th><th>差分</th></tr></thead><tbody></tbody></table></div>
+            </div>
+          </div>
+        </div>
+        <!-- WPT -->
+        <div class="tp" id="tp-wpt">
+          <div class="cr">
+            <span class="fl">エリア</span><select id="warea" onchange="rW()"></select>
+            <span class="fl">表示</span><select id="wfilt" onchange="rW()"><option value="all">全て</option><option value="over">超過のみ</option></select>
+            <button class="btn btn-bl" onclick="exWxls()">↓ Excel</button>
+            <button class="btn btn-gy" onclick="exWcsv()">↓ CSV</button>
+          </div>
+          <div class="tc"><div class="th"><div class="tht">WPT 番組別CM本数チェック</div><div style="font-size:.66rem;color:var(--dim)">1h=2本上限/30分=1本</div></div>
+          <div class="tw"><table id="tw"><thead><tr><th>Key</th><th>地区</th><th>局</th><th>放送日</th><th>開始</th><th>終了</th><th>番組時間</th><th>CM本数</th><th>上限</th><th>判定</th><th>ALL_15換算</th><th>PTS換算</th></tr></thead><tbody></tbody></table></div></div>
+        </div>
+        <!-- DETAIL -->
+        <div class="tp" id="tp-detail">
+          <div class="cr">
+            <span class="fl">エリア</span><select id="deta" onchange="rDt()"></select>
+            <span class="fl">局</span><select id="dets" onchange="rDt()"></select>
+            <span class="fl">ランク</span><select id="detr" onchange="rDt()"><option value="ALL">全て</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="S">S</option></select>
+            <button class="btn btn-bl" onclick="exDtcsv()">↓ CSV</button>
+          </div>
+          <div class="tc"><div class="th"><div class="tht">CM明細</div><div id="dtcnt" style="font-size:.68rem;color:var(--dim)">0件</div></div>
+          <div class="tw"><table id="tdt"><thead><tr><th>地区</th><th>局</th><th>放送日</th><th>曜日</th><th>開始</th><th>終了</th><th>秒</th><th>ランク</th><th>番組</th><th>チャンス</th><th>ALL</th><th>ALL_15換算</th><th>18+</th><th>18+換算</th><th>MF1</th><th>世帯</th><th>PTS</th></tr></thead><tbody></tbody></table></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STATE ─────────────────────────────────────────────
+var raw=[],wptD={},aS={},dS={};
+var allAreas=[],activeAreas=new Set(['関東','関西','名古屋']);
+var curM='all',dfrom='',dto='',allDates=[];
+var planData=null,charts={};
+var ML={all:'ALL','18p':'18+',mf1:'MF1',hhld:'世帯'};
+var CC=['#4a90d9','#f59e42','#34c38f','#f46a6a','#9b6ecf','#14b8a6','#f7c948','#ff8a65','#38bdf8','#81c784'];
+
+Chart.defaults.color='#6b7a8d';
+Chart.defaults.borderColor='rgba(60,80,120,.07)';
+Chart.defaults.font.family="'Inter','Noto Sans JP',sans-serif";
+Chart.defaults.font.size=11;
+
+// ── UPLOAD ────────────────────────────────────────────
+var dz=document.getElementById('dz');
+document.getElementById('fi').addEventListener('change',function(e){loadInit(e.target.files[0]);});
+document.getElementById('pfi').addEventListener('change',function(e){loadPlan(e.target.files[0]);});
+dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag');});
+dz.addEventListener('dragleave',function(){dz.classList.remove('drag');});
+dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag');loadInit(e.dataTransfer.files[0]);});
+
+function loadInit(file){
+  if(!file)return;
+  document.getElementById('sf').textContent='初案: '+file.name;
+  document.getElementById('upzone').style.display='none';
+  var d=document.getElementById('dashboard');d.style.display='flex';
+  document.getElementById('ldg').style.display='flex';
+  document.getElementById('dash').style.display='none';
+  var r=new FileReader();
+  r.onload=function(e){setTimeout(function(){
+    try{procInit(XLSX.read(e.target.result,{type:'array'}));}
+    catch(err){alert('エラー: '+err.message);location.reload();}
+  },80);};
+  r.readAsArrayBuffer(file);
+}
+
+function loadPlan(file){
+  if(!file)return;
+  document.getElementById('spf').textContent='発注書: '+file.name;
+  var r=new FileReader();
+  r.onload=function(e){
+    try{procPlan(XLSX.read(e.target.result,{type:'array'}));}
+    catch(err){alert('発注書エラー: '+err.message);}
+  };
+  r.readAsArrayBuffer(file);
+}
+
+// ── PROCESS INIT ──────────────────────────────────────
+function procInit(wb){
+  var sn=wb.SheetNames.find(function(n){return n.indexOf('初案')>=0;})||wb.SheetNames[0];
+  var rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:null});
+  var C={area:2,station:3,date:4,weekday:5,start:6,end:7,sec:8,rank:9,prog:15,chance:17,hhld:18,all:19,mf1:20,'18p':21};
+  raw=[];wptD={};aS={};dS={};
+  for(var i=1;i<rows.length;i++){
+    var r=rows[i];
+    if(!r||r.every(function(v){return v==null||v==='';}))continue;
+    var area=g(r,C.area),station=g(r,C.station),date=g(r,C.date);
+    if(!area||!station||!date)continue;
+    var weekday=g(r,C.weekday),start=g(r,C.start),end=g(r,C.end);
+    var sec=parseFloat(r[C.sec])||15,rank=g(r,C.rank),prog=g(r,C.prog),chance=g(r,C.chance);
+    var eA=gn(r,C.all),e18=gn(r,C['18p']),eMf=gn(r,C.mf1),eHh=gn(r,C.hhld);
+    var sh=pH(start),eh=pH(end),dur=cDur(sh,eh),sr=sec/15;
+    var a15=eA*sr,p18=e18*sr,m15=eMf*sr,h15=eHh*sr;
+    var isPts=sh!==null&&sh>=19&&sh<24;
+    var key=station+date+start+end;
+    raw.push({area:area,station:station,date:date,weekday:weekday,start:start,end:end,sec:sec,rank:rank,prog:prog,chance:chance,eA:eA,e18:e18,eMf:eMf,eHh:eHh,a15:a15,p18:p18,m15:m15,h15:h15,isPts:isPts,dur:dur,key:key});
+    if(!wptD[key])wptD[key]={key:key,area:area,station:station,date:date,start:start,end:end,dur:dur,n:0,a15:0,pts15:0};
+    wptD[key].n++;wptD[key].a15+=a15;if(isPts)wptD[key].pts15+=a15;
+    if(!aS[area])aS[area]={cm:0,a15:0,p18:0,m15:0,h15:0,pA:0,pP:0,pM:0,pH:0,wov:0};
+    aS[area].cm++;aS[area].a15+=a15;aS[area].p18+=p18;aS[area].m15+=m15;aS[area].h15+=h15;
+    if(isPts){aS[area].pA+=a15;aS[area].pP+=p18;aS[area].pM+=m15;aS[area].pH+=h15;}
+    var dk=area+'::'+date;
+    if(!dS[dk])dS[dk]={area:area,date:date,weekday:weekday,cm:0,a15:0,p18:0,m15:0,h15:0,pts:0};
+    dS[dk].cm++;dS[dk].a15+=a15;dS[dk].p18+=p18;dS[dk].m15+=m15;dS[dk].h15+=h15;
+    if(isPts)dS[dk].pts+=a15;
+  }
+  Object.values(wptD).forEach(function(w){w.cap=Math.ceil(w.dur/.5);w.over=w.n>w.cap;if(w.over&&aS[w.area])aS[w.area].wov++;});
+  allAreas=Object.keys(aS).sort();
+  var def=['関東','関西','名古屋'];
+  activeAreas=new Set(def.filter(function(a){return aS[a];}));
+  if(!activeAreas.size)activeAreas=new Set(allAreas.slice(0,3));
+  allDates=[...new Set(raw.map(function(r){return r.date;}))].sort();
+  dfrom=allDates[0]||'';dto=allDates[allDates.length-1]||'';
+  initDP();buildAF();buildSels();
+  document.getElementById('ldg').style.display='none';
+  document.getElementById('dash').style.display='flex';
+  document.getElementById('dash').style.flexDirection='column';
+  refresh();
+}
+
+function g(r,c){return r[c]!=null?String(r[c]).trim():'';}
+function gn(r,c){return parseFloat(r[c])||0;}
+function pH(t){if(!t)return null;var m=String(t).match(/^(\d{1,2}):(\d{2})$/);if(!m)return null;return+m[1]+(+m[2])/60;}
+function cDur(s,e){if(s==null)return.5;if(e==null)return.5;var d=e-s;return d>0?d:.5;}
+function fmt(v,d){d=d==null?1:d;if(v==null||isNaN(v))return'—';return v.toFixed(d).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+function pct(a,b){return b>0?a/b*100:0;}
+
+// ── DATE ──────────────────────────────────────────────
+function initDP(){
+  document.getElementById('dfrom').value=tID(dfrom);
+  document.getElementById('dto').value=tID(dto);
+}
+function tID(s){if(!s)return'';var p=s.split('/');if(p.length===3){var m=p[1].length<2?'0'+p[1]:p[1];var d=p[2].length<2?'0'+p[2]:p[2];return p[0]+'-'+m+'-'+d;}return'';}
+function fID(s){if(!s)return'';var p=s.split('-');return p[0]+'/'+(+p[1])+'/'+(+p[2]);}
+function onDC(){
+  var df=document.getElementById('dfrom').value;
+  var dt=document.getElementById('dto').value;
+  if(df)dfrom=fID(df);
+  if(dt)dto=fID(dt);
+  refresh();
+}
+function rstD(){
+  if(!allDates.length)return;
+  dfrom=allDates[0];dto=allDates[allDates.length-1];
+  initDP();refresh();
+}
+function inR(date){if(!dfrom||!dto)return true;return date>=dfrom&&date<=dto;}
+function gFR(){return raw.filter(function(r){return activeAreas.has(r.area)&&inR(r.date);});}
+function gFDS(){return Object.values(dS).filter(function(d){return activeAreas.has(d.area)&&inR(d.date);});}
+function gAD(){return[...new Set(gFDS().map(function(d){return d.date;}))].sort();}
+function gAAs(){return allAreas.filter(function(a){return activeAreas.has(a);});}
+
+// ── AREA FILTER ───────────────────────────────────────
+function buildAF(){
+  var el=document.getElementById('apills');el.innerHTML='';
+  var ap=document.createElement('span');ap.className='pill on';ap.textContent='全エリア';
+  ap.onclick=function(){activeAreas=new Set(allAreas);buildAF();refresh();};
+  el.appendChild(ap);
+  var sp=document.createElement('span');sp.className='psep';el.appendChild(sp);
+  allAreas.forEach(function(a){
+    var p=document.createElement('span');
+    p.className='pill'+(activeAreas.has(a)?' on':'');p.textContent=a;
+    p.onclick=function(){
+      if(activeAreas.has(a)){if(activeAreas.size>1)activeAreas.delete(a);}
+      else activeAreas.add(a);
+      buildAF();refresh();
+    };
+    el.appendChild(p);
+  });
+}
+
+function sM(m,btn){
+  curM=m;
+  document.querySelectorAll('.mbtn').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');
+  document.getElementById('kml').textContent=ML[m];
+  document.getElementById('tmd').textContent=ML[m];
+  ['ov1','ov2','ab1','tct'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=ML[m];});
+  refresh();
+}
+
+function mV(obj){var k={all:'a15','18p':'p18',mf1:'m15',hhld:'h15'}[curM];return obj[k]||0;}
+function mPts(a){var k={all:'pA','18p':'pP',mf1:'pM',hhld:'pH'}[curM];return(aS[a]||{})[k]||0;}
+
+// ── SELECTS ───────────────────────────────────────────
+function buildSels(){
+  var areas=gAAs();
+  var ao='<option value="ALL">全エリア</option>'+areas.map(function(a){return'<option value="'+a+'">'+a+'</option>';}).join('');
+  ['darea','warea','deta'].forEach(function(id){document.getElementById(id).innerHTML=ao;});
+  var sts=[...new Set(raw.map(function(r){return r.station;}))].sort();
+  document.getElementById('dets').innerHTML='<option value="ALL">全局</option>'+sts.map(function(s){return'<option value="'+s+'">'+s+'</option>';}).join('');
+}
+
+function refresh(){buildSels();rKPIs();rOv();rD();rA();rTgt();rW();rDt();if(planData)rC();updDB();}
+
+function updDB(){
+  var fr=gFR(),total=fr.reduce(function(s,r){return s+mV(r);},0);
+  var txt='期間合計: '+ML[curM]+'_15換算 '+fmt(total);
+  var el=document.getElementById('dtb');el.textContent=txt;el.style.display='inline-block';
+  var el2=document.getElementById('dptb');el2.textContent=txt;el2.style.display='inline-block';
+  document.getElementById('thdt').textContent=ML[curM]+'_15換算';
+}
+
+// ── KPIs ──────────────────────────────────────────────
+function rKPIs(){
+  var fr=gFR();
+  var tv=fr.reduce(function(s,r){return s+mV(r);},0);
+  var k=aS['関東']||{};var pr=pct(k.pA||0,k.a15||1);
+  var dates=gAD();
+  document.getElementById('k0').textContent=fr.length.toLocaleString();
+  document.getElementById('k1').textContent=fmt(tv);
+  document.getElementById('k2').textContent=fmt(pr,1)+'%';
+  document.getElementById('k3').textContent=(dfrom||'').replace('2026/','')+'〜'+(dto||'').replace('2026/','');
+  document.getElementById('k3s').textContent=dates.length+'日間';
+}
+
+function dc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+
+// ── OVERVIEW ──────────────────────────────────────────
+function rOv(){
+  var areas=gAAs(),fr=gFR();
+  var vals=areas.map(function(a){return fr.filter(function(r){return r.area===a;}).reduce(function(s,r){return s+mV(r);},0);});
+  var ptsV=areas.map(function(a){return fr.filter(function(r){return r.area===a&&r.isPts;}).reduce(function(s,r){return s+mV(r);},0);});
+  dc('ch1');
+  charts['ch1']=new Chart(document.getElementById('ch1'),{type:'bar',
+    data:{labels:areas,datasets:[
+      {label:ML[curM]+'_15換算',data:vals,backgroundColor:areas.map(function(_,i){return CC[i%10]+'aa';}),borderColor:areas.map(function(_,i){return CC[i%10];}),borderWidth:1.5,borderRadius:5},
+      {label:'PTS分',data:ptsV,backgroundColor:areas.map(function(_,i){return CC[i%10]+'44';}),borderColor:areas.map(function(_,i){return CC[i%10];}),borderWidth:1,borderRadius:5}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(60,80,120,.06)'}}}}
+  });
+  var mEl=document.getElementById('pmeter');mEl.innerHTML='';
+  areas.map(function(a){var v=fr.filter(function(r){return r.area===a;}).reduce(function(s,r){return s+mV(r);},0);var p=fr.filter(function(r){return r.area===a&&r.isPts;}).reduce(function(s,r){return s+mV(r);},0);return{a:a,r:pct(p,v||1)};}).sort(function(x,y){return y.r-x.r;}).forEach(function(obj){
+    var c=obj.r>=60?'var(--grn)':obj.r>=45?'var(--blue)':'var(--red)';
+    mEl.innerHTML+='<div class="pmr"><div class="pma">'+obj.a+'</div><div class="pmb"><div class="pmf" style="width:'+obj.r+'%;background:'+c+'"></div></div><div class="pmp" style="color:'+c+'">'+fmt(obj.r,1)+'%</div></div>';
+  });
+  var dates=gAD();
+  var dV=dates.map(function(d){return Object.values(dS).filter(function(s){return s.date===d&&activeAreas.has(s.area)&&inR(s.date);}).reduce(function(s,v){return s+mV(v);},0);});
+  var dP=dates.map(function(d){return Object.values(dS).filter(function(s){return s.date===d&&activeAreas.has(s.area)&&inR(s.date);}).reduce(function(s,v){return s+v.pts;},0);});
+  dc('ch2');
+  charts['ch2']=new Chart(document.getElementById('ch2'),{type:'bar',
+    data:{labels:dates.map(function(d){return d.replace('2026/','');}),datasets:[
+      {label:ML[curM]+'_15換算',data:dV,backgroundColor:'rgba(74,144,217,.55)',borderColor:'#4a90d9',borderWidth:1,borderRadius:3},
+      {label:'PTS分',data:dP,backgroundColor:'rgba(245,158,66,.48)',borderColor:'#f59e42',borderWidth:1,borderRadius:3}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false},ticks:{maxTicksLimit:15}},y:{grid:{color:'rgba(60,80,120,.06)'}}}}
+  });
+}
+
+// ── DAILY ─────────────────────────────────────────────
+function rD(){
+  var area=document.getElementById('darea').value;
+  var met=document.getElementById('dmet').value;
+  var lbl=met==='cm'?'CM本数':ML[curM]+'_15換算';
+  document.getElementById('dct').textContent='日別推移 - '+(area==='ALL'?'選択エリア':area)+' / '+lbl;
+  document.getElementById('thdt').textContent=ML[curM]+'_15換算';
+  var dates=gAD().filter(function(d){return area==='ALL'||Object.values(dS).some(function(s){return s.area===area&&s.date===d;});});
+  var dRows=function(d){return Object.values(dS).filter(function(s){return s.date===d&&(area==='ALL'?activeAreas.has(s.area):s.area===area)&&inR(s.date);});};
+  var vals=dates.map(function(d){return dRows(d).reduce(function(s,v){return s+(met==='cm'?v.cm:mV(v));},0);});
+  var ptsV=dates.map(function(d){return dRows(d).reduce(function(s,v){return s+v.pts;},0);});
+  dc('ch3');
+  charts['ch3']=new Chart(document.getElementById('ch3'),{type:'bar',
+    data:{labels:dates.map(function(d){return d.replace('2026/','');}),datasets:[
+      {label:lbl,data:vals,backgroundColor:'rgba(74,144,217,.6)',borderColor:'#4a90d9',borderWidth:1,borderRadius:4,order:2},
+      {label:'PTS分',data:ptsV,backgroundColor:'rgba(245,158,66,.5)',borderColor:'#f59e42',borderWidth:1,borderRadius:4,order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false},ticks:{maxTicksLimit:20}},y:{grid:{color:'rgba(60,80,120,.06)'}}}}
+  });
+  var tbody=document.querySelector('#td tbody');tbody.innerHTML='';
+  var tCm=0,tV=0,tPts=0;
+  dates.forEach(function(d){
+    var rows=dRows(d);var cm=rows.reduce(function(s,v){return s+v.cm;},0),v=rows.reduce(function(s,r){return s+mV(r);},0),pts=rows.reduce(function(s,v){return s+v.pts;},0);
+    tCm+=cm;tV+=v;tPts+=pts;
+    var pr=pct(pts,v);var wd=rows[0]?rows[0].weekday:'';
+    tbody.innerHTML+='<tr><td class="mono">'+d+'</td><td>'+wd+'</td><td class="mono">'+cm+'</td><td class="mono">'+fmt(v)+'</td><td class="mono">'+fmt(pts)+'</td><td><span class="badge '+(pr>=50?'bok':'bpt')+'">'+fmt(pr,1)+'%</span></td></tr>';
+  });
+  tbody.innerHTML+='<tr style="background:#f0f6ff;font-weight:600"><td colspan="2">合計</td><td class="mono">'+tCm+'</td><td class="mono">'+fmt(tV)+'</td><td class="mono">'+fmt(tPts)+'</td><td><span class="badge bbl">'+fmt(pct(tPts,tV),1)+'%</span></td></tr>';
+}
+
+// ── AREA ──────────────────────────────────────────────
+function rA(){
+  var areas=gAAs(),fr=gFR();
+  document.getElementById('ab1').textContent=ML[curM];
+  document.getElementById('that').textContent=ML[curM]+'_15換算';
+  var vals=areas.map(function(a){return fr.filter(function(r){return r.area===a;}).reduce(function(s,r){return s+mV(r);},0);});
+  var ptsV=areas.map(function(a){return fr.filter(function(r){return r.area===a&&r.isPts;}).reduce(function(s,r){return s+mV(r);},0);});
+  var ptsR=vals.map(function(v,i){return pct(ptsV[i],v||1);});
+  dc('ch4');
+  charts['ch4']=new Chart(document.getElementById('ch4'),{type:'bar',
+    data:{labels:areas,datasets:[
+      {label:ML[curM]+'_15換算',data:vals,backgroundColor:'rgba(74,144,217,.65)',borderColor:'#4a90d9',borderWidth:1.5,borderRadius:5},
+      {label:'PTS分',data:ptsV,backgroundColor:'rgba(245,158,66,.5)',borderColor:'#f59e42',borderWidth:1,borderRadius:5}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(60,80,120,.06)'}}}}
+  });
+  dc('ch5');
+  charts['ch5']=new Chart(document.getElementById('ch5'),{type:'bar',
+    data:{labels:areas,datasets:[{label:'PTS比率(%)',data:ptsR,backgroundColor:ptsR.map(function(v){return v>=50?'rgba(52,195,143,.65)':'rgba(244,106,106,.65)';}),borderColor:ptsR.map(function(v){return v>=50?'#34c38f':'#f46a6a';}),borderWidth:1.5,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return' '+fmt(ctx.raw,1)+'%';}}}},scales:{x:{grid:{display:false}},y:{min:0,max:100,ticks:{callback:function(v){return v+'%';}},grid:{color:'rgba(60,80,120,.06)'}}}}
+  });
+  var tbody=document.querySelector('#ta tbody');tbody.innerHTML='';
+  areas.forEach(function(a){
+    var rows=fr.filter(function(r){return r.area===a;});
+    var v=rows.reduce(function(s,r){return s+mV(r);},0),pts=rows.reduce(function(s,r){return r.isPts?s+mV(r):s;},0),pr=pct(pts,v||1);
+    var s=aS[a]||{};
+    tbody.innerHTML+='<tr><td>'+a+'</td><td class="mono">'+rows.length+'</td><td class="mono">'+fmt(v)+'</td><td class="mono">'+fmt(pts)+'</td><td><span class="badge '+(pr>=50?'bok':'bpt')+'">'+fmt(pr,1)+'%</span></td><td><span class="'+(s.wov>0?'badge bng':'badge bok')+'">'+(s.wov>0?'⚠'+s.wov:'—')+'</span></td></tr>';
+  });
+}
+
+// ── TARGET ────────────────────────────────────────────
+function rTgt(){
+  var areas=gAAs(),fr=gFR();
+  document.getElementById('tct').textContent=ML[curM];
+  var tc=document.getElementById('tcards');tc.innerHTML='';
+  areas.forEach(function(a,i){
+    var rows=fr.filter(function(r){return r.area===a;});
+    var v=rows.reduce(function(s,r){return s+mV(r);},0),pts=rows.reduce(function(s,r){return r.isPts?s+mV(r):s;},0);
+    var c=CC[i%10];
+    tc.innerHTML+='<div style="background:var(--surf);border-radius:10px;padding:.82rem .95rem;box-shadow:var(--sh);border:1px solid var(--bdr);border-top:3px solid '+c+';text-align:center"><div style="font-size:.68rem;color:var(--mt);font-weight:500">'+a+'</div><div style="font-size:1.1rem;font-weight:700;color:'+c+'">'+fmt(v)+'</div><div style="font-size:.62rem;color:var(--dim);margin-top:.1rem">PTS '+fmt(pts)+' / '+fmt(pct(pts,v||1),1)+'%</div></div>';
+  });
+  dc('ch6');
+  charts['ch6']=new Chart(document.getElementById('ch6'),{type:'bar',
+    data:{labels:areas,datasets:[
+      {label:ML[curM]+'(非PTS)',data:areas.map(function(a){var rows=fr.filter(function(r){return r.area===a;});return rows.reduce(function(s,r){return s+mV(r);},0)-rows.filter(function(r){return r.isPts;}).reduce(function(s,r){return s+mV(r);},0);}),backgroundColor:'rgba(74,144,217,.55)',borderColor:'#4a90d9',borderWidth:1,borderRadius:4},
+      {label:'PTS分',data:areas.map(function(a){return fr.filter(function(r){return r.area===a&&r.isPts;}).reduce(function(s,r){return s+mV(r);},0);}),backgroundColor:'rgba(245,158,66,.55)',borderColor:'#f59e42',borderWidth:1,borderRadius:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false},stacked:true},y:{grid:{color:'rgba(60,80,120,.06)'},stacked:true}}}
+  });
+  var tbody=document.querySelector('#tt tbody');tbody.innerHTML='';
+  areas.forEach(function(a){
+    var rows=fr.filter(function(r){return r.area===a;});
+    var a15=rows.reduce(function(s,r){return s+r.a15;},0),p18=rows.reduce(function(s,r){return s+r.p18;},0),m15=rows.reduce(function(s,r){return s+r.m15;},0),h15=rows.reduce(function(s,r){return s+r.h15;},0);
+    var v=rows.reduce(function(s,r){return s+mV(r);},0),pts=rows.reduce(function(s,r){return r.isPts?s+mV(r):s;},0);
+    tbody.innerHTML+='<tr><td>'+a+'</td><td class="mono">'+rows.length+'</td><td class="mono">'+fmt(a15)+'</td><td class="mono">'+fmt(p18)+'</td><td class="mono">'+fmt(m15)+'</td><td class="mono">'+fmt(h15)+'</td><td><span class="badge '+(pct(pts,v||1)>=50?'bok':'bpt')+'">'+fmt(pct(pts,v||1),1)+'%</span></td></tr>';
+  });
+}
+
+// ── PLAN PROCESSING ───────────────────────────────────
+function procPlan(wb){
+  var tsheets=wb.SheetNames.filter(function(n){return n.indexOf('期間')>=0||n.indexOf('全体')>=0||(n.indexOf('RF')>=0&&n.indexOf('計算')<0);});
+  if(!tsheets.length){alert('対応するシートが見つかりません');return;}
+  planData={sheets:[]};
+  tsheets.forEach(function(sn){
+    var ws=wb.Sheets[sn];
+    var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null});
+    var tarpLine='',period='';
+    for(var i=0;i<12;i++){
+      var r=rows[i];if(!r)continue;
+      if(r[0]&&String(r[0]).indexOf('TARP')>=0)tarpLine=String(r[0]);
+      if(r[0]&&String(r[0]).indexOf('期間')>=0&&!period)period=String(r[0]).replace('■','').trim();
+    }
+    var tarpMap=parseTarp(tarpLine);
+    var areas={};var curArea='';
+    for(var i=9;i<rows.length;i++){
+      var r=rows[i];if(!r)continue;
+      if(r[0]&&typeof r[0]==='string'&&r[0].trim()&&r[0].trim()!=='エリア')curArea=r[0].trim();
+      var stN=r[1]?String(r[1]).trim():'';var abbr=r[2]?String(r[2]).trim():'';
+      var prp=null,grp=null;
+      for(var c=6;c<Math.min(r.length,16);c++){
+        var v=r[c];
+        if(typeof v==='number'&&v>5&&v<5000){
+          if(c===7||c===11)prp=v;
+          if(c===6||c===10)grp=v;
+        }
+      }
+      if(curArea&&stN&&stN!=='局名'&&abbr&&prp&&abbr.trim()){
+        var na=nA(curArea);
+        if(!areas[na])areas[na]={prp:0,grp:0,tarp:tarpMap[na]||0,stations:[]};
+        areas[na].prp+=prp;areas[na].grp+=(grp||0);
+        areas[na].stations.push({name:stN,abbr:abbr.trim(),prp:prp,grp:grp||0});
+      }
+    }
+    planData.sheets.push({name:sn,period:period,areas:areas,tarpMap:tarpMap});
+  });
+  var sel=document.getElementById('psel');
+  sel.innerHTML=planData.sheets.map(function(s,i){return'<option value="'+i+'">'+s.name+'</option>';}).join('');
+  document.getElementById('spb').className='spb ok';document.getElementById('spb').textContent='発注書 '+planData.sheets.length+'シート';
+  document.getElementById('npmsg').style.display='none';document.getElementById('pcont').style.display='block';
+  var s0=planData.sheets[0];var kP=(s0&&s0.areas['関東'])||{};
+  document.getElementById('k4').textContent=fmt(kP.prp||0,1);document.getElementById('k4s').textContent='TARP '+(s0&&s0.tarpMap?fmt(s0.tarpMap['関東']||0,1):'—');
+  rC();
+}
+
+function parseTarp(line){
+  var map={};if(!line)return map;
+  var re=/(\d[\d.]+)\(([^)]+)\)/g,m;
+  while((m=re.exec(line))!==null)map[nA(m[2])]=parseFloat(m[1]);
+  return map;
+}
+function nA(a){var mp={'関東':'関東','関西':'関西','中部':'名古屋','名古屋':'名古屋'};return mp[a]||a;}
+
+// ── COMPARE ───────────────────────────────────────────
+function rC(){
+  if(!planData)return;
+  var idx=parseInt(document.getElementById('psel').value)||0;
+  var sheet=planData.sheets[idx];if(!sheet)return;
+  var areas=gAAs(),fr=gFR();
+  var totPlanPrp=Object.values(sheet.areas).reduce(function(s,a){return s+(a.prp||0);},0);
+  var totInitA15=fr.reduce(function(s,r){return s+r.a15;},0);
+  var kTarp=(sheet.tarpMap&&sheet.tarpMap['関東'])||0;
+  var pkr=document.getElementById('pkpis');
+  pkr.innerHTML='<div class="kc"><div class="kct" style="background:linear-gradient(90deg,#f59e42,#ffd96e)"></div><div class="kl">発注PRP合計</div><div class="kv" style="color:var(--ora)">'+fmt(totPlanPrp,1)+'</div><div class="ks">全エリア・選択シート</div></div>'
+    +'<div class="kc"><div class="kct" style="background:linear-gradient(90deg,#4a90d9,#38bdf8)"></div><div class="kl">初案ALL_15換算</div><div class="kv" style="color:var(--blue)">'+fmt(totInitA15,1)+'</div><div class="ks">表示エリア・期間合計</div></div>'
+    +'<div class="kc"><div class="kct" style="background:linear-gradient(90deg,#14b8a6,#38bdf8)"></div><div class="kl">TARP(MF18+) 関東</div><div class="kv" style="color:var(--tel)">'+fmt(kTarp,1)+'</div><div class="ks">発注書記載値</div></div>'
+    +'<div class="kc"><div class="kct" style="background:linear-gradient(90deg,#34c38f,#68d391)"></div><div class="kl">達成率</div><div class="kv" style="color:var(--grn)">'+fmt(pct(totInitA15,totPlanPrp||1),1)+'%</div><div class="ks">初案ALL15 ÷ 発注PRP</div></div>';
+  var cmpA=areas.filter(function(a){return sheet.areas[nA(a)];});
+  var planP=cmpA.map(function(a){return(sheet.areas[nA(a)]||{}).prp||0;});
+  var initA=cmpA.map(function(a){return fr.filter(function(r){return r.area===a;}).reduce(function(s,r){return s+r.a15;},0);});
+  var initP=cmpA.map(function(a){return fr.filter(function(r){return r.area===a;}).reduce(function(s,r){return s+r.p18;},0);});
+  var tarps=cmpA.map(function(a){return(sheet.tarpMap&&sheet.tarpMap[nA(a)])||0;});
+  dc('ch7');
+  charts['ch7']=new Chart(document.getElementById('ch7'),{type:'bar',
+    data:{labels:cmpA,datasets:[
+      {label:'発注PRP',data:planP,backgroundColor:'rgba(245,158,66,.7)',borderColor:'#f59e42',borderWidth:1.5,borderRadius:5},
+      {label:'初案ALL_15換算',data:initA,backgroundColor:'rgba(74,144,217,.65)',borderColor:'#4a90d9',borderWidth:1.5,borderRadius:5}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(60,80,120,.06)'}}}}
+  });
+  dc('ch8');
+  charts['ch8']=new Chart(document.getElementById('ch8'),{type:'bar',
+    data:{labels:cmpA,datasets:[
+      {label:'TARP(MF18+)',data:tarps,backgroundColor:'rgba(20,184,166,.65)',borderColor:'#14b8a6',borderWidth:1.5,borderRadius:5},
+      {label:'初案18+_15換算',data:initP,backgroundColor:'rgba(244,106,106,.6)',borderColor:'#f46a6a',borderWidth:1.5,borderRadius:5}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(60,80,120,.06)'}}}}
+  });
+  var tbody=document.querySelector('#tcmp tbody');tbody.innerHTML='';
+  cmpA.forEach(function(a){
+    var pa=sheet.areas[nA(a)]||{};var rows=fr.filter(function(r){return r.area===a;});
+    var ia=rows.reduce(function(s,r){return s+r.a15;},0),ip=rows.reduce(function(s,r){return s+r.p18;},0),im=rows.reduce(function(s,r){return s+r.m15;},0);
+    var diff=(pa.prp||0)-ia,ach=pct(ia,(pa.prp||1));
+    var tarp=(sheet.tarpMap&&sheet.tarpMap[nA(a)])||0;
+    tbody.innerHTML+='<tr><td>'+a+'</td><td class="mono cpl">'+fmt(pa.prp||0,1)+'</td><td class="mono cpl">'+fmt(pa.grp||0,1)+'</td><td class="mono cpl">'+fmt(tarp,1)+'</td><td class="mono cpn">'+fmt(ia)+'</td><td class="mono cpn">'+fmt(ip)+'</td><td class="mono cpn">'+fmt(im)+'</td><td class="mono '+(diff>=0?'cdp':'cdn')+'">'+(diff>=0?'+':'')+fmt(diff,1)+'</td><td><span class="badge '+(ach>=90?'bok':ach>=70?'bpt':'bng')+'">'+fmt(ach,1)+'%</span></td></tr>';
+  });
+  var tbody2=document.querySelector('#tcmps tbody');tbody2.innerHTML='';
+  cmpA.forEach(function(a){
+    var pa=sheet.areas[nA(a)]||{};
+    (pa.stations||[]).forEach(function(st){
+      var rows=fr.filter(function(r){return r.area===a&&r.station===st.abbr.trim();});
+      var ia=rows.reduce(function(s,r){return s+r.a15;},0),diff=st.prp-ia;
+      tbody2.innerHTML+='<tr><td>'+a+'</td><td>'+st.name+'</td><td class="mono">'+st.abbr+'</td><td class="mono cpl">'+fmt(st.prp,1)+'</td><td class="mono cpn">'+fmt(ia)+'</td><td class="mono '+(diff>=0?'cdp':'cdn')+'">'+(diff>=0?'+':'')+fmt(diff,1)+'</td></tr>';
+    });
+  });
+}
+
+// ── WPT ───────────────────────────────────────────────
+function rW(){
+  var area=document.getElementById('warea').value,filt=document.getElementById('wfilt').value;
+  var rows=Object.values(wptD).filter(function(w){return(area==='ALL'?activeAreas.has(w.area):w.area===area)&&inR(w.date)&&(filt!=='over'||w.over);}).sort(function(a,b){return a.station.localeCompare(b.station)||a.date.localeCompare(b.date)||a.start.localeCompare(b.start);});
+  var tbody=document.querySelector('#tw tbody');tbody.innerHTML='';
+  rows.forEach(function(w){tbody.innerHTML+='<tr><td class="mono" style="font-size:.64rem;max-width:190px;overflow:hidden;text-overflow:ellipsis" title="'+w.key+'">'+w.key+'</td><td>'+w.area+'</td><td>'+w.station+'</td><td class="mono">'+w.date+'</td><td class="mono">'+w.start+'</td><td class="mono">'+w.end+'</td><td class="mono">'+w.dur.toFixed(2)+'h</td><td class="mono">'+w.n+'</td><td class="mono">'+w.cap+'</td><td><span class="badge '+(w.over?'bng':'bok')+'">'+(w.over?'×超過':'○')+'</span></td><td class="mono">'+fmt(w.a15)+'</td><td class="mono">'+fmt(w.pts15)+'</td></tr>';});
+}
+
+// ── DETAIL ────────────────────────────────────────────
+function rDt(){
+  var area=document.getElementById('deta').value,station=document.getElementById('dets').value,rank=document.getElementById('detr').value;
+  var rows=raw.filter(function(r){return(area==='ALL'?activeAreas.has(r.area):r.area===area)&&(station==='ALL'||r.station===station)&&(rank==='ALL'||r.rank===rank)&&inR(r.date);});
+  document.getElementById('dtcnt').textContent=rows.length.toLocaleString()+'件';
+  var tbody=document.querySelector('#tdt tbody');tbody.innerHTML='';
+  rows.slice(0,500).forEach(function(r){tbody.innerHTML+='<tr><td>'+r.area+'</td><td>'+r.station+'</td><td class="mono">'+r.date+'</td><td>'+r.weekday+'</td><td class="mono">'+r.start+'</td><td class="mono">'+r.end+'</td><td class="mono">'+r.sec+'</td><td>'+r.rank+'</td><td style="max-width:175px;overflow:hidden;text-overflow:ellipsis">'+r.prog+'</td><td>'+r.chance+'</td><td class="mono">'+fmt(r.eA)+'</td><td class="mono">'+fmt(r.a15)+'</td><td class="mono">'+fmt(r.e18)+'</td><td class="mono">'+fmt(r.p18)+'</td><td class="mono">'+fmt(r.eMf)+'</td><td class="mono">'+fmt(r.eHh)+'</td><td>'+(r.isPts?'<span class="badge bpt">PTS</span>':'')+'</td></tr>';});
+  if(rows.length>500)tbody.innerHTML+='<tr><td colspan="17" style="text-align:center;color:var(--dim);padding:.75rem">…上位500件 / 全'+rows.length+'件</td></tr>';
+}
+
+// ── TAB ───────────────────────────────────────────────
+function gT(name,el,title){
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('on');});
+  document.querySelectorAll('.tbtn').forEach(function(n){n.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('tbtl').textContent=title;
+  document.querySelectorAll('.tp').forEach(function(p){p.classList.remove('on');});
+  var p=document.getElementById('tp-'+name);if(p)p.classList.add('on');
+  var fn={overview:rOv,daily:rD,area:rA,target:rTgt,compare:rC,wpt:rW,detail:rDt};
+  if(fn[name]&&raw.length>0)fn[name]();
+}
+
+// ── EXPORTS ───────────────────────────────────────────
+function dlCSV(rows,fn){
+  var bom='\uFEFF',csv=bom+rows.map(function(r){return r.map(function(v){return'"'+String(v!=null?v:'').replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download=fn;a.click();
+}
+function exDcsv(){
+  var area=document.getElementById('darea').value;
+  var dates=gAD().filter(function(d){return area==='ALL'||Object.values(dS).some(function(s){return s.area===area&&s.date===d;});});
+  var rows=[['\u65e5\u4ed8','\u66dc\u65e5','CM\u672c\u6570',ML[curM]+'_15\u79d2\u63db\u7b97','PTS\u5206','PTS\u6bd4\u7387']];
+  dates.forEach(function(d){var rs=Object.values(dS).filter(function(s){return s.date===d&&(area==='ALL'?activeAreas.has(s.area):s.area===area)&&inR(s.date);});var cm=rs.reduce(function(s,v){return s+v.cm;},0),v=rs.reduce(function(s,r){return s+mV(r);},0),pts=rs.reduce(function(s,v){return s+v.pts;},0);rows.push([d,rs[0]?rs[0].weekday:'',cm,fmt(v),fmt(pts),fmt(pct(pts,v||1),1)+'%']);});
+  dlCSV(rows,'RF1_\u65e5\u5225.csv');
+}
+function exAcsv(){
+  var areas=gAAs(),fr=gFR();
+  var rows=[['エリア','CM本数',ML[curM]+'_15換算','PTS分','PTS比率','WPT超過']];
+  areas.forEach(function(a){var rows2=fr.filter(function(r){return r.area===a;});var v=rows2.reduce(function(s,r){return s+mV(r);},0),pts=rows2.reduce(function(s,r){return r.isPts?s+mV(r):s;},0);rows.push([a,rows2.length,fmt(v),fmt(pts),fmt(pct(pts,v||1),1)+'%',(aS[a]||{}).wov||0]);});
+  dlCSV(rows,'RF1_エリア別.csv');
+}
+function exTcsv(){
+  var areas=gAAs(),fr=gFR();
+  var rows=[['エリア','CM本数','ALL_15換算','18+_15換算','MF1_15換算','世帯_15換算','PTS比率(選択)']];
+  areas.forEach(function(a){var rows2=fr.filter(function(r){return r.area===a;});var a15=rows2.reduce(function(s,r){return s+r.a15;},0),p18=rows2.reduce(function(s,r){return s+r.p18;},0),m15=rows2.reduce(function(s,r){return s+r.m15;},0),h15=rows2.reduce(function(s,r){return s+r.h15;},0),v=rows2.reduce(function(s,r){return s+mV(r);},0),pts=rows2.reduce(function(s,r){return r.isPts?s+mV(r):s;},0);rows.push([a,rows2.length,fmt(a15),fmt(p18),fmt(m15),fmt(h15),fmt(pct(pts,v||1),1)+'%']);});
+  dlCSV(rows,'RF1_ターゲット.csv');
+}
+function exCcsv(){
+  if(!planData)return;
+  var idx=parseInt(document.getElementById('psel').value)||0,sheet=planData.sheets[idx];
+  var areas=gAAs(),fr=gFR();
+  var rows=[['エリア','発注PRP','発注GRP','TARP(MF18+)','初案ALL_15換算','初案18+_15換算','初案MF1_15換算','差分','達成率']];
+  areas.filter(function(a){return sheet.areas[nA(a)];}).forEach(function(a){
+    var pa=sheet.areas[nA(a)]||{},rows2=fr.filter(function(r){return r.area===a;});
+    var ia=rows2.reduce(function(s,r){return s+r.a15;},0),ip=rows2.reduce(function(s,r){return s+r.p18;},0),im=rows2.reduce(function(s,r){return s+r.m15;},0);
+    var diff=(pa.prp||0)-ia,tarp=(sheet.tarpMap&&sheet.tarpMap[nA(a)])||0;
+    rows.push([a,fmt(pa.prp||0,1),fmt(pa.grp||0,1),fmt(tarp,1),fmt(ia),fmt(ip),fmt(im),(diff>=0?'+':'')+fmt(diff,1),fmt(pct(ia,(pa.prp||1)),1)+'%']);
+  });
+  dlCSV(rows,'RF1_プラン比較.csv');
+}
+function exWcsv(){
+  var rows=[['Key','地区','局','放送日','開始','終了','番組時間(h)','CM本数','上限','判定','ALL_15換算','PTS換算']];
+  Object.values(wptD).filter(function(w){return activeAreas.has(w.area);}).sort(function(a,b){return a.station.localeCompare(b.station)||a.date.localeCompare(b.date);}).forEach(function(w){rows.push([w.key,w.area,w.station,w.date,w.start,w.end,w.dur.toFixed(2),w.n,w.cap,w.over?'超過':'OK',fmt(w.a15),fmt(w.pts15)]);});
+  dlCSV(rows,'RF1_WPT.csv');
+}
+function exWxls(){
+  var data=[['Key','地区','放送局','放送日','開始時間','終了時間','番組時間(h)','CM本数','上限','判定','ALL_15秒換算','PTS_15秒換算']];
+  Object.values(wptD).filter(function(w){return activeAreas.has(w.area);}).sort(function(a,b){return a.station.localeCompare(b.station)||a.date.localeCompare(b.date);}).forEach(function(w){data.push([w.key,w.area,w.station,w.date,w.start,w.end,parseFloat(w.dur.toFixed(2)),w.n,w.cap,w.over?'超過':'OK',parseFloat(w.a15.toFixed(1)),parseFloat(w.pts15.toFixed(1))]);});
+  var wb2=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(data);
+  ws['!cols']=[{wch:36},{wch:8},{wch:8},{wch:12},{wch:8},{wch:8},{wch:10},{wch:8},{wch:6},{wch:8},{wch:14},{wch:14}];
+  XLSX.utils.book_append_sheet(wb2,ws,'WPT');XLSX.writeFile(wb2,'RF1_WPT.xlsx');
+}
+function exDtcsv(){
+  var area=document.getElementById('deta').value,station=document.getElementById('dets').value,rank=document.getElementById('detr').value;
+  var rows=[['地区','局','放送日','曜日','開始','終了','秒数','ランク','番組','チャンス','ALL','ALL_15換算','18+','18+換算','MF1','世帯','PTS']];
+  raw.filter(function(r){return(area==='ALL'?activeAreas.has(r.area):r.area===area)&&(station==='ALL'||r.station===station)&&(rank==='ALL'||r.rank===rank)&&inR(r.date);}).forEach(function(r){rows.push([r.area,r.station,r.date,r.weekday,r.start,r.end,r.sec,r.rank,r.prog,r.chance,r.eA,fmt(r.a15),r.e18,fmt(r.p18),r.eMf,r.eHh,r.isPts?'PTS':'']);});
+  dlCSV(rows,'RF1_明細.csv');
+}
+</script>
+</body></html>
