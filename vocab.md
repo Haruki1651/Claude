@@ -22,6 +22,8 @@
 | 覚えた | 表現 | 意味 | 例文 | 追加日 |
 |---|---|---|---|---|
 | [ ] | Let's be real | 正直に言うと、現実を見よう(建前抜きで本音・現実的な話をする前置き) | Let's be real, this plan isn't going to work. | 2026-08-19 |
+| [ ] | Here's the deal | 話はこうだ、要するにこういうことだ(状況・提案・条件を切り出す前置き) | Here's the deal: we need to finish this by Friday. | 2026-08-19 |
+| [ ] | Here's your takeaway | これが持ち帰ってほしいポイントだ、結論・教訓はこれだ | Here's your takeaway: consistency matters more than perfection. | 2026-08-19 |
 
 ## 添削メモ (Corrections)
 
