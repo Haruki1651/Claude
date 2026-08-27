@@ -25,6 +25,7 @@
 | [ ] | Let's be real | 正直に言うと、現実を見よう(建前抜きで本音・現実的な話をする前置き) | Let's be real, this plan isn't going to work. | 2026-08-19 |
 | [ ] | Here's the deal | 話はこうだ、要するにこういうことだ(状況・提案・条件を切り出す前置き) | Here's the deal: we need to finish this by Friday. | 2026-08-19 |
 | [ ] | Here's your takeaway | これが持ち帰ってほしいポイントだ、結論・教訓はこれだ | Here's your takeaway: consistency matters more than perfection. | 2026-08-19 |
+| [ ] | go about (~ing) | (物事)に取り組む、進める。"How should I go about ~ing?"(どう取り組めばいい?)が定番パターン | How should I go about learning a new language? | 2026-08-19 |
 
 ## 添削メモ (Corrections)
 
