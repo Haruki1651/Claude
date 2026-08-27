@@ -17,6 +17,7 @@
 |---|---|---|---|---|
 | [ ] | quality (qualities) | 資質、長所、美点(可算名詞として使うと「特性・美点」の意味になる) | One of their great qualities is honesty. | 2026-08-19 |
 | [ ] | flaw | 欠点、傷、瑕疵。発音は /flɔː/ で、flow /floʊ/ と紛らわしいので注意 | That's the one flaw in an otherwise perfect plan. | 2026-08-19 |
+| [ ] | lax | だらしない、緩い、厳格でない。time・rules・security など幅広い対象に使える | He's lax about time. / Their security checks are pretty lax. | 2026-08-19 |
 
 ## 表現・イディオム (Expressions)
 
@@ -30,6 +31,7 @@
 | [ ] | X over Y | XをYより優先する・重視する(動詞 prioritize/value/choose と一緒か、単独の見出し句で使う。be動詞+形容詞の比較には使わず "more ~ than" を使う) | We prioritize accuracy over speed. | 2026-08-19 |
 | [ ] | follow up on ~ | 〜についてフォローアップする(他動詞的に使い、目的語が必要。冒頭で話題が示されていれば "on" を省いて follow up だけでもよい) | I'll follow up on this by next week. | 2026-08-19 |
 | [ ] | give feedback on ~ | 〜についてフィードバックをする | Could you give me your feedback on this proposal? | 2026-08-19 |
+| [ ] | loose with money/rules | (お金・ルールに)ルーズ、緩い。※時間には使わない(時間には lax や not punctual を使う) | He's pretty loose with money. / The company is loose with its rules. | 2026-08-19 |
 
 ## 添削メモ (Corrections)
 
