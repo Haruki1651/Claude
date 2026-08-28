@@ -18,6 +18,8 @@
 | [ ] | quality (qualities) | 資質、長所、美点(可算名詞として使うと「特性・美点」の意味になる) | One of their great qualities is honesty. | 2026-08-19 |
 | [ ] | flaw | 欠点、傷、瑕疵。発音は /flɔː/ で、flow /floʊ/ と紛らわしいので注意 | That's the one flaw in an otherwise perfect plan. | 2026-08-19 |
 | [ ] | lax | だらしない、緩い、厳格でない。time・rules・security など幅広い対象に使える | He's lax about time. / Their security checks are pretty lax. | 2026-08-19 |
+| [ ] | coordinate (with) | 調整する、(人と)連携して段取りを合わせる。複数の人・要素をうまく噛み合わせるロジ的なニュアンス | Please coordinate with the design team on this. | 2026-08-19 |
+| [ ] | collaborate (with) | (人と)協力して一緒に取り組む。coordinateと違い対等な立場で共同作業するニュアンス | I'd love to collaborate with you on a project again. | 2026-08-19 |
 
 ## 表現・イディオム (Expressions)
 
