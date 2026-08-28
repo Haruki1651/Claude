@@ -33,6 +33,46 @@
 | [ ] | give feedback on ~ | 〜についてフィードバックをする | Could you give me your feedback on this proposal? | 2026-08-19 |
 | [ ] | loose with money/rules | (お金・ルールに)ルーズ、緩い。※時間には使わない(時間には lax や not punctual を使う) | He's pretty loose with money. / The company is loose with its rules. | 2026-08-19 |
 
+## 業務フレーズ (Work Phrases)
+
+| 覚えた | 日本語 | 英語 | メモ | 追加日 |
+|---|---|---|---|---|
+| [ ] | 何か確認中で止まってることありますか? | Is there anything still pending? | pendingは超重要 | 2026-08-19 |
+| [ ] | 何かアップデートありますか? | Do we have any updates on this? | Teamsで頻出 | 2026-08-19 |
+| [ ] | まだOKが出ていません | We haven't gotten the green light yet. | green light = 承認 | 2026-08-19 |
+| [ ] | ○○からの回答待ちです | We're still waiting to hear back from ○○. | 「返信待ち」の定番 | 2026-08-19 |
+| [ ] | 念のため確認ですが | Just to confirm, … | 会議・メール万能 | 2026-08-19 |
+| [ ] | こちら確認いただけますか? | Could you take a look at this? | checkより自然な場面多い | 2026-08-19 |
+| [ ] | 必要な素材数を記載しました | I've listed the number of assets we need. | assetは広告業務必須 | 2026-08-19 |
+| [ ] | 修正版を共有します | I'll share the revised version. | revised = 修正版 | 2026-08-19 |
+| [ ] | 月曜正午までに必要です | We would need this by noon on Monday. | 丁寧なdeadline表現 | 2026-08-19 |
+| [ ] | 調整ありがとうございます | Thanks for coordinating this. | | 2026-08-19 |
+
+## 業務単語 (Work Vocabulary)
+
+| 覚えた | 英語 | 意味 | 追加日 |
+|---|---|---|---|
+| [ ] | asset | 素材 | 2026-08-19 |
+| [ ] | delivery | 納品・入稿 | 2026-08-19 |
+| [ ] | deadline / due date | 締切 | 2026-08-19 |
+| [ ] | submission | 提出・入稿 | 2026-08-19 |
+| [ ] | revised | 修正された | 2026-08-19 |
+| [ ] | spec / specification | 仕様 | 2026-08-19 |
+| [ ] | stakeholder | 関係者 | 2026-08-19 |
+| [ ] | campaign performance | キャンペーン成果 | 2026-08-19 |
+| [ ] | reach | リーチ | 2026-08-19 |
+| [ ] | media plan | メディアプラン | 2026-08-19 |
+| [ ] | estimate | 見積もり | 2026-08-19 |
+| [ ] | review | 確認・レビュー | 2026-08-19 |
+| [ ] | approval | 承認 | 2026-08-19 |
+| [ ] | pending | 保留中・確認待ち | 2026-08-19 |
+| [ ] | update | 進捗・更新情報 | 2026-08-19 |
+| [ ] | coordinate | 調整する | 2026-08-19 |
+| [ ] | confirm | 確認する | 2026-08-19 |
+| [ ] | follow up | 追いかける・再確認する | 2026-08-19 |
+| [ ] | lock | 内容をFIXする | 2026-08-19 |
+| [ ] | provide | 提供する | 2026-08-19 |
+
 ## 添削メモ (Corrections)
 
 添削した文とポイントをここに残します。
