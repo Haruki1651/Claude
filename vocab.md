@@ -42,6 +42,8 @@
 | [ ] | give yourself a pat on the back | 自分を褒める、よくやったとねぎらう | Give yourself a pat on the back. | 2026-08-19 |
 | [ ] | pay off | (努力などが)報われる、成果として実る | Your persistence is going to pay off. | 2026-08-19 |
 | [ ] | How do you eat an elephant? One bite at a time. | 大きな目標も少しずつ取り組めば達成できる、ということわざ的表現 | — | 2026-08-19 |
+| [ ] | slice ~ into (bite-sized) pieces | 〜を(一口サイズに)切り分ける。比喩的に「大きなタスクを分割する」にも使う | Slice it into bite-sized pieces. | 2026-08-19 |
+| [ ] | Got a minute? | ちょっと時間ある?(Have you got a minute? のカジュアルな省略形。Do you have a minute? が最も無難でフォーマル) | Hey, got a minute? I need your input on something. | 2026-08-19 |
 
 ## 業務フレーズ (Work Phrases)
 
@@ -82,6 +84,16 @@
 | [ ] | follow up | 追いかける・再確認する | 2026-08-19 |
 | [ ] | lock | 内容をFIXする | 2026-08-19 |
 | [ ] | provide | 提供する | 2026-08-19 |
+
+## 文法メモ (Grammar Notes)
+
+- **前置詞 + which (to which / in which / for which / by which / with which / of which)**
+  書き言葉・フォーマルな文体で使われる関係詞パターン。"the answer **to** the saying" のように前置詞とセットの名詞を関係詞にするとき、前置詞ごと前に持ってきて一文にまとめる。話し言葉では前置詞を文末に置く("...which the answer to is...")か、2文に分ける方が自然。
+  - 例: *There's an old saying..., to which the answer is "One bite at a time."*
+
+- **(Have you) got ~? / (Do you) got ~? の疑問文省略**
+  カジュアルな口語・語りかけ文体で、"Have you" を省略してテンポよく話しかける形。自己啓発書やコーチング系の文章、日常会話でよく使われる。
+  - 例: *Got a big goal?*(= Have you got a big goal?) / *Got a minute?* / *Got any plans?*
 
 ## 添削メモ (Corrections)
 
