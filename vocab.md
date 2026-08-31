@@ -20,6 +20,9 @@
 | [ ] | lax | だらしない、緩い、厳格でない。time・rules・security など幅広い対象に使える | He's lax about time. / Their security checks are pretty lax. | 2026-08-19 |
 | [ ] | coordinate (with) | 調整する、(人と)連携して段取りを合わせる。複数の人・要素をうまく噛み合わせるロジ的なニュアンス | Please coordinate with the design team on this. | 2026-08-19 |
 | [ ] | collaborate (with) | (人と)協力して一緒に取り組む。coordinateと違い対等な立場で共同作業するニュアンス | I'd love to collaborate with you on a project again. | 2026-08-19 |
+| [ ] | milestone | (計画上の)節目、中間目標、マイルストーン | These little chunks are your milestones. | 2026-08-19 |
+| [ ] | doable | 実行可能な、達成できる(goal と相性が良い) | Set small, doable goals. | 2026-08-19 |
+| [ ] | pumped | やる気が出た、テンションが上がった(カジュアル) | It could be a treat, a break, or a bounce on a rebounder—whatever gets you pumped. | 2026-08-19 |
 
 ## 表現・イディオム (Expressions)
 
@@ -34,6 +37,11 @@
 | [ ] | follow up on ~ | 〜についてフォローアップする(他動詞的に使い、目的語が必要。冒頭で話題が示されていれば "on" を省いて follow up だけでもよい) | I'll follow up on this by next week. | 2026-08-19 |
 | [ ] | give feedback on ~ | 〜についてフィードバックをする | Could you give me your feedback on this proposal? | 2026-08-19 |
 | [ ] | loose with money/rules | (お金・ルールに)ルーズ、緩い。※時間には使わない(時間には lax や not punctual を使う) | He's pretty loose with money. / The company is loose with its rules. | 2026-08-19 |
+| [ ] | bite-sized (pieces) | 一口サイズの。比喩的に「大きなタスクを小さく分割する」ときにも使う | Break the project into bite-sized pieces. | 2026-08-19 |
+| [ ] | tick off (your list) | リストの項目を消し込む、チェックを入れる(英: tick off / 米: check off) | Every time you tick something off your list. | 2026-08-19 |
+| [ ] | give yourself a pat on the back | 自分を褒める、よくやったとねぎらう | Give yourself a pat on the back. | 2026-08-19 |
+| [ ] | pay off | (努力などが)報われる、成果として実る | Your persistence is going to pay off. | 2026-08-19 |
+| [ ] | How do you eat an elephant? One bite at a time. | 大きな目標も少しずつ取り組めば達成できる、ということわざ的表現 | — | 2026-08-19 |
 
 ## 業務フレーズ (Work Phrases)
 
