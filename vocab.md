@@ -44,6 +44,8 @@
 | [ ] | How do you eat an elephant? One bite at a time. | 大きな目標も少しずつ取り組めば達成できる、ということわざ的表現 | — | 2026-08-19 |
 | [ ] | slice ~ into (bite-sized) pieces | 〜を(一口サイズに)切り分ける。比喩的に「大きなタスクを分割する」にも使う | Slice it into bite-sized pieces. | 2026-08-19 |
 | [ ] | Got a minute? | ちょっと時間ある?(Have you got a minute? のカジュアルな省略形。Do you have a minute? が最も無難でフォーマル) | Hey, got a minute? I need your input on something. | 2026-08-19 |
+| [ ] | Where did we leave off? | どこまでやったっけ?、前回どこで終わった?(中断していた作業や話を再開するときの定番表現) | Where did we leave off last time? | 2026-08-19 |
+| [ ] | leave ~ off the list | 〜をリストから外す、入れ忘れる(省く) | You left my name off the list. | 2026-08-19 |
 
 ## 業務フレーズ (Work Phrases)
 
@@ -94,6 +96,10 @@
 - **(Have you) got ~? / (Do you) got ~? の疑問文省略**
   カジュアルな口語・語りかけ文体で、"Have you" を省略してテンポよく話しかける形。自己啓発書やコーチング系の文章、日常会話でよく使われる。
   - 例: *Got a big goal?*(= Have you got a big goal?) / *Got a minute?* / *Got any plans?*
+
+- **"off" の二重の役割(句動詞の粒子 + 前置詞)**
+  "tick something off your list" のような文で "on" が要らない理由。"off" が①句動詞 "tick off"(消し込む)の一部でありながら、②同時に "off your list"(リストから離れて)という前置詞句も作っている。1語で2つの役割を兼ねているため、別の前置詞は不要。同じパターン: *cross something off the list* / *take something off the shelf*。
+  ただし "leave"(場所を去る)のように動詞自体が「〜から離れる」の意味を最初から持つ場合は "off" 自体が不要("leave the office" であって "leave off the office" ではない)。"leave off" は別の句動詞として「中断する/省く」の意味で存在する(Where did we leave off? / leave ~ off the list)。
 
 ## 添削メモ (Corrections)
 
