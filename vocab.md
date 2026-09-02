@@ -23,6 +23,11 @@
 | [ ] | milestone | (計画上の)節目、中間目標、マイルストーン | These little chunks are your milestones. | 2026-08-19 |
 | [ ] | doable | 実行可能な、達成できる(goal と相性が良い) | Set small, doable goals. | 2026-08-19 |
 | [ ] | pumped | やる気が出た、テンションが上がった(カジュアル) | It could be a treat, a break, or a bounce on a rebounder—whatever gets you pumped. | 2026-08-19 |
+| [ ] | brim | (名詞)ふち、縁。"to the brim" で「ふちまでいっぱいに」。ここから比喩的に "brimming with ~"(感情で満ち溢れて)という動詞的用法が生まれた | He filled the glass to the brim. | 2026-08-19 |
+| [ ] | brimming with ~ | (感情など)で満ち溢れている、いっぱいになっている | When you're brimming with resentment... | 2026-08-19 |
+| [ ] | vent (venting) | (不満・怒りなどを)発散する、吐き出す。名詞の「換気口」から転じた用法 | You are constantly venting. | 2026-08-19 |
+| [ ] | circadian rhythm | 概日リズム、体内時計(24時間周期の生体リズム) | Gradually train your circadian rhythm. | 2026-08-19 |
+| [ ] | toughie | (カジュアル)難問、厄介なもの。"Here's a toughie" で「これは難しいかも」と前置きする定番の形 | Now, here's a toughie: if you must drink coffee... | 2026-08-19 |
 
 ## 表現・イディオム (Expressions)
 
@@ -46,6 +51,13 @@
 | [ ] | Got a minute? | ちょっと時間ある?(Have you got a minute? のカジュアルな省略形。Do you have a minute? が最も無難でフォーマル) | Hey, got a minute? I need your input on something. | 2026-08-19 |
 | [ ] | Where did we leave off? | どこまでやったっけ?、前回どこで終わった?(中断していた作業や話を再開するときの定番表現) | Where did we leave off last time? | 2026-08-19 |
 | [ ] | leave ~ off the list | 〜をリストから外す、入れ忘れる(省く) | You left my name off the list. | 2026-08-19 |
+| [ ] | not just X, either | Xだけが理由/目的じゃない(否定文で「〜も」を表す。肯定文の"too"に対応) | This isn't just about making progress, either: it's about enjoying the journey. | 2026-08-19 |
+| [ ] | ..., you know? | 〜だよね?、わかるでしょう?(文末の相槌タグ、カジュアルな会話・語りかけ文体) | It's about enjoying the journey, you know? | 2026-08-19 |
+| [ ] | Here's how: | やり方はこうです(手順・方法を説明する前置きの定番) | Here's how: First, sleep in a cool, dark room. | 2026-08-19 |
+| [ ] | This means ~ | つまり〜ということだ、これは〜を意味する(直前の内容を言い換え・具体化する万能フレーズ) | This means keeping the same sleeping schedule. | 2026-08-19 |
+| [ ] | if you must ~ | どうしても〜するなら、〜せざるを得ないなら(本当は避けたいが、もしやるなら、という譲歩) | If you must drink coffee, finish it by 2 pm. | 2026-08-19 |
+| [ ] | deal with ~ with ease | 〜に楽に対処する | You'll be able to deal with difficult problems with ease. | 2026-08-19 |
+| [ ] | (so) ~ you won't believe it | 信じられないほど〜(カジュアルな強調表現) | You'll feel so much more energetic and happier you won't believe it. | 2026-08-19 |
 
 ## 業務フレーズ (Work Phrases)
 
@@ -101,6 +113,34 @@
   "tick something off your list" のような文で "on" が要らない理由。"off" が①句動詞 "tick off"(消し込む)の一部でありながら、②同時に "off your list"(リストから離れて)という前置詞句も作っている。1語で2つの役割を兼ねているため、別の前置詞は不要。同じパターン: *cross something off the list* / *take something off the shelf*。
   ただし "leave"(場所を去る)のように動詞自体が「〜から離れる」の意味を最初から持つ場合は "off" 自体が不要("leave the office" であって "leave off the office" ではない)。"leave off" は別の句動詞として「中断する/省く」の意味で存在する(Where did we leave off? / leave ~ off the list)。
 
+- **口語的省略は疑問文だけでなく平叙文でも起こる**
+  疑問文: "(Do you) ever get so tired...?" のように主語+助動詞を省略。
+  平叙文: "(I) gotta run." / "(It) sounds good." / "(I) hope so." のように主語(+be動詞)を省略。会話・テキストメッセージ・日記でよく見られ、"diary drop" とも呼ばれる。フォーマルな文章では使わない。
+
+- **so ~ that ...(とても〜なので…だ)**
+  程度・結果を表す最頻出構文の一つ。
+  - 例: *Ever get so tired that you start questioning the meaning of life...?*
+  - *She was so tired that she fell asleep on the train.*
+
+- **find + O + C(Oを〜だと感じる/思う)**
+  find は「見つける」ではなく知覚・評価を表す動詞として、目的語+補語(形容詞/名詞)を伴う。
+  - 例: *find everybody irritating* / *I find this book interesting.* / *Do you find it hard to concentrate?*
+
+- **Do you ever ~? と Have you ever ~? の違い**
+  - *Do you ever ~?*(現在形)= 習慣・頻度「(日常的に)〜することがある?」
+  - *Have you ever ~?*(現在完了形)= 人生の経験「今までに〜したことがある?」
+  - 例: *Do you ever feel lonely?*(習慣・状態) vs *Have you ever felt lonely?*(経験の有無)
+
+- **ever の核となるニュアンス**
+  「(時間・可能性の)全範囲にわたって、少しでも/一度でも/どんな時でも」という感覚。特定の一点でなく、過去〜現在の全期間や、あらゆる可能性を見渡すイメージ。
+  - 疑問文: *Have you ever been to Japan?*(これまでの人生の中で一度でも)
+  - 否定 = never(not ever): *I never want to see him again.*
+  - 最上級と: *the best movie I've ever seen*(今まで見た中で一番)
+  - as ~ as ever(相変わらず): *He's as stubborn as ever.*
+  - ever since(〜以来ずっと): *I've loved music ever since I was a child.*
+  - wh語 + ever(whatever, whenever, however, whoever): *Whatever happens, I'll support you.*
+  - forever(= for ever)
+
 ## 添削メモ (Corrections)
 
 添削した文とポイントをここに残します。
@@ -125,3 +165,21 @@
 - **原文**: His only bad quality is that he is loose about time.
 - **添削**: His only flaw is that he's not punctual. (または He's lax about time.)
 - **ポイント**: "quality" は基本的に良い意味なので悪い意味には "flaw" を使う。"loose" は money/rules には使うが time には使わない(punctual / lax about time が自然)。
+
+### 2026-08-19 find + O + C / if you must ~ 練習セッション
+
+- **原文**: Honestly I find this proposal so boring.
+- **添削**: Honestly, I find this proposal pretty boring.
+- **ポイント**: 文頭の副詞(Honestly)の後にコンマが必要。「かなり」のニュアンスは "so"(すごく)より "pretty"/"quite" が近い。
+
+- **原文**: If you must work overtime, take a break at least.
+- **添削**: If you must work overtime, at least take a break.
+- **ポイント**: "at least" は動詞の前に置くのが自然な語順。文末に置く場合は "..., take a break, at least." のようにコンマで区切る。
+
+- **原文**: She found that joke not interesting.
+- **添削**: She didn't find that joke funny at all.
+- **ポイント**: "find X not Y" より "find" 自体を否定する方が自然。「全然」は "at all" で表現。冗談の「面白い」は "interesting" ではなく "funny" を使う。
+
+- **原文**: If you must oppose, give me an alternative idea.
+- **添削**: If you must oppose it, please suggest an alternative. (または If you must disagree, give me an alternative.)
+- **ポイント**: "oppose" は他動詞なので目的語が必要(または自動詞の "disagree" を使う)。"alternative" はそれ自体が「代替案」という名詞なので "an alternative idea" より "an alternative" だけで十分。
