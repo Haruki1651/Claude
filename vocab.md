@@ -151,11 +151,19 @@
   - as ~ as ever(相変わらず): *He's as stubborn as ever.*
   - ever since(〜以来ずっと): *I've loved music ever since I was a child.*
   - wh語 + ever(whatever, whenever, however, whoever): *Whatever happens, I'll support you.*
+  - forever(= for ever)
 
 - **not-so-X(あまりXでない)**
   形容詞の前に "not-so-" をつけて柔らかく・控えめに否定するパターン。本来ポジティブな形容詞(obvious, subtle, secret)につけると、逆に「実はその逆(バレバレ)だ」と皮肉っぽく強調する効果が出ることもある。
   - 例: *not-so-great* / *not-so-easy* / *not-so-nice* / *a not-so-subtle hint*(かなり露骨なヒント)/ *their not-so-secret relationship*(誰もが知っている「秘密」)
-  - forever(= for ever)
+
+- **whether A or B(AであろうとBであろうと、どちらにせよ)**
+  2つの対立する可能性を両方カバーして「どちらでも結論は同じ」と言う譲歩構文。"if"(1つの条件)とは違い、対になる選択肢を並べるのが特徴。文末に "either way" を添えて「(文頭のwhetherを)念押しする」形もよく使われる。
+  - 例: *Whether you're stuck doing something or pushing yourself to grow, you're going to feel a bit uncomfortable either way.*
+  - *Whether you win or lose, I'm proud of you.*
+
+- **"Take X, for example." → "On the other hand, there's Y." のペア構成**
+  対比する2つの物事を、片方ずつ「サンプルとして提示する」語りのテクニック。"there's Y"(there is構文)は単なる存在の説明ではなく、「はい、こちらがYです」と何かを差し出す・登場させるような軽い語り口を作る。エッセイ・自己啓発書などの説明的な文章でよく見られる型。
 
 ## 添削メモ (Corrections)
 
