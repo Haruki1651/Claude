@@ -28,6 +28,13 @@
 | [ ] | vent (venting) | (不満・怒りなどを)発散する、吐き出す。名詞の「換気口」から転じた用法 | You are constantly venting. | 2026-08-19 |
 | [ ] | circadian rhythm | 概日リズム、体内時計(24時間周期の生体リズム) | Gradually train your circadian rhythm. | 2026-08-19 |
 | [ ] | toughie | (カジュアル)難問、厄介なもの。"Here's a toughie" で「これは難しいかも」と前置きする定番の形 | Now, here's a toughie: if you must drink coffee... | 2026-08-19 |
+| [ ] | not-so-comfy | あまり快適でない("comfy" = comfortableのカジュアル形)。"not-so-X" は「あまりXでない」と柔らかく否定するパターン | Life's full of not-so-comfy spots. | 2026-08-19 |
+| [ ] | stuck doing (something) | 〜する状況から抜け出せない、行き詰まっている | I'm stuck doing paperwork all day. | 2026-08-19 |
+| [ ] | push yourself to grow | 成長するために自分を追い込む、自分にプレッシャーをかける | Whether you're pushing yourself to grow... | 2026-08-19 |
+| [ ] | discomfort | 不快感、居心地の悪さ(名詞。形容詞は uncomfortable) | Not all discomfort is equal. | 2026-08-19 |
+| [ ] | discipline | 規律、自己管理、自律。目標のためにコツコツ我慢して取り組む姿勢 | Discipline is your daily little stone. | 2026-08-19 |
+| [ ] | nudge | (名詞/動詞)そっと後押しすること、軽くつつくこと。ビジネスでは「催促・リマインドを柔らかく伝える」表現として非常に便利 | Just a friendly nudge about the report due tomorrow. | 2026-08-19 |
+| [ ] | nasty | 嫌な、たちの悪い、不快な、意地悪な。かなり幅広く使えるカジュアルな形容詞 | That's a nasty habit. | 2026-08-19 |
 
 ## 表現・イディオム (Expressions)
 
@@ -58,6 +65,11 @@
 | [ ] | if you must ~ | どうしても〜するなら、〜せざるを得ないなら(本当は避けたいが、もしやるなら、という譲歩) | If you must drink coffee, finish it by 2 pm. | 2026-08-19 |
 | [ ] | deal with ~ with ease | 〜に楽に対処する | You'll be able to deal with difficult problems with ease. | 2026-08-19 |
 | [ ] | (so) ~ you won't believe it | 信じられないほど〜(カジュアルな強調表現) | You'll feel so much more energetic and happier you won't believe it. | 2026-08-19 |
+| [ ] | Sorry to nudge you again, but ~ | 何度もすみません、こちら〜(催促を柔らかく伝えるビジネス定番フレーズ) | Sorry to nudge you again, but could you take a look at this? | 2026-08-19 |
+| [ ] | a nudge in the right direction | 正しい方向へのちょっとした後押し | A little nudge in the right direction can make a big difference. | 2026-08-19 |
+| [ ] | nudge (人) with one's elbow | 肘で(人を)軽くつつく | She nudged him with her elbow to get his attention. | 2026-08-19 |
+| [ ] | falling flat on your face (in front of a crowd) | (人前で)大失敗する、大恥をかく、という比喩イディオム | It's like falling flat on your face in front of a crowd. | 2026-08-19 |
+| [ ] | a small stone in your shoe | (比喩)小さいけれど気になる不快感・負担(小石が靴の中にある感覚)。長い目で見れば報われる努力の例え | It's like having a small stone in your shoe on a long, rewarding hike. | 2026-08-19 |
 
 ## 業務フレーズ (Work Phrases)
 
@@ -139,6 +151,10 @@
   - as ~ as ever(相変わらず): *He's as stubborn as ever.*
   - ever since(〜以来ずっと): *I've loved music ever since I was a child.*
   - wh語 + ever(whatever, whenever, however, whoever): *Whatever happens, I'll support you.*
+
+- **not-so-X(あまりXでない)**
+  形容詞の前に "not-so-" をつけて柔らかく・控えめに否定するパターン。本来ポジティブな形容詞(obvious, subtle, secret)につけると、逆に「実はその逆(バレバレ)だ」と皮肉っぽく強調する効果が出ることもある。
+  - 例: *not-so-great* / *not-so-easy* / *not-so-nice* / *a not-so-subtle hint*(かなり露骨なヒント)/ *their not-so-secret relationship*(誰もが知っている「秘密」)
   - forever(= for ever)
 
 ## 添削メモ (Corrections)
