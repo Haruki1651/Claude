@@ -35,6 +35,9 @@
 | [ ] | discipline | 規律、自己管理、自律。目標のためにコツコツ我慢して取り組む姿勢 | Discipline is your daily little stone. | 2026-08-19 |
 | [ ] | nudge | (名詞/動詞)そっと後押しすること、軽くつつくこと。ビジネスでは「催促・リマインドを柔らかく伝える」表現として非常に便利 | Just a friendly nudge about the report due tomorrow. | 2026-08-19 |
 | [ ] | nasty | 嫌な、たちの悪い、不快な、意地悪な。かなり幅広く使えるカジュアルな形容詞 | That's a nasty habit. | 2026-08-19 |
+| [ ] | alter | 変える、変化させる(changeよりややフォーマル・専門的。質や性質を部分的に変えるニュアンス) | Each one will alter how you feel about it. | 2026-09-17 |
+| [ ] | penne | ペンネ(先端が斜めに切られた筒状パスタ)。発音は /ˈpɛneɪ/ または /ˈpɛni/、揺れがある | That penne was pretty good. | 2026-09-17 |
+| [ ] | tear(動詞: 引き裂く) | 引き裂く、破る。発音は /tɛər/(hairと同じ音)。過去形 tore、過去分詞 torn。名詞「涙」の tear /tɪər/(hereと同じ音)とは綴りが同じで発音・意味が全く違うので要注意 | I tore my shirt. / tear something to shreds | 2026-09-17 |
 
 ## 表現・イディオム (Expressions)
 
@@ -70,6 +73,10 @@
 | [ ] | nudge (人) with one's elbow | 肘で(人を)軽くつつく | She nudged him with her elbow to get his attention. | 2026-08-19 |
 | [ ] | falling flat on your face (in front of a crowd) | (人前で)大失敗する、大恥をかく、という比喩イディオム | It's like falling flat on your face in front of a crowd. | 2026-08-19 |
 | [ ] | a small stone in your shoe | (比喩)小さいけれど気になる不快感・負担(小石が靴の中にある感覚)。長い目で見れば報われる努力の例え | It's like having a small stone in your shoe on a long, rewarding hike. | 2026-08-19 |
+| [ ] | imagine + ~ing | 〜することを想像する(imagine は動名詞を取り、to不定詞は続けない) | Imagine telling your friend, "..." | 2026-09-17 |
+| [ ] | tear something to shreds | 誰か・何かをズタズタに引き裂く。実際の行為ではなく、怒りの強さを大げさに表す誇張表現 | I'm so angry I could tear somebody to shreds! | 2026-09-17 |
+| [ ] | hold true | 当てはまる、成り立つ、真実である | This holds true for any language you're using, too. | 2026-09-17 |
+| [ ] | greatly / much appreciated | 大変感謝される、大いにありがたく思われる | I'm a good friend and greatly appreciated. | 2026-09-17 |
 
 ## 業務フレーズ (Work Phrases)
 
@@ -165,6 +172,14 @@
 - **"Take X, for example." → "On the other hand, there's Y." のペア構成**
   対比する2つの物事を、片方ずつ「サンプルとして提示する」語りのテクニック。"there's Y"(there is構文)は単なる存在の説明ではなく、「はい、こちらがYです」と何かを差し出す・登場させるような軽い語り口を作る。エッセイ・自己啓発書などの説明的な文章でよく見られる型。
 
+- **as + 形容詞(比較の省略: as bad (as before))**
+  "as ~ as ..." 構文で、比較対象(before/originally など)が文脈から明らかなときは後半の "as ..." を省略できる。
+  - 例: *You wouldn't feel as bad, would you?*(= as bad as before)
+
+- **so + 形容詞 + (that省略) + could + 動詞**
+  「とても〜なので…できるくらいだ」。口語では "that" が省略されることが多い。"could" は「(その気になれば)〜できる」という可能性・程度の誇張を表す。
+  - 例: *I'm so angry I could tear somebody to shreds!*
+
 ## 添削メモ (Corrections)
 
 添削した文とポイントをここに残します。
@@ -207,3 +222,29 @@
 - **原文**: If you must oppose, give me an alternative idea.
 - **添削**: If you must oppose it, please suggest an alternative. (または If you must disagree, give me an alternative.)
 - **ポイント**: "oppose" は他動詞なので目的語が必要(または自動詞の "disagree" を使う)。"alternative" はそれ自体が「代替案」という名詞なので "an alternative idea" より "an alternative" だけで十分。
+
+### 2026-09-17 Day9 チャンク翻訳セッション
+
+- **原文**: Starting and ending a day with positive feeling is like nourishing your heart. It makes you feel confident and with good energy.
+- **添削**: Starting and ending your day with positive thoughts is like nourishing your mind. It fills your day with confidence and energy. (または It makes you feel confident and energetic.)
+- **ポイント**: "confident and with good energy" は形容詞+前置詞句で並列が揃っていない(confident and energetic に揃える)。"heart" より思考の文脈では "mind" が自然。"feeling"(不可算的)より "feelings"/"thoughts" が自然。
+
+- **原文**: Maybe try this: when you wake up and before you get sleep, think of good things about yourself.
+- **添削**: Maybe try this: when you wake up and before you go to sleep, think of good things about yourself.
+- **ポイント**: "get sleep"(睡眠を取る、量のニュアンス)と "go to sleep"(寝るという行為のタイミング)は違う。「寝る前に」は go to sleep(または単に sleep)。
+
+- **原文**: This habit is like planting seeds of positivity growing all a day. Doing it regularly helps shaping confident and upbeat mindset.
+- **添削**: This habit is like planting seeds of positivity growing all day. Doing it regularly helps shape a confident and upbeat mindset.
+- **ポイント**: "all day" は冠詞なしの決まった言い方。"help" の後は原形不定詞(help shape であって help shaping ではない)。"a confident and upbeat mindset" の冠詞 "a" を忘れない。
+
+- **原文**: The way you talk to yourself really shapes a day. ... It makes a big difference to keep your positivity.
+- **添削**: The way you talk to yourself really shapes your day. ... It makes a big difference to keep your positivity flowing.
+- **ポイント**: 自分自身の一日を指すときは "your day"(a day ではなく)。原文のイメージに寄せるなら "keep your positivity flowing"(ポジティブさの流れを保つ)まで含めるとより自然。
+
+- **原文**: Your patience will be deserved someday.
+- **添削**: Your persistence will pay off someday.
+- **ポイント**: 「粘り強さ」は persistence(patience=忍耐とは別)。「報われる」は pay off(deserve=値する、とは意味が違う)。
+
+- **原文**: If you must work overtime, you should take a supper at least.
+- **添削**: If you must work overtime, you should at least have dinner.
+- **ポイント**: "supper/dinner" は take ではなく have と組み合わせる。"at least" は動詞の前に置くのが自然な語順(前回のセッションと同じ復習ポイント)。
