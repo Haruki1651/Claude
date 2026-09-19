@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>週間献立プランナー(0歳・3歳児家庭向け)</title>
+<style>
+:root{
+  --bg:#f6f4ee;--surf:#fff;--surf2:#faf8f2;--bdr:#e4ddcd;
+  --txt:#3a352b;--mt:#8a8270;--dim:#b3ab98;
+  --wa:#3f8a5c;--wa2:#e7f4ec;--yo:#3f7fc1;--yo2:#e8f1fb;--chu:#c17d2e;--chu2:#faf0e2;
+  --acc:#d97a5f;--sh:0 2px 10px rgba(80,70,40,.06);--shm:0 4px 18px rgba(80,70,40,.1);--r:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--txt);font-family:'Hiragino Sans','Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.6;padding:1.5rem 1rem 4rem;}
+.wrap{max-width:1080px;margin:0 auto;}
+header{text-align:center;margin-bottom:1.6rem;}
+h1{font-size:1.5rem;font-weight:700;}
+header p{color:var(--mt);font-size:.85rem;margin-top:.3rem;}
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);padding:1.1rem 1.3rem;margin-bottom:1.2rem;}
+.card h2{font-size:.95rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;}
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem;}
+.tip{background:var(--surf2);border:1px solid var(--bdr);border-radius:10px;padding:.8rem .9rem;}
+.tip b{display:block;font-size:.82rem;margin-bottom:.35rem;color:var(--acc);}
+.tip ul{padding-left:1.1rem;font-size:.8rem;color:var(--txt);}
+.tip li{margin-bottom:.25rem;}
+.controls{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1.1rem;}
+.btn{padding:.55rem 1.1rem;border-radius:9px;border:none;font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .15s;}
+.btn-main{background:var(--acc);color:#fff;}
+.btn-gy{background:var(--surf2);color:var(--txt);border:1px solid var(--bdr);}
+.btn:hover{opacity:.85;}
+.note{font-size:.78rem;color:var(--mt);}
+.days{display:grid;grid-template-columns:1fr;gap:.7rem;}
+.day{border:1px solid var(--bdr);border-radius:12px;padding:.85rem 1rem;background:var(--surf2);display:grid;grid-template-columns:52px 1fr 1fr;gap:.9rem;align-items:start;}
+.day .dname{font-weight:700;font-size:1rem;padding-top:.3rem;}
+.slot label{display:block;font-size:.68rem;color:var(--mt);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem;}
+select{width:100%;background:var(--surf);border:1.5px solid var(--bdr);border-radius:8px;color:var(--txt);padding:.4rem .6rem;font-size:.82rem;font-family:inherit;cursor:pointer;}
+select:focus{outline:none;border-color:var(--acc);}
+.badge{display:inline-block;padding:.1rem .5rem;border-radius:5px;font-size:.66rem;font-weight:700;margin-left:.4rem;vertical-align:middle;}
+.b-wa{background:var(--wa2);color:var(--wa);}
+.b-yo{background:var(--yo2);color:var(--yo);}
+.b-chu{background:var(--chu2);color:var(--chu);}
+.meta{font-size:.72rem;color:var(--dim);margin-top:.15rem;}
+.kidtip{margin-top:.5rem;font-size:.76rem;background:#fff;border-left:3px solid var(--acc);padding:.4rem .6rem;border-radius:0 6px 6px 0;color:#5a5344;}
+.kidtip b{color:var(--acc);}
+.steps{margin-top:.4rem;font-size:.75rem;color:var(--mt);padding-left:1.1rem;}
+.steps li{margin-bottom:.15rem;}
+.steps .mark{color:var(--acc);font-weight:700;}
+.side-note{font-size:.74rem;color:var(--mt);margin-top:.35rem;}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
+.shop-cat h3{font-size:.78rem;color:var(--acc);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;border-bottom:1px solid var(--bdr);padding-bottom:.3rem;}
+.shop-cat ul{list-style:none;}
+.shop-cat li{display:flex;align-items:baseline;gap:.5rem;padding:.28rem 0;font-size:.85rem;}
+.shop-cat li input{margin-top:.15rem;cursor:pointer;}
+.shop-cat li.checked span{text-decoration:line-through;color:var(--dim);}
+.shop-cat .qty{margin-left:auto;color:var(--mt);font-size:.78rem;white-space:nowrap;}
+footer{text-align:center;color:var(--dim);font-size:.72rem;margin-top:2rem;}
+@media(max-width:640px){.day{grid-template-columns:1fr;}.day .dname{padding-top:0;}}
+@media print{
+  body{background:#fff;padding:0;}
+  .controls,.tips-grid{display:none;}
+  .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;}
+  select{border:none;-webkit-appearance:none;background:none;padding:0;pointer-events:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>週間献立プランナー</h1>
+  <p>0歳児(母乳育児中)・3歳児・夫婦2人の家庭向け ｜ 和洋中バランス・薄味＆取り分け対応 ｜ 週1買い出し想定</p>
+</header>
+
+<div class="card">
+  <h2>💡 家族の食事づくりのコツ</h2>
+  <div class="tips-grid">
+    <div class="tip">
+      <b>薄味・取り分けのコツ</b>
+      <ul>
+        <li>味付けは大人の半分〜7割の濃さを基本にする</li>
+        <li>塩・醤油・香辛料・にんにく・生姜などを入れる<b>前</b>に子ども用を取り分ける</li>
+        <li>とろみをつけると食べやすく、汁物も取り分けやすい</li>
+        <li>酢・辛味・強い香辛料は大人用にだけ後がけする</li>
+      </ul>
+    </div>
+    <div class="tip">
+      <b>週1買い出しを回すコツ</b>
+      <ul>
+        <li>肉・魚は買った日に1回分ずつ小分けして冷凍</li>
+        <li>大根・人参・玉ねぎ・キャベツなど日持ちする野菜を軸にする</li>
+        <li>下ごしらえ(カット・下茹で)は買い出し当日〜翌日にまとめて</li>
+        <li>同じ野菜を複数レシピで使い回し、使い切る</li>
+      </ul>
+    </div>
+    <div class="tip">
+      <b>安全メモ(3歳児)</b>
+      <ul>
+        <li>ミニトマト・ぶどう・こんにゃくゼリー等は小さく切る(誤嚥防止)</li>
+        <li>骨付き魚・鶏手羽は骨を確認してからほぐして提供</li>
+        <li>0歳児は母乳のみのため献立対象外(離乳食開始後に別途対応)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="controls">
+    <button class="btn btn-main" id="genBtn">🔀 1週間分を自動生成</button>
+    <button class="btn btn-gy" id="printBtn">🖨 印刷 / PDF保存</button>
+    <span class="note">主菜・副菜はプルダウンで自由に変更できます。変更すると買い物リストも自動更新されます。</span>
+  </div>
+  <div class="days" id="days"></div>
+</div>
+
+<div class="card">
+  <h2>🛒 今週の買い物リスト(週1回まとめ買い用)</h2>
+  <p class="note" style="margin-bottom:.8rem;">チェックは家にある/買った印です。ブラウザに保存され、次回開いた時も残ります。</p>
+  <div class="shop-grid" id="shopList"></div>
+</div>
+
+<footer>家族構成: 0歳児(母乳)・3歳児・夫婦 ｜ 和洋中20の主菜＋8の副菜からローテーション</footer>
+</div>
+
+<script>
+const MAINS = [
+{id:'teriyaki',name:'鶏の照り焼き',cuisine:'和',time:15,
+ ing:[{n:'鶏もも肉',q:300,u:'g',c:'肉・魚'},{n:'醤油',q:1,u:'大さじ',c:'調味料'},{n:'みりん',q:1,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
+ steps:['鶏肉を一口大に切り、皮目から中火で焼く','<span class="mark">★取り分け</span>火が通った時点で子ども用を確保(そのまま、または醤油ひとたらし)','残りに醤油・みりん・砂糖を加えて煮絡める'],
+ tip:'子ども用は味付け前の鶏肉に醤油をひとたらしする程度で十分。'},
+{id:'nikujaga',name:'肉じゃが',cuisine:'和',time:25,
+ ing:[{n:'豚こま切れ肉',q:200,u:'g',c:'肉・魚'},{n:'じゃがいも',q:3,u:'個',c:'野菜'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'},{n:'人参',q:1,u:'本',c:'野菜'},{n:'醤油',q:2,u:'大さじ',c:'調味料'},{n:'みりん',q:2,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'大さじ',c:'調味料'}],
+ steps:['野菜と肉をだし汁で柔らかくなるまで煮る','<span class="mark">★取り分け</span>薄味のうちに子ども用をよそう','残りに醤油・みりん・砂糖を加えて煮詰める'],
+ tip:'子ども用は具材が柔らかくなった薄味の段階で、汁気を軽く切って提供。'},
+{id:'sake_shioyaki',name:'鮭の塩焼きと根菜の味噌汁',cuisine:'和',time:20,
+ ing:[{n:'生鮭',q:2,u:'切れ',c:'肉・魚'},{n:'大根',q:5,u:'cm',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'味噌',q:2,u:'大さじ',c:'調味料'}],
+ steps:['鮭に薄く塩をふり魚焼きグリルで焼く','根菜をだしで煮る','<span class="mark">★取り分け</span>味噌を溶く前に子ども用の汁を確保、鮭は骨を除いてほぐす'],
+ tip:'鮭の塩は控えめに。骨は必ず確認して取り除く。'},
+{id:'shogayaki',name:'豚肉の生姜焼き',cuisine:'和',time:15,
+ ing:[{n:'豚ロース薄切り',q:250,u:'g',c:'肉・魚'},{n:'醤油',q:1.5,u:'大さじ',c:'調味料'},{n:'みりん',q:1.5,u:'大さじ',c:'調味料'},{n:'キャベツ',q:2,u:'枚',c:'野菜'}],
+ steps:['豚肉を焼く','<span class="mark">★取り分け</span>生姜を加える前に子ども用を確保','残りに生姜・醤油・みりんを加えて絡める'],
+ tip:'生姜は刺激が強いので、取り分け後の仕上げで加える。'},
+{id:'soboro',name:'鶏そぼろ丼',cuisine:'和',time:15,
+ ing:[{n:'鶏ひき肉',q:250,u:'g',c:'肉・魚'},{n:'醤油',q:1.5,u:'大さじ',c:'調味料'},{n:'みりん',q:1.5,u:'大さじ',c:'調味料'},{n:'卵',q:2,u:'個',c:'卵・乳製品'},{n:'ご飯',q:3,u:'合分',c:'主食'}],
+ steps:['鶏ひき肉を調味料半量で薄めに炒り煮する','<span class="mark">★取り分け</span>薄味の状態で子ども用を確保','残りに調味料を足してしっかり味に仕上げ、炒り卵を添える'],
+ tip:'そぼろは元々薄味で作りやすく、丼は取り分けの定番メニュー。'},
+{id:'buridaikon',name:'ぶり大根',cuisine:'和',time:30,
+ ing:[{n:'ぶり',q:2,u:'切れ',c:'肉・魚'},{n:'大根',q:0.5,u:'本',c:'野菜'},{n:'醤油',q:2,u:'大さじ',c:'調味料'},{n:'みりん',q:2,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'大さじ',c:'調味料'}],
+ steps:['大根を下茹でし、ぶりは霜降りして臭みを取る','だしと大根で薄めに煮て','<span class="mark">★取り分け</span>味を足す前に子ども用を確保、皮を除いてほぐす'],
+ tip:'骨に注意し、皮を除いてほぐしてから与える。'},
+{id:'tofu_hamburg',name:'豆腐ハンバーグ',cuisine:'和',time:20,
+ ing:[{n:'鶏ひき肉',q:200,u:'g',c:'肉・魚'},{n:'木綿豆腐',q:150,u:'g',c:'その他'},{n:'玉ねぎ',q:0.5,u:'個',c:'野菜'},{n:'卵',q:1,u:'個',c:'卵・乳製品'},{n:'パン粉',q:3,u:'大さじ',c:'主食'},{n:'ポン酢',q:1,u:'大さじ',c:'調味料'}],
+ steps:['具材を混ぜて小判形に成形し焼く','<span class="mark">★取り分け</span>味付け前に子ども用を確保','大根おろしとポン酢を大人用に添える'],
+ tip:'豆腐入りでふんわり柔らかく、味付け前でも食べやすい。'},
+{id:'tomato_ni',name:'チキンのトマト煮込み',cuisine:'洋',time:25,
+ ing:[{n:'鶏もも肉',q:300,u:'g',c:'肉・魚'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'},{n:'トマト缶',q:1,u:'缶',c:'その他'},{n:'コンソメ',q:1,u:'個',c:'調味料'},{n:'にんにく',q:1,u:'片',c:'調味料'}],
+ steps:['鶏肉と玉ねぎを炒め、トマト缶とコンソメを加えて煮込む','<span class="mark">★取り分け</span>塩胡椒・にんにくを加える前に子ども用を確保','残りに塩胡椒・にんにくで味を調える'],
+ tip:'トマトの酸味と旨味だけでも子どもは食べやすい味。'},
+{id:'meuniere',name:'鮭のムニエル',cuisine:'洋',time:15,
+ ing:[{n:'生鮭',q:2,u:'切れ',c:'肉・魚'},{n:'小麦粉',q:2,u:'大さじ',c:'主食'},{n:'バター',q:20,u:'g',c:'卵・乳製品'}],
+ steps:['鮭に薄く小麦粉をまぶしバターで焼く','<span class="mark">★取り分け</span>塩胡椒をふる前に子ども用を確保','大人用に塩胡椒とレモンを添える'],
+ tip:'バター風味だけで十分美味しく、塩は取り分け後に。'},
+{id:'cream_stew',name:'豚肉のクリームシチュー',cuisine:'洋',time:30,
+ ing:[{n:'豚肩ロース',q:200,u:'g',c:'肉・魚'},{n:'じゃがいも',q:2,u:'個',c:'野菜'},{n:'人参',q:1,u:'本',c:'野菜'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'},{n:'牛乳',q:400,u:'ml',c:'卵・乳製品'},{n:'シチュールウ',q:0.5,u:'箱',c:'調味料'}],
+ steps:['具材を炒めて煮込み、牛乳を加える','<span class="mark">★取り分け</span>ルウを溶かす前の薄い段階で子ども用を確保','残りにルウを溶かし入れてとろみをつける'],
+ tip:'牛乳ベースで元々マイルド。市販ルウは子ども用は少なめに。'},
+{id:'meat_sauce',name:'ミートソースパスタ',cuisine:'洋',time:25,
+ ing:[{n:'合いびき肉',q:250,u:'g',c:'肉・魚'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'},{n:'トマト缶',q:1,u:'缶',c:'その他'},{n:'ケチャップ',q:2,u:'大さじ',c:'調味料'},{n:'パスタ',q:200,u:'g',c:'主食'}],
+ steps:['ひき肉と玉ねぎを炒め、トマト缶を加えて煮詰める','<span class="mark">★取り分け</span>塩胡椒を足す前に子ども用ソースを確保','残りにケチャップ・塩胡椒で味を調え、パスタと和える'],
+ tip:'子ども用パスタは短く切ってから和えると食べやすい。'},
+{id:'potofu',name:'鶏肉と野菜のポトフ',cuisine:'洋',time:30,
+ ing:[{n:'鶏手羽元',q:6,u:'本',c:'肉・魚'},{n:'キャベツ',q:0.25,u:'個',c:'野菜'},{n:'人参',q:1,u:'本',c:'野菜'},{n:'じゃがいも',q:2,u:'個',c:'野菜'},{n:'コンソメ',q:1,u:'個',c:'調味料'}],
+ steps:['鶏肉と野菜、コンソメを鍋で煮込む','<span class="mark">★取り分け</span>塩を加える前に子ども用のスープと具材を確保','残りに塩で味を調える'],
+ tip:'骨付き肉は身をほぐし骨を完全に除いてから子どもに与える。'},
+{id:'wafu_hamburg',name:'和風おろしハンバーグ',cuisine:'洋',time:25,
+ ing:[{n:'合いびき肉',q:250,u:'g',c:'肉・魚'},{n:'玉ねぎ',q:0.5,u:'個',c:'野菜'},{n:'卵',q:1,u:'個',c:'卵・乳製品'},{n:'パン粉',q:3,u:'大さじ',c:'主食'},{n:'大根',q:5,u:'cm',c:'野菜'},{n:'ポン酢醤油',q:2,u:'大さじ',c:'調味料'}],
+ steps:['ハンバーグのたねを作り焼く','<span class="mark">★取り分け</span>焼き上がった時点で子ども用を確保','大人用に大根おろしとポン酢だれをかける'],
+ tip:'たねの下味は薄めにし、たれは取り分け後にかける。'},
+{id:'chicken_cheese',name:'鶏むね肉のチーズ焼き',cuisine:'洋',time:20,
+ ing:[{n:'鶏むね肉',q:300,u:'g',c:'肉・魚'},{n:'とろけるチーズ',q:50,u:'g',c:'卵・乳製品'},{n:'トマト',q:1,u:'個',c:'野菜'}],
+ steps:['鶏むね肉を薄くそぎ切りにして焼く','<span class="mark">★取り分け</span>塩胡椒の前に子ども用を確保','残りに塩胡椒し、チーズとトマトをのせて溶かす'],
+ tip:'チーズは子どもも一緒に楽しめるが、量は控えめに。'},
+{id:'mapo',name:'麻婆豆腐(甘め)',cuisine:'中',time:20,
+ ing:[{n:'木綿豆腐',q:1,u:'丁',c:'その他'},{n:'豚ひき肉',q:150,u:'g',c:'肉・魚'},{n:'長ねぎ',q:0.5,u:'本',c:'野菜'},{n:'醤油',q:1,u:'大さじ',c:'調味料'},{n:'味噌',q:1,u:'大さじ',c:'調味料'},{n:'片栗粉',q:2,u:'小さじ',c:'主食'}],
+ steps:['豆腐とひき肉、ねぎを醤油と味噌で薄めに煮る','<span class="mark">★取り分け</span>豆板醤を入れる前に子ども用を確保','大人用に豆板醤・ラー油を加えて辛味をつける'],
+ tip:'子ども用は辛味料を入れる前の甘め麻婆で。とろみで食べやすい。'},
+{id:'chuka_itame',name:'鶏肉とキャベツの中華炒め',cuisine:'中',time:15,
+ ing:[{n:'鶏もも肉',q:250,u:'g',c:'肉・魚'},{n:'キャベツ',q:0.25,u:'個',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'},{n:'醤油',q:1,u:'小さじ',c:'調味料'}],
+ steps:['鶏肉と野菜を炒め、鶏がらスープの素で薄く味付け','<span class="mark">★取り分け</span>醤油・ごま油を足す前に子ども用を確保','残りに醤油とごま油を加えて仕上げる'],
+ tip:'中華調味料は塩分が濃いめなので、薄いうちに子ども用を確保。'},
+{id:'chahan',name:'エビと卵のチャーハン(薄味)',cuisine:'中',time:15,
+ ing:[{n:'むきえび',q:100,u:'g',c:'肉・魚'},{n:'卵',q:2,u:'個',c:'卵・乳製品'},{n:'ご飯',q:2,u:'合分',c:'主食'}],
+ steps:['卵とご飯を炒め合わせる','塩少々で薄く味付けし','<span class="mark">★取り分け</span>子ども用を確保してから、残りに醤油を鍋肌から加えて仕上げる'],
+ tip:'味付けは塩のみで十分。醤油は仕上げに大人用だけ加える。'},
+{id:'ankake',name:'豚肉と白菜の中華あんかけ',cuisine:'中',time:20,
+ ing:[{n:'豚こま切れ肉',q:200,u:'g',c:'肉・魚'},{n:'白菜',q:0.25,u:'株',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'},{n:'片栗粉',q:1,u:'大さじ',c:'主食'}],
+ steps:['豚肉と白菜、人参を鶏がらスープの素で煮る','<span class="mark">★取り分け</span>とろみをつける前、薄味の段階で子ども用を確保','醤油を加えて味を調え、水溶き片栗粉でとろみをつける'],
+ tip:'とろみは子ども用にも別で少量つけると食べやすい。'},
+{id:'bangbangji',name:'棒々鶏',cuisine:'中',time:20,
+ ing:[{n:'鶏むね肉',q:300,u:'g',c:'肉・魚'},{n:'きゅうり',q:1,u:'本',c:'野菜'},{n:'醤油',q:1,u:'大さじ',c:'調味料'},{n:'ごまだれ',q:2,u:'大さじ',c:'調味料'}],
+ steps:['鶏むね肉を茹でて冷まし、手で裂く','きゅうりと鶏肉に','<span class="mark">★取り分け</span>醤油ベースのごまだれのみで子ども用を確保、大人用に酢とラー油を追加'],
+ tip:'茹で鶏はパサつきやすいので、子ども用は細かく裂いてたれを絡める。'},
+{id:'dango_soup',name:'肉団子と野菜の中華スープ',cuisine:'中',time:25,
+ ing:[{n:'鶏ひき肉',q:200,u:'g',c:'肉・魚'},{n:'白菜',q:0.25,u:'株',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'鶏がらスープの素',q:2,u:'小さじ',c:'調味料'},{n:'片栗粉',q:1,u:'大さじ',c:'主食'}],
+ steps:['ひき肉に片栗粉を混ぜて団子にし、野菜と一緒にスープで煮る','<span class="mark">★取り分け</span>醤油を加える前に子ども用スープを確保','残りに醤油を加えて味を調える'],
+ tip:'スープごと取り分けられるので忙しい日にも便利。'}
+];
+
+const SIDES = [
+{id:'miso_gu',name:'具沢山味噌汁',cuisine:'和',
+ ing:[{n:'大根',q:5,u:'cm',c:'野菜'},{n:'人参',q:0.33,u:'本',c:'野菜'},{n:'油揚げ',q:0.5,u:'枚',c:'その他'},{n:'味噌',q:2,u:'大さじ',c:'調味料'}],
+ note:'味噌を溶く前の薄いうちに子ども用を取り分ける。'},
+{id:'gomaae',name:'ほうれん草の胡麻和え',cuisine:'和',
+ ing:[{n:'ほうれん草',q:1,u:'束',c:'野菜'},{n:'醤油',q:1,u:'小さじ',c:'調味料'},{n:'すりごま',q:1,u:'大さじ',c:'調味料'}],
+ note:'醤油は少量にして、すりごまの風味を活かす。'},
+{id:'sunomono',name:'きゅうりとわかめの酢の物',cuisine:'和',
+ ing:[{n:'きゅうり',q:1,u:'本',c:'野菜'},{n:'乾燥わかめ',q:1,u:'大さじ',c:'その他'},{n:'酢',q:1,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
+ note:'子ども用は酢を控えめにするか、お湯で薄めて和える。'},
+{id:'consomme_soup',name:'コンソメ野菜スープ',cuisine:'洋',
+ ing:[{n:'キャベツ',q:2,u:'枚',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'玉ねぎ',q:0.5,u:'個',c:'野菜'},{n:'コンソメ',q:1,u:'個',c:'調味料'}],
+ note:'コンソメは大人の半量からでも十分な旨味。'},
+{id:'broccoli_salad',name:'ブロッコリーとゆで卵のサラダ',cuisine:'洋',
+ ing:[{n:'ブロッコリー',q:0.5,u:'株',c:'野菜'},{n:'ゆで卵',q:2,u:'個',c:'卵・乳製品'},{n:'マヨネーズ',q:1,u:'大さじ',c:'調味料'}],
+ note:'マヨネーズは控えめに、子ども用は無しでも良い。'},
+{id:'carrot_glace',name:'にんじんのグラッセ',cuisine:'洋',
+ ing:[{n:'人参',q:1,u:'本',c:'野菜'},{n:'バター',q:10,u:'g',c:'卵・乳製品'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
+ note:'バターと砂糖の優しい甘みで子どもも食べやすい。'},
+{id:'tomato_egg_soup',name:'トマトと卵の中華スープ',cuisine:'中',
+ ing:[{n:'トマト',q:1,u:'個',c:'野菜'},{n:'卵',q:1,u:'個',c:'卵・乳製品'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'}],
+ note:'塩分は鶏がらスープの素のみで十分。'},
+{id:'corn_soup',name:'中華風コーンスープ',cuisine:'中',
+ ing:[{n:'クリームコーン缶',q:1,u:'缶',c:'その他'},{n:'卵',q:1,u:'個',c:'卵・乳製品'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'}],
+ note:'とろみで飲みやすく、子どもも好みやすい味。'}
+];
+
+const DAYS = ['月','火','水','木','金','土','日'];
+const CUI_CLASS = {'和':'b-wa','洋':'b-yo','中':'b-chu'};
+let week = []; // [{mainId, sideId}]
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function generateWeek(){
+  let mains = shuffle(MAINS).slice(0,7);
+  // 隣り合う日の料理ジャンルが連続しすぎないよう軽く並べ替え
+  for(let i=1;i<mains.length;i++){
+    if(mains[i].cuisine === mains[i-1].cuisine){
+      for(let j=i+1;j<mains.length;j++){
+        if(mains[j].cuisine !== mains[i-1].cuisine){
+          [mains[i],mains[j]] = [mains[j],mains[i]];
+          break;
+        }
+      }
+    }
+  }
+  let sides = shuffle(SIDES).slice(0,7);
+  week = DAYS.map((d,i)=>({mainId:mains[i].id, sideId:sides[i].id}));
+  render();
+}
+
+function findMain(id){ return MAINS.find(m=>m.id===id); }
+function findSide(id){ return SIDES.find(s=>s.id===id); }
+
+function render(){
+  const cont = document.getElementById('days');
+  cont.innerHTML = '';
+  DAYS.forEach((d,i)=>{
+    const m = findMain(week[i].mainId);
+    const s = findSide(week[i].sideId);
+    const row = document.createElement('div');
+    row.className = 'day';
+    row.innerHTML = `
+      <div class="dname">${d}</div>
+      <div class="slot">
+        <label>主菜</label>
+        <select data-idx="${i}" data-kind="main">
+          ${MAINS.map(x=>`<option value="${x.id}" ${x.id===m.id?'selected':''}>${x.name}</option>`).join('')}
+        </select>
+        <div class="meta"><span class="badge ${CUI_CLASS[m.cuisine]}">${m.cuisine}</span> 調理目安 ${m.time}分</div>
+        <ol class="steps">${m.steps.map(st=>`<li>${st}</li>`).join('')}</ol>
+        <div class="kidtip"><b>取り分けメモ:</b> ${m.tip}</div>
+      </div>
+      <div class="slot">
+        <label>副菜・汁物</label>
+        <select data-idx="${i}" data-kind="side">
+          ${SIDES.map(x=>`<option value="${x.id}" ${x.id===s.id?'selected':''}>${x.name}</option>`).join('')}
+        </select>
+        <div class="meta"><span class="badge ${CUI_CLASS[s.cuisine]}">${s.cuisine}</span></div>
+        <div class="side-note">${s.note}</div>
+      </div>
+    `;
+    cont.appendChild(row);
+  });
+  cont.querySelectorAll('select').forEach(sel=>{
+    sel.addEventListener('change', e=>{
+      const idx = +e.target.dataset.idx;
+      const kind = e.target.dataset.kind;
+      if(kind==='main') week[idx].mainId = e.target.value;
+      else week[idx].sideId = e.target.value;
+      render();
+    });
+  });
+  renderShopping();
+}
+
+const CATS = ['肉・魚','野菜','卵・乳製品','調味料','主食','その他'];
+const TSP_UNITS = {'大さじ':3,'小さじ':1};
+
+function loadChecked(){
+  try{ return JSON.parse(localStorage.getItem('mealplanner_checked')||'{}'); }catch(e){ return {}; }
+}
+function saveChecked(obj){
+  try{ localStorage.setItem('mealplanner_checked', JSON.stringify(obj)); }catch(e){}
+}
+
+function renderShopping(){
+  const items = {}; // key: cat|name|unitKind -> {qty, unit, cat, name}
+  const addIng = (ing)=>{
+    ing.forEach(it=>{
+      let key, qty=it.q, unit=it.u;
+      if(TSP_UNITS[it.u]){
+        key = it.c+'|'+it.n+'|tsp';
+        qty = it.q * TSP_UNITS[it.u];
+        unit = 'tsp';
+      } else {
+        key = it.c+'|'+it.n+'|'+it.u;
+      }
+      if(!items[key]) items[key] = {name:it.n, cat:it.c, unit:unit, qty:0};
+      items[key].qty += qty;
+    });
+  };
+  week.forEach(w=>{
+    addIng(findMain(w.mainId).ing);
+    addIng(findSide(w.sideId).ing);
+  });
+
+  const fmtQty = (it)=>{
+    if(it.unit==='tsp'){
+      const tbsp = Math.floor(it.qty/3);
+      const tsp = Math.round((it.qty - tbsp*3)*10)/10;
+      let out = [];
+      if(tbsp>0) out.push('大さじ'+tbsp);
+      if(tsp>0) out.push('小さじ'+tsp);
+      return out.join(' ') || '少々';
+    }
+    const q = Math.round(it.qty*10)/10;
+    return q+it.unit;
+  };
+
+  const checked = loadChecked();
+  const cont = document.getElementById('shopList');
+  cont.innerHTML = '';
+  CATS.forEach(cat=>{
+    const list = Object.values(items).filter(it=>it.cat===cat).sort((a,b)=>a.name.localeCompare(b.name,'ja'));
+    if(list.length===0) return;
+    const div = document.createElement('div');
+    div.className = 'shop-cat';
+    div.innerHTML = `<h3>${cat}</h3><ul>${list.map(it=>{
+      const ck = checked[cat+'|'+it.name] ? 'checked' : '';
+      return `<li class="${ck?'checked':''}"><input type="checkbox" data-key="${cat}|${it.name}" ${ck}><span>${it.name}</span><span class="qty">${fmtQty(it)}</span></li>`;
+    }).join('')}</ul>`;
+    cont.appendChild(div);
+  });
+  cont.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change', e=>{
+      const st = loadChecked();
+      st[e.target.dataset.key] = e.target.checked;
+      saveChecked(st);
+      e.target.closest('li').classList.toggle('checked', e.target.checked);
+    });
+  });
+}
+
+document.getElementById('genBtn').addEventListener('click', generateWeek);
+document.getElementById('printBtn').addEventListener('click', ()=>window.print());
+
+generateWeek();
+</script>
+</body>
+</html>
