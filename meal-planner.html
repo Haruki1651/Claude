@@ -47,6 +47,11 @@ select:focus{outline:none;border-color:var(--acc);}
 .steps li{margin-bottom:.15rem;}
 .steps .mark{color:var(--acc);font-weight:700;}
 .side-note{font-size:.74rem;color:var(--mt);margin-top:.35rem;}
+.batch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.9rem;}
+.batch-card{border:1px solid var(--bdr);border-radius:12px;padding:.85rem 1rem;background:var(--surf2);}
+.batch-card .keep{display:inline-block;margin-top:.3rem;font-size:.7rem;background:#fff;border:1px solid var(--bdr);border-radius:5px;padding:.1rem .5rem;color:var(--mt);}
+.day-badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.3rem;}
+.day-badges span{font-size:.66rem;background:#fff;border:1px solid var(--bdr);border-radius:5px;padding:.08rem .4rem;color:var(--mt);}
 .shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
 .shop-cat h3{font-size:.78rem;color:var(--acc);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;border-bottom:1px solid var(--bdr);padding-bottom:.3rem;}
 .shop-cat ul{list-style:none;}
@@ -68,7 +73,7 @@ footer{text-align:center;color:var(--dim);font-size:.72rem;margin-top:2rem;}
 <div class="wrap">
 <header>
   <h1>週間献立プランナー</h1>
-  <p>0歳児(母乳育児中)・3歳児・夫婦2人の家庭向け ｜ 和洋中バランス・薄味＆取り分け対応 ｜ 週1買い出し想定</p>
+  <p>0歳児(母乳育児中)・3歳児・夫婦2人の家庭向け ｜ 土曜に副菜を作り置き、主菜は毎日調理 ｜ 薄味＆取り分け対応 ｜ 週1買い出し想定</p>
 </header>
 
 <div class="card">
@@ -84,12 +89,12 @@ footer{text-align:center;color:var(--dim);font-size:.72rem;margin-top:2rem;}
       </ul>
     </div>
     <div class="tip">
-      <b>週1買い出しを回すコツ</b>
+      <b>週1買い出し＆作り置きの回し方</b>
       <ul>
-        <li>肉・魚は買った日に1回分ずつ小分けして冷凍</li>
-        <li>大根・人参・玉ねぎ・キャベツなど日持ちする野菜を軸にする</li>
-        <li>下ごしらえ(カット・下茹で)は買い出し当日〜翌日にまとめて</li>
-        <li>同じ野菜を複数レシピで使い回し、使い切る</li>
+        <li>買い出しは土曜(または日曜)に1回、その日に副菜3品をまとめて仕込む</li>
+        <li>副菜は冷蔵3〜5日もつ煮物・和え物中心なので平日はローテーションで出すだけ</li>
+        <li>肉・魚は買った日に1回分ずつ小分けして冷凍し、平日の主菜用に</li>
+        <li>汁物だけは毎日サッと作る(具沢山味噌汁など10分以内で完成)</li>
       </ul>
     </div>
     <div class="tip">
@@ -107,8 +112,18 @@ footer{text-align:center;color:var(--dim);font-size:.72rem;margin-top:2rem;}
   <div class="controls">
     <button class="btn btn-main" id="genBtn">🔀 1週間分を自動生成</button>
     <button class="btn btn-gy" id="printBtn">🖨 印刷 / PDF保存</button>
-    <span class="note">主菜・副菜はプルダウンで自由に変更できます。変更すると買い物リストも自動更新されます。</span>
+    <span class="note">主菜・副菜・仕込みメニューはすべてプルダウンで変更できます。変更すると買い物リストも自動更新されます。</span>
   </div>
+</div>
+
+<div class="card">
+  <h2>🗓 土曜日にまとめて作り置き(副菜3品)</h2>
+  <p class="note" style="margin-bottom:.8rem;">この3品を土曜にまとめて作り、冷蔵保存して平日にローテーションで出します。</p>
+  <div class="batch-grid" id="batchList"></div>
+</div>
+
+<div class="card">
+  <h2>📅 平日の献立(主菜は毎日フレッシュに調理)</h2>
   <div class="days" id="days"></div>
 </div>
 
@@ -118,7 +133,7 @@ footer{text-align:center;color:var(--dim);font-size:.72rem;margin-top:2rem;}
   <div class="shop-grid" id="shopList"></div>
 </div>
 
-<footer>家族構成: 0歳児(母乳)・3歳児・夫婦 ｜ 和洋中20の主菜＋8の副菜からローテーション</footer>
+<footer>家族構成: 0歳児(母乳)・3歳児・夫婦 ｜ 主菜20品(毎日調理)・作り置き副菜10品(週替わり3品)・汁物4品からローテーション</footer>
 </div>
 
 <script>
@@ -205,25 +220,58 @@ const MAINS = [
  tip:'スープごと取り分けられるので忙しい日にも便利。'}
 ];
 
-const SIDES = [
+// 冷蔵で数日もつ、土曜にまとめて作る副菜(3品を選んで平日ローテーション)
+const BATCH_SIDES = [
+{id:'kinpira',name:'きんぴらごぼう',cuisine:'和',keep:'冷蔵4〜5日',
+ ing:[{n:'ごぼう',q:1,u:'本',c:'野菜'},{n:'人参',q:1,u:'本',c:'野菜'},{n:'醤油',q:2,u:'大さじ',c:'調味料'},{n:'みりん',q:2,u:'大さじ',c:'調味料'},{n:'ごま油',q:1,u:'大さじ',c:'調味料'}],
+ steps:['ごぼう・人参を細切りにし、ごま油で炒める','<span class="mark">★取り分け</span>火が通った時点でだしのみの薄味を子ども用に確保(短めに切る)','残りに醤油・みりんを加え、汁気がなくなるまで炒め煮する'],
+ tip:'細切りは長さを半分程度に切ると小さい子も食べやすい。'},
+{id:'hijiki',name:'ひじきの煮物',cuisine:'和',keep:'冷蔵4〜5日',
+ ing:[{n:'乾燥ひじき',q:20,u:'g',c:'その他'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'油揚げ',q:1,u:'枚',c:'その他'},{n:'大豆水煮',q:50,u:'g',c:'その他'},{n:'醤油',q:2,u:'大さじ',c:'調味料'},{n:'みりん',q:2,u:'大さじ',c:'調味料'}],
+ steps:['ひじきを戻し、人参・油揚げ・大豆とだしで煮る','<span class="mark">★取り分け</span>調味料を入れる前の薄い段階で子ども用を確保','醤油・みりんを加えて汁気がなくなるまで煮る'],
+ tip:'ひじきは細かく刻むと小さな子も食べやすい。'},
+{id:'kabocha',name:'かぼちゃの含め煮',cuisine:'和',keep:'冷蔵4日',
+ ing:[{n:'かぼちゃ',q:0.25,u:'個',c:'野菜'},{n:'醤油',q:1.5,u:'大さじ',c:'調味料'},{n:'みりん',q:1.5,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'大さじ',c:'調味料'}],
+ steps:['かぼちゃを一口大に切り、だしで柔らかくなるまで煮る','<span class="mark">★取り分け</span>調味料を加える前に子ども用を確保(自然な甘みでそのままでも良い)','醤油・みりん・砂糖を加えて煮含める'],
+ tip:'かぼちゃ自体が甘いので、子どもはそのままでも十分美味しく食べられる。'},
+{id:'kiriboshi',name:'切り干し大根の煮物',cuisine:'和',keep:'冷蔵5日',
+ ing:[{n:'切り干し大根',q:30,u:'g',c:'その他'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'油揚げ',q:0.5,u:'枚',c:'その他'},{n:'醤油',q:2,u:'大さじ',c:'調味料'},{n:'みりん',q:2,u:'大さじ',c:'調味料'}],
+ steps:['切り干し大根を水で戻し、人参・油揚げとだしで煮る','<span class="mark">★取り分け</span>薄味の段階で子ども用を確保','醤油・みりんを加えて汁気がなくなるまで煮る'],
+ tip:'よく煮て柔らかくすると噛み切りやすい。'},
+{id:'komatsuna',name:'小松菜と油揚げの煮浸し',cuisine:'和',keep:'冷蔵3〜4日',
+ ing:[{n:'小松菜',q:1,u:'束',c:'野菜'},{n:'油揚げ',q:1,u:'枚',c:'その他'},{n:'醤油',q:1.5,u:'大さじ',c:'調味料'},{n:'みりん',q:1,u:'大さじ',c:'調味料'}],
+ steps:['小松菜と油揚げをだしでさっと煮る','<span class="mark">★取り分け</span>醤油を加える前に子ども用を確保','醤油・みりんを加えてひと煮立ちさせる'],
+ tip:'小松菜は繊維を短く切ると食べやすい。'},
+{id:'carrot_marine',name:'人参とツナのマリネ',cuisine:'洋',keep:'冷蔵5日',
+ ing:[{n:'人参',q:2,u:'本',c:'野菜'},{n:'ツナ缶',q:1,u:'缶',c:'肉・魚'},{n:'酢',q:2,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
+ steps:['人参を細切りにして加熱し柔らかくする','<span class="mark">★取り分け</span>酢を加える前にツナと合わせた分を子ども用に確保','残りに酢・オリーブ油・砂糖を加えて和える'],
+ tip:'酸味が気になる場合、子ども用は酢を少なめか加熱してとばす。'},
+{id:'ratatouille',name:'ラタトゥイユ',cuisine:'洋',keep:'冷蔵4〜5日(冷凍可)',
+ ing:[{n:'ズッキーニ',q:1,u:'本',c:'野菜'},{n:'なす',q:1,u:'本',c:'野菜'},{n:'パプリカ',q:1,u:'個',c:'野菜'},{n:'トマト缶',q:1,u:'缶',c:'その他'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'}],
+ steps:['野菜を角切りにしてオリーブ油で炒める','トマト缶を加えて煮込む','<span class="mark">★取り分け</span>塩・にんにくを足す前に子ども用を確保し、残りに塩・にんにくで味を調える'],
+ tip:'冷凍もできるので多めに作って小分けにしておくと便利。'},
+{id:'coleslaw',name:'コールスローサラダ',cuisine:'洋',keep:'冷蔵3日',
+ ing:[{n:'キャベツ',q:0.25,u:'個',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'マヨネーズ',q:2,u:'大さじ',c:'調味料'},{n:'酢',q:1,u:'小さじ',c:'調味料'}],
+ steps:['キャベツと人参を千切りにし塩もみして水気を絞る','<span class="mark">★取り分け</span>マヨネーズを加える前に子ども用を確保','残りにマヨネーズ・酢・砂糖を加えて和える'],
+ tip:'マヨネーズは控えめに。子ども用はマヨ無しでも美味しい。'},
+{id:'namul',name:'もやしとわかめのナムル',cuisine:'中',keep:'冷蔵3〜4日',
+ ing:[{n:'もやし',q:1,u:'袋',c:'野菜'},{n:'乾燥わかめ',q:1,u:'大さじ',c:'その他'},{n:'ごま油',q:2,u:'小さじ',c:'調味料'},{n:'醤油',q:1,u:'小さじ',c:'調味料'}],
+ steps:['もやしを茹でてわかめを戻す','<span class="mark">★取り分け</span>調味料を加える前に子ども用を確保','ごま油・醤油(お好みでにんにく)を加えて和える'],
+ tip:'にんにくを使う場合は大人用にだけ後から加える。'},
+{id:'harusame',name:'春雨とハムの中華サラダ',cuisine:'中',keep:'冷蔵3日',
+ ing:[{n:'春雨',q:50,u:'g',c:'主食'},{n:'ハム',q:4,u:'枚',c:'肉・魚'},{n:'きゅうり',q:1,u:'本',c:'野菜'},{n:'酢',q:1,u:'大さじ',c:'調味料'},{n:'醤油',q:1,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
+ steps:['春雨を茹でて食べやすく切り、ハム・きゅうりと合わせる','<span class="mark">★取り分け</span>調味だれを加える前に子ども用を確保','残りに酢・醤油・砂糖のたれを加えて和える'],
+ tip:'酢が強い場合は子ども用にお湯で薄めただれを少量絡める。'}
+];
+
+// 汁物は日持ちしないので毎日サッと作る(10分以内)
+const QUICK_SOUPS = [
 {id:'miso_gu',name:'具沢山味噌汁',cuisine:'和',
  ing:[{n:'大根',q:5,u:'cm',c:'野菜'},{n:'人参',q:0.33,u:'本',c:'野菜'},{n:'油揚げ',q:0.5,u:'枚',c:'その他'},{n:'味噌',q:2,u:'大さじ',c:'調味料'}],
  note:'味噌を溶く前の薄いうちに子ども用を取り分ける。'},
-{id:'gomaae',name:'ほうれん草の胡麻和え',cuisine:'和',
- ing:[{n:'ほうれん草',q:1,u:'束',c:'野菜'},{n:'醤油',q:1,u:'小さじ',c:'調味料'},{n:'すりごま',q:1,u:'大さじ',c:'調味料'}],
- note:'醤油は少量にして、すりごまの風味を活かす。'},
-{id:'sunomono',name:'きゅうりとわかめの酢の物',cuisine:'和',
- ing:[{n:'きゅうり',q:1,u:'本',c:'野菜'},{n:'乾燥わかめ',q:1,u:'大さじ',c:'その他'},{n:'酢',q:1,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
- note:'子ども用は酢を控えめにするか、お湯で薄めて和える。'},
 {id:'consomme_soup',name:'コンソメ野菜スープ',cuisine:'洋',
  ing:[{n:'キャベツ',q:2,u:'枚',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'玉ねぎ',q:0.5,u:'個',c:'野菜'},{n:'コンソメ',q:1,u:'個',c:'調味料'}],
  note:'コンソメは大人の半量からでも十分な旨味。'},
-{id:'broccoli_salad',name:'ブロッコリーとゆで卵のサラダ',cuisine:'洋',
- ing:[{n:'ブロッコリー',q:0.5,u:'株',c:'野菜'},{n:'ゆで卵',q:2,u:'個',c:'卵・乳製品'},{n:'マヨネーズ',q:1,u:'大さじ',c:'調味料'}],
- note:'マヨネーズは控えめに、子ども用は無しでも良い。'},
-{id:'carrot_glace',name:'にんじんのグラッセ',cuisine:'洋',
- ing:[{n:'人参',q:1,u:'本',c:'野菜'},{n:'バター',q:10,u:'g',c:'卵・乳製品'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
- note:'バターと砂糖の優しい甘みで子どもも食べやすい。'},
 {id:'tomato_egg_soup',name:'トマトと卵の中華スープ',cuisine:'中',
  ing:[{n:'トマト',q:1,u:'個',c:'野菜'},{n:'卵',q:1,u:'個',c:'卵・乳製品'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'}],
  note:'塩分は鶏がらスープの素のみで十分。'},
@@ -234,7 +282,8 @@ const SIDES = [
 
 const DAYS = ['月','火','水','木','金','土','日'];
 const CUI_CLASS = {'和':'b-wa','洋':'b-yo','中':'b-chu'};
-let week = []; // [{mainId, sideId}]
+let batch = []; // 3 batch-side ids made on Saturday
+let week = []; // [{mainId, soupId, batchPick}] batchPick = index into batch[] (0-2)
 
 function shuffle(arr){
   const a = arr.slice();
@@ -246,6 +295,8 @@ function shuffle(arr){
 }
 
 function generateWeek(){
+  batch = shuffle(BATCH_SIDES).slice(0,3).map(x=>x.id);
+
   let mains = shuffle(MAINS).slice(0,7);
   // 隣り合う日の料理ジャンルが連続しすぎないよう軽く並べ替え
   for(let i=1;i<mains.length;i++){
@@ -258,26 +309,60 @@ function generateWeek(){
       }
     }
   }
-  let sides = shuffle(SIDES).slice(0,7);
-  week = DAYS.map((d,i)=>({mainId:mains[i].id, sideId:sides[i].id}));
+
+  let soups = [];
+  for(let i=0;i<7;i++){
+    const choices = shuffle(QUICK_SOUPS);
+    const pick = choices.find(s=>i===0 || s.id!==soups[i-1]) || choices[0];
+    soups.push(pick.id);
+  }
+
+  week = DAYS.map((d,i)=>({mainId:mains[i].id, soupId:soups[i], batchPick:i%3}));
   render();
 }
 
 function findMain(id){ return MAINS.find(m=>m.id===id); }
-function findSide(id){ return SIDES.find(s=>s.id===id); }
+function findBatch(id){ return BATCH_SIDES.find(s=>s.id===id); }
+function findSoup(id){ return QUICK_SOUPS.find(s=>s.id===id); }
+
+function renderBatch(){
+  const cont = document.getElementById('batchList');
+  cont.innerHTML = '';
+  batch.forEach((id,idx)=>{
+    const b = findBatch(id);
+    const div = document.createElement('div');
+    div.className = 'batch-card';
+    div.innerHTML = `
+      <select data-idx="${idx}" data-kind="batch">
+        ${BATCH_SIDES.map(x=>`<option value="${x.id}" ${x.id===b.id?'selected':''}>${x.name}</option>`).join('')}
+      </select>
+      <div class="meta"><span class="badge ${CUI_CLASS[b.cuisine]}">${b.cuisine}</span><span class="keep">${b.keep}</span></div>
+      <ol class="steps">${b.steps.map(st=>`<li>${st}</li>`).join('')}</ol>
+      <div class="kidtip"><b>取り分けメモ:</b> ${b.tip}</div>
+    `;
+    cont.appendChild(div);
+  });
+  cont.querySelectorAll('select').forEach(sel=>{
+    sel.addEventListener('change', e=>{
+      batch[+e.target.dataset.idx] = e.target.value;
+      render();
+    });
+  });
+}
 
 function render(){
+  renderBatch();
   const cont = document.getElementById('days');
   cont.innerHTML = '';
   DAYS.forEach((d,i)=>{
     const m = findMain(week[i].mainId);
-    const s = findSide(week[i].sideId);
+    const sp = findSoup(week[i].soupId);
     const row = document.createElement('div');
     row.className = 'day';
     row.innerHTML = `
       <div class="dname">${d}</div>
       <div class="slot">
-        <label>主菜</label>
+        <label>主菜(毎日調理)</label>
         <select data-idx="${i}" data-kind="main">
           ${MAINS.map(x=>`<option value="${x.id}" ${x.id===m.id?'selected':''}>${x.name}</option>`).join('')}
         </select>
@@ -286,12 +371,16 @@ function render(){
         <div class="kidtip"><b>取り分けメモ:</b> ${m.tip}</div>
       </div>
       <div class="slot">
-        <label>副菜・汁物</label>
-        <select data-idx="${i}" data-kind="side">
-          ${SIDES.map(x=>`<option value="${x.id}" ${x.id===s.id?'selected':''}>${x.name}</option>`).join('')}
+        <label>副菜(作り置きから)</label>
+        <select data-idx="${i}" data-kind="batchpick">
+          ${batch.map((bid,bi)=>`<option value="${bi}" ${bi===week[i].batchPick?'selected':''}>${findBatch(bid).name}</option>`).join('')}
         </select>
-        <div class="meta"><span class="badge ${CUI_CLASS[s.cuisine]}">${s.cuisine}</span></div>
-        <div class="side-note">${s.note}</div>
+        <label style="margin-top:.5rem;">汁物(毎日サッと)</label>
+        <select data-idx="${i}" data-kind="soup">
+          ${QUICK_SOUPS.map(x=>`<option value="${x.id}" ${x.id===sp.id?'selected':''}>${x.name}</option>`).join('')}
+        </select>
+        <div class="meta"><span class="badge ${CUI_CLASS[sp.cuisine]}">${sp.cuisine}</span></div>
+        <div class="side-note">${sp.note}</div>
       </div>
     `;
     cont.appendChild(row);
@@ -301,7 +390,8 @@ function render(){
       const idx = +e.target.dataset.idx;
       const kind = e.target.dataset.kind;
       if(kind==='main') week[idx].mainId = e.target.value;
-      else week[idx].sideId = e.target.value;
+      else if(kind==='soup') week[idx].soupId = e.target.value;
+      else if(kind==='batchpick') week[idx].batchPick = +e.target.value;
       render();
     });
   });
@@ -334,9 +424,10 @@ function renderShopping(){
       items[key].qty += qty;
     });
   };
+  batch.forEach(id=>addIng(findBatch(id).ing));
   week.forEach(w=>{
     addIng(findMain(w.mainId).ing);
-    addIng(findSide(w.sideId).ing);
+    addIng(findSoup(w.soupId).ing);
   });
 
   const fmtQty = (it)=>{
