@@ -124,7 +124,8 @@ footer{text-align:center;color:var(--dim);font-size:.72rem;margin-top:2rem;}
   <div class="controls">
     <button class="btn btn-main" id="genBtn">🔀 1週間分を自動生成</button>
     <button class="btn btn-gy" id="printBtn">🖨 印刷 / PDF保存</button>
-    <span class="note">主菜・副菜・仕込みメニューはすべてプルダウンで変更できます。変更すると買い物リストも自動更新されます。</span>
+    <label class="note" style="display:flex;align-items:center;gap:.4rem;">週の月曜日: <input type="date" id="weekStartInput"></label>
+    <span class="note">主菜・副菜・仕込みメニューはすべてプルダウンで変更できます。変更すると買い物リストも自動更新されます。保育園の給食(下記カレンダー)と同系統の料理はその日は自動で避けます。</span>
   </div>
 </div>
 
@@ -150,19 +151,19 @@ footer{text-align:center;color:var(--dim);font-size:.72rem;margin-top:2rem;}
 
 <script>
 const MAINS = [
-{id:'teriyaki',name:'鶏の照り焼き',cuisine:'和',time:15,
+{id:'teriyaki',name:'鶏の照り焼き',cuisine:'和',time:15,kyushokuTag:'teriyaki',
  ing:[{n:'鶏もも肉',q:300,u:'g',c:'肉・魚'},{n:'醤油',q:1,u:'大さじ',c:'調味料'},{n:'みりん',q:1,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
  steps:['鶏肉は焼く15分前に室温に戻し、皮に竹串で数カ所穴をあけて縮み防止する','皮目を下にして中火にかけ、触らずに脂をじっくり出す(5〜6分)','<span class="mark">★取り分け</span>皮がパリッとして中まで火が通ったら子ども用をまず取り出す(そのまま、または醤油ひとたらし)','出た脂をペーパーで軽く拭き、醤油・みりん・砂糖を加えて煮絡め、つやが出たら火を止める'],
  tip:'子ども用は味付け前の鶏肉に醤油をひとたらしする程度で十分。',
  chef:'皮目は動かさず焼き切るのが店の味の分かれ目。フライパンに残った焼き汁(フォン)に調味料を加えて煮絡めると、市販のたれ以上の照りとコクが出る。',
  kidFriendly:true,
  kidNote:'甘辛い焼き鶏はお子さまも好きな味。野菜を混ぜ込みにくいので、付け合わせにかぼちゃなど好物の野菜を添えるのがおすすめ。'},
-{id:'nikujaga',name:'肉じゃが',cuisine:'和',time:25,
+{id:'nikujaga',name:'肉じゃが',cuisine:'和',time:25,kyushokuTag:'nimono',
  ing:[{n:'豚こま切れ肉',q:200,u:'g',c:'肉・魚'},{n:'じゃがいも',q:3,u:'個',c:'野菜'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'},{n:'人参',q:1,u:'本',c:'野菜'},{n:'醤油',q:2,u:'大さじ',c:'調味料'},{n:'みりん',q:2,u:'大さじ',c:'調味料'},{n:'砂糖',q:1,u:'大さじ',c:'調味料'}],
  steps:['豚肉を強めの中火でしっかり焼き色をつけ、うま味を閉じ込めたら一度取り出す','同じ鍋で玉ねぎ・人参・じゃがいもを油が回るまで炒め、だし汁と豚肉を戻して煮立てる','煮立ったらアクを丁寧にすくい、落とし蓋をして弱火で10分。<span class="mark">★取り分け</span>この薄味の段階で子ども用をよそう','砂糖・みりんを先に加えて2〜3分含ませ、醤油を加えてさらに煮る(甘み→塩味の順で味が入りやすい)'],
  tip:'子ども用は具材が柔らかくなった薄味の段階で、汁気を軽く切って提供。',
  chef:'肉は炒めてから煮ることで香ばしさが加わる。調味料は「さしすせそ」の順(砂糖・みりん→醤油)で入れると芯まで味がしみ込む。'},
-{id:'sake_shioyaki',name:'鮭の塩焼きと根菜の味噌汁',cuisine:'和',time:20,
+{id:'sake_shioyaki',name:'鮭の塩焼きと根菜の味噌汁',cuisine:'和',time:20,kyushokuTag:'fish_grill',
  ing:[{n:'生鮭',q:2,u:'切れ',c:'肉・魚'},{n:'大根',q:5,u:'cm',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'味噌',q:2,u:'大さじ',c:'調味料'}],
  steps:['鮭に塩(切り身の重量の0.6〜0.8%が目安)をふって15分置き、出た水分をペーパーで拭き取る','皮目から中火のグリルにかけ、触らずパリッと焼き上げる','根菜をだしで柔らかく煮て、アクを丁寧に取る','<span class="mark">★取り分け</span>味噌を溶く前に子ども用の汁を確保し、鮭は骨を確認してからほぐす'],
  tip:'鮭の塩は控えめに。骨は必ず確認して取り除く。',
@@ -193,12 +194,12 @@ const MAINS = [
  chef:'水切り不足は崩れと水っぽさの最大要因。しっかり重しをかけて水を抜くのがふんわり食感の決め手。',
  kidFriendly:true,
  kidNote:'ハンバーグはお子さまの好物のひとつ。玉ねぎに加えて人参・きのこをみじん切りにして混ぜ込むと野菜も一緒に摂れる。'},
-{id:'tomato_ni',name:'チキンのトマト煮込み',cuisine:'洋',time:25,
+{id:'tomato_ni',name:'チキンのトマト煮込み',cuisine:'洋',time:25,kyushokuTag:'tomato_stew',
  ing:[{n:'鶏もも肉',q:300,u:'g',c:'肉・魚'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'},{n:'トマト缶',q:1,u:'缶',c:'その他'},{n:'コンソメ',q:1,u:'個',c:'調味料'},{n:'にんにく',q:1,u:'片',c:'調味料'}],
  steps:['鶏肉は室温に戻して軽く塩をふり、皮目から動かさずしっかり焼き色をつける','玉ねぎを加えてしんなりするまで炒め、トマト缶を潰しながら加えて煮込む','アクを取りながら弱火で10分煮て酸味を飛ばす。<span class="mark">★取り分け</span>塩胡椒・にんにくを加える前に子ども用を確保','残りに塩胡椒とにんにくを加えて味を調える'],
  tip:'トマトの酸味と旨味だけでも子どもは食べやすい味。',
  chef:'鶏の皮目にしっかり焼き色(メイラード反応)をつけてから煮ると、香ばしさと旨味が段違いになる。'},
-{id:'meuniere',name:'鮭のムニエル',cuisine:'洋',time:15,
+{id:'meuniere',name:'鮭のムニエル',cuisine:'洋',time:15,kyushokuTag:'fish_grill',
  ing:[{n:'生鮭',q:2,u:'切れ',c:'肉・魚'},{n:'小麦粉',q:2,u:'大さじ',c:'主食'},{n:'バター',q:20,u:'g',c:'卵・乳製品'}],
  steps:['鮭に塩(重量の0.6%ほど)をふって10分置き、水分をペーパーで拭き取る','焼く直前に薄く小麦粉をまぶす(早くまぶすと粉っぽくなる)','バターが泡立ち香ばしい香りが立ったら皮目から入れ、触らず焼き色をつける。<span class="mark">★取り分け</span>塩胡椒をふる前に子ども用を確保','大人用に塩胡椒とレモンを添える'],
  tip:'バター風味だけで十分美味しく、塩は取り分け後に。',
@@ -210,7 +211,7 @@ const MAINS = [
  chef:'肉と野菜を先にしっかり炒めて焼き色と甘みを引き出すのが店の味。牛乳は沸騰させると分離するので弱火厳守。',
  kidFriendly:true,
  kidNote:'シチューはお子さまの好物。人参・じゃがいもを小さめに切り、仕上げにかぼちゃを加えると彩りも良く食べやすい。'},
-{id:'meat_sauce',name:'ミートソースパスタ',cuisine:'洋',time:25,
+{id:'meat_sauce',name:'ミートソースパスタ',cuisine:'洋',time:25,kyushokuTag:'pasta',
  ing:[{n:'合いびき肉',q:250,u:'g',c:'肉・魚'},{n:'玉ねぎ',q:1,u:'個',c:'野菜'},{n:'トマト缶',q:1,u:'缶',c:'その他'},{n:'ケチャップ',q:2,u:'大さじ',c:'調味料'},{n:'パスタ',q:200,u:'g',c:'主食'}],
  steps:['ひき肉は塩少々をふり、触らずに焼き色がしっかりつくまで焼いてから玉ねぎを加えて炒める','トマト缶を加え、弱火で15分ほど時々混ぜながらじっくり煮詰める','<span class="mark">★取り分け</span>塩胡椒を足す前に子ども用ソースを確保','残りにケチャップ・塩胡椒で味を調え、茹でたパスタと和える'],
  tip:'子ども用パスタは短く切ってから和えると食べやすい。',
@@ -234,27 +235,27 @@ const MAINS = [
  steps:['鶏むね肉は厚みが均一になるようそぎ切りにし、室温に戻す','強火で表面をしっかり焼き固めたら弱火にして中までじっくり火を通す。<span class="mark">★取り分け</span>塩胡椒の前に子ども用を確保','残りに塩胡椒し、チーズとトマトをのせて蓋をして溶かす'],
  tip:'チーズは子どもも一緒に楽しめるが、量は控えめに。',
  chef:'むね肉は厚みを均一にそぎ切りするのがパサつかせないコツ。強火で短時間焼き固め、あとは弱火でじっくりが鉄則。'},
-{id:'mapo',name:'麻婆豆腐(甘め)',cuisine:'中',time:20,
+{id:'mapo',name:'麻婆豆腐(甘め)',cuisine:'中',time:20,kyushokuTag:'mapo',
  ing:[{n:'木綿豆腐',q:1,u:'丁',c:'その他'},{n:'豚ひき肉',q:150,u:'g',c:'肉・魚'},{n:'長ねぎ',q:0.5,u:'本',c:'野菜'},{n:'醤油',q:1,u:'大さじ',c:'調味料'},{n:'味噌',q:1,u:'大さじ',c:'調味料'},{n:'片栗粉',q:2,u:'小さじ',c:'主食'}],
  steps:['豆腐はさいの目に切り、塩少々を入れた熱湯で1〜2分下茹でして水気を切る','豚ひき肉を脂が出るまでしっかり炒め、長ねぎを加えて香りを立てる','醤油・味噌を先に加えて煮立て、豆腐を加えてやさしく煮る。<span class="mark">★取り分け</span>豆板醤を入れる前に子ども用を確保','火を止めて水溶き片栗粉でとろみをつけ、大人用に豆板醤・ラー油を加えて再度温める'],
  tip:'子ども用は辛味料を入れる前の甘め麻婆で。とろみで食べやすい。',
  chef:'豆腐は下茹でしてから使うと水っぽさと崩れを防げる。水溶き片栗粉は火を止めてから加えるとダマにならない。'},
-{id:'chuka_itame',name:'鶏肉とキャベツの中華炒め',cuisine:'中',time:15,
+{id:'chuka_itame',name:'鶏肉とキャベツの中華炒め',cuisine:'中',time:15,kyushokuTag:'stirfry_cn',
  ing:[{n:'鶏もも肉',q:250,u:'g',c:'肉・魚'},{n:'キャベツ',q:0.25,u:'個',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'},{n:'醤油',q:1,u:'小さじ',c:'調味料'}],
  steps:['鶏もも肉に鶏がらスープの素少々をもみ込んで下味をつける','強火の油でまず鶏肉を焼き色がつくまで炒め、一度取り出す','同じ鍋でキャベツ・人参を短時間炒め、鶏肉を戻して鶏がらスープの素で薄く味付け。<span class="mark">★取り分け</span>醤油・ごま油を足す前に子ども用を確保','残りに醤油とごま油を鍋肌から加えて香りを立てて仕上げる'],
  tip:'中華調味料は塩分が濃いめなので、薄いうちに子ども用を確保。',
  chef:'強火・短時間が中華炒めの鉄則。具材を一度取り出して炒め直す「返し technique」で火の通りすぎを防ぐ。'},
-{id:'chahan',name:'エビと卵のチャーハン(薄味)',cuisine:'中',time:15,
+{id:'chahan',name:'エビと卵のチャーハン(薄味)',cuisine:'中',time:15,kyushokuTag:'chahan',
  ing:[{n:'むきえび',q:100,u:'g',c:'肉・魚'},{n:'卵',q:2,u:'個',c:'卵・乳製品'},{n:'ご飯',q:2,u:'合分',c:'主食'}],
  steps:['ご飯は事前に冷ましておく(炊きたては水分が多くベチャつく)','溶き卵をご飯に絡めてから強火の油で炒め、粒立たせる','えびを加えて塩少々で薄く味付け。<span class="mark">★取り分け</span>子ども用を確保してから、残りに醤油を鍋肌から加えて香ばしく仕上げる'],
  tip:'味付けは塩のみで十分。醤油は仕上げに大人用だけ加える。',
  chef:'卵を先にご飯にコーティングするのがパラパラの決め手。強火をキープし、混ぜすぎずお米をつぶさないように炒める。'},
-{id:'ankake',name:'豚肉と白菜の中華あんかけ',cuisine:'中',time:20,
+{id:'ankake',name:'豚肉と白菜の中華あんかけ',cuisine:'中',time:20,kyushokuTag:'stirfry_cn',
  ing:[{n:'豚こま切れ肉',q:200,u:'g',c:'肉・魚'},{n:'白菜',q:0.25,u:'株',c:'野菜'},{n:'人参',q:0.5,u:'本',c:'野菜'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'},{n:'片栗粉',q:1,u:'大さじ',c:'主食'}],
  steps:['豚肉と白菜、人参を強火でサッと炒めて香りを立てる','鶏がらスープの素を溶いただしを加えて煮る。<span class="mark">★取り分け</span>とろみをつける前、薄味の段階で子ども用を確保','醤油を加えて味を調え、火を止めてから水溶き片栗粉を少しずつ回し入れ、再度中火にかけてとろみをつける'],
  tip:'とろみは子ども用にも別で少量つけると食べやすい。',
  chef:'水溶き片栗粉は必ず火を止めてから加えるのが中華のセオリー。ダマにならず、とろみが安定する。'},
-{id:'bangbangji',name:'棒々鶏',cuisine:'中',time:20,
+{id:'bangbangji',name:'棒々鶏',cuisine:'中',time:20,kyushokuTag:'bangbangji',
  ing:[{n:'鶏むね肉',q:300,u:'g',c:'肉・魚'},{n:'きゅうり',q:1,u:'本',c:'野菜'},{n:'醤油',q:1,u:'大さじ',c:'調味料'},{n:'ごまだれ',q:2,u:'大さじ',c:'調味料'}],
  steps:['鶏むね肉は熱湯に入れたら火を止め、蓋をして15〜20分そのまま余熱で火を通す','取り出して粗熱を取り、繊維に沿って手で裂く','きゅうりと鶏肉に<span class="mark">★取り分け</span>醤油ベースのごまだれのみで子ども用を確保','大人用に酢とラー油を追加してたれを仕上げる'],
  tip:'茹で鶏はパサつきやすいので、子ども用は細かく裂いてたれを絡める。',
@@ -278,7 +279,7 @@ const MAINS = [
  chef:'肉は焼く直前ではなく素焼きしてからたれを絡めると、たれが焦げつかずきれいな照りに仕上がる。',
  kidFriendly:true,
  kidNote:'焼肉はお子さまの好物。かぼちゃなど甘みのある野菜を一緒に焼くと、野菜も違和感なく食べられる。'},
-{id:'somen',name:'温玉のっけ野菜あんかけそうめん',cuisine:'和',time:15,
+{id:'somen',name:'温玉のっけ野菜あんかけそうめん',cuisine:'和',time:15,kyushokuTag:'noodle',
  ing:[{n:'そうめん',q:200,u:'g',c:'主食'},{n:'鶏ひき肉',q:100,u:'g',c:'肉・魚'},{n:'人参・しいたけ(みじん切り)',q:60,u:'g',c:'野菜'},{n:'めんつゆ(2倍濃縮)',q:100,u:'ml',c:'調味料'},{n:'温泉卵',q:2,u:'個',c:'卵・乳製品'},{n:'片栗粉',q:1,u:'小さじ',c:'主食'}],
  steps:['そうめんは表示時間通り茹でて冷水でしっかりしめる','鶏ひき肉と人参・しいたけのみじん切りをめんつゆで煮る','<span class="mark">★取り分け</span>とろみをつける前の薄味の段階で子ども用を確保','水溶き片栗粉でとろみをつけ、そうめんにあんと温泉卵をのせる'],
  tip:'麺類が好きなお子さまにぴったり。あんにとろみをつけると具材が麺に絡んで食べやすい。',
@@ -299,7 +300,7 @@ const MAINS = [
  chef:'低温でじっくり揚げてから高温で二度揚げすると、中はジューシー・外はカリッと仕上がる。',
  kidFriendly:true,
  kidNote:'唐揚げはお子さまの好物。子ども用は下味を先に取り分け、にんにく・生姜控えめにすると食べやすい。'},
-{id:'korokke',name:'コロッケ(野菜たっぷり)',cuisine:'洋',time:35,
+{id:'korokke',name:'コロッケ(野菜たっぷり)',cuisine:'洋',time:35,kyushokuTag:'korokke',
  ing:[{n:'じゃがいも',q:4,u:'個',c:'野菜'},{n:'合いびき肉',q:150,u:'g',c:'肉・魚'},{n:'玉ねぎ',q:0.5,u:'個',c:'野菜'},{n:'人参(すりおろしorみじん切り)',q:0.5,u:'本',c:'野菜'},{n:'パン粉',q:1,u:'カップ',c:'主食'},{n:'卵',q:1,u:'個',c:'卵・乳製品'}],
  steps:['じゃがいもは柔らかく茹で、水分を飛ばしてから潰す','ひき肉・玉ねぎ・人参のみじん切り(またはすりおろし)を炒めて混ぜ込む','<span class="mark">★取り分け</span>塩胡椒で下味をつける前に子ども用のたねを確保','小判形にして小麦粉→溶き卵→パン粉の順に衣をつけ、170〜180℃の油できつね色に揚げる'],
  tip:'すりおろした人参や玉ねぎを混ぜ込むと、コロッケの味や色に紛れて気づかず野菜が摂れる。かぼちゃコロッケにアレンジしても◎。',
@@ -390,7 +391,7 @@ const KID_MAINS = [
  ing:[{n:'鶏ひき肉',q:150,u:'g',c:'肉・魚'},{n:'しめじ等きのこ(みじん切り)',q:50,u:'g',c:'野菜'},{n:'醤油',q:2,u:'小さじ',c:'調味料'},{n:'みりん',q:2,u:'小さじ',c:'調味料'},{n:'砂糖',q:1,u:'小さじ',c:'調味料'}],
  steps:['しめじは石づきを取り、食感が気にならないよう細かくみじん切りにする','鶏ひき肉ときのこを一緒に炒り煮し、菜箸で細かくほぐす','醤油・みりん・砂糖を加えて汁気がなくなるまで煮詰め、ご飯にのせる'],
  veggieTip:'きのこはみじん切りにするとそぼろの食感に紛れて気づかず食べられる。'},
-{id:'kid_pasta',name:'ケチャップナポリタン(野菜みじん切り入り)',
+{id:'kid_pasta',name:'ケチャップナポリタン(野菜みじん切り入り)',kyushokuTag:'pasta',
  ing:[{n:'パスタ',q:100,u:'g',c:'主食'},{n:'豚ひき肉',q:80,u:'g',c:'肉・魚'},{n:'玉ねぎ・人参(みじん切り)',q:50,u:'g',c:'野菜'},{n:'ケチャップ',q:2,u:'大さじ',c:'調味料'}],
  steps:['玉ねぎ・人参は気にならない大きさにみじん切りにする','ひき肉と野菜を炒め、ケチャップを加えて絡める','茹でたパスタと和え、食べやすい長さに切って盛り付ける'],
  veggieTip:'野菜をみじん切りにしてケチャップ味に紛れさせると、パスタ好きの子でも自然に野菜が摂れる。'},
@@ -398,7 +399,7 @@ const KID_MAINS = [
  ing:[{n:'合いびき肉',q:150,u:'g',c:'肉・魚'},{n:'玉ねぎ・人参(みじん切り)',q:50,u:'g',c:'野菜'},{n:'パン粉',q:2,u:'大さじ',c:'主食'},{n:'卵',q:0.5,u:'個',c:'卵・乳製品'}],
  steps:['野菜はできるだけ細かくみじん切りにする','ひき肉・野菜・パン粉・卵をよく練り、一口大の小判形に成形する','両面をしっかり焼き、中まで火を通す(小さめなので短時間で火が通る)'],
  veggieTip:'一口サイズにすると小さな子も食べやすく、野菜を混ぜ込んでも気づかれにくい。'},
-{id:'kid_somen',name:'野菜あんかけそうめん(簡易版)',
+{id:'kid_somen',name:'野菜あんかけそうめん(簡易版)',kyushokuTag:'noodle',
  ing:[{n:'そうめん',q:100,u:'g',c:'主食'},{n:'鶏ひき肉',q:80,u:'g',c:'肉・魚'},{n:'人参・しいたけ(みじん切り)',q:40,u:'g',c:'野菜'},{n:'めんつゆ(2倍濃縮)',q:50,u:'ml',c:'調味料'},{n:'片栗粉',q:1,u:'小さじ',c:'主食'}],
  steps:['そうめんを茹でて冷水でしめる','ひき肉と野菜のみじん切りをめんつゆ(だしで割る)で煮て、水溶き片栗粉でとろみをつける','そうめんにあんをかける'],
  veggieTip:'とろみのあるあんに野菜を紛れ込ませると、麺類でも野菜が食べやすくなる。'},
@@ -412,9 +413,35 @@ const KID_MAINS = [
  veggieTip:'見た目が二色で楽しく、かぼちゃ好きなお子さまなら野菜と気づかず完食しやすい。'}
 ];
 
+// 保育園(きみのまま保育園)2026年9月の給食カレンダー。月が変わったら新しい献立表の内容に差し替える。
+// tag は MAINS / KID_MAINS の kyushokuTag と突き合わせて、同じ系統の料理をその日の夕食から除外するために使う。
+const KYUSHOKU = {
+'2026-09-01':{dish:'筑前煮',tag:'nimono'},
+'2026-09-02':{dish:'焼き魚',tag:'fish_grill'},
+'2026-09-03':{dish:'チンジャオロース',tag:'stirfry_cn'},
+'2026-09-04':{dish:'マカロニグラタン',tag:'pasta'},
+'2026-09-05':{dish:'煮込みうどん',tag:'noodle'},
+'2026-09-07':{dish:'豆腐チャンプルー',tag:null},
+'2026-09-08':{dish:'八宝菜',tag:'stirfry_cn'},
+'2026-09-10':{dish:'きのことチキンボールのトマト煮',tag:'tomato_stew'},
+'2026-09-12':{dish:'煮込みうどん',tag:'noodle'},
+'2026-09-14':{dish:'鶏の照り焼き',tag:'teriyaki'},
+'2026-09-15':{dish:'肉じゃが',tag:'nimono'},
+'2026-09-16':{dish:'白身魚・ばんばんじ風サラダ',tag:'fish_grill'},
+'2026-09-17':{dish:'肉じゃが',tag:'nimono'},
+'2026-09-19':{dish:'煮込みうどん',tag:'noodle'},
+'2026-09-24':{dish:'コロッケ',tag:'korokke'},
+'2026-09-25':{dish:'ミートソーススパゲティ',tag:'pasta'},
+'2026-09-26':{dish:'煮込みうどん',tag:'noodle'},
+'2026-09-28':{dish:'和風マーボー豆腐',tag:'mapo'},
+'2026-09-29':{dish:'五目チャーハン',tag:'chahan'},
+'2026-09-30':{dish:'しゅうまい',tag:null}
+};
+
 const DAYS = ['月','火','水','木','金','土','日'];
 const CUI_CLASS = {'和':'b-wa','洋':'b-yo','中':'b-chu'};
 let batch = []; // 3 batch-side ids made on Saturday
+let weekStart = mondayOf(new Date()); // Date object for this week's Monday
 let week = []; // [{mainId, soupId, batchPick, kidMainId}] kidMainId is set only on days the adult main isn't kid-friendly (null otherwise)
 
 function shuffle(arr){
@@ -426,20 +453,45 @@ function shuffle(arr){
   return a;
 }
 
+function mondayOf(date){
+  const d = new Date(date);
+  const diff = (d.getDay()+6)%7; // 0=Mon
+  d.setDate(d.getDate()-diff);
+  d.setHours(0,0,0,0);
+  return d;
+}
+function fmtDate(date){
+  const y=date.getFullYear(), m=String(date.getMonth()+1).padStart(2,'0'), d=String(date.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+function dateForDay(i){
+  const d = new Date(weekStart);
+  d.setDate(d.getDate()+i);
+  return d;
+}
+function hasTag(m, tag){
+  if(!m || !tag) return false;
+  return Array.isArray(m.kyushokuTag) ? m.kyushokuTag.includes(tag) : m.kyushokuTag===tag;
+}
+
 function generateWeek(){
   batch = shuffle(BATCH_SIDES).slice(0,3).map(x=>x.id);
 
-  let mains = shuffle(MAINS).slice(0,7);
-  // 隣り合う日の料理ジャンルが連続しすぎないよう軽く並べ替え
-  for(let i=1;i<mains.length;i++){
-    if(mains[i].cuisine === mains[i-1].cuisine){
-      for(let j=i+1;j<mains.length;j++){
-        if(mains[j].cuisine !== mains[i-1].cuisine){
-          [mains[i],mains[j]] = [mains[j],mains[i]];
-          break;
-        }
-      }
-    }
+  const usedMainIds = new Set();
+  let prevCuisine = null;
+  const mains = [];
+  for(let i=0;i<7;i++){
+    const kyu = KYUSHOKU[fmtDate(dateForDay(i))];
+    const avoidTag = kyu && kyu.tag;
+    let pool = MAINS.filter(m=>!usedMainIds.has(m.id) && !hasTag(m,avoidTag));
+    if(pool.length===0) pool = MAINS.filter(m=>!usedMainIds.has(m.id));
+    if(pool.length===0) pool = MAINS.slice();
+    let poolPref = pool.filter(m=>m.cuisine!==prevCuisine);
+    if(poolPref.length>0) pool = poolPref;
+    const pick = shuffle(pool)[0];
+    mains.push(pick);
+    usedMainIds.add(pick.id);
+    prevCuisine = pick.cuisine;
   }
 
   let soups = [];
@@ -449,12 +501,16 @@ function generateWeek(){
     soups.push(pick.id);
   }
 
-  // 主菜がお子さま向きでない日は、好物ベースの別メニューをローテーションで割り当てる
+  // 主菜がお子さま向きでない日は、好物ベースの別メニューをローテーションで割り当てる(給食と同系統は避ける)
   let lastKidMainId = null;
-  const kidMainIds = mains.map(m=>{
+  const kidMainIds = mains.map((m,i)=>{
     if(m.kidFriendly) { lastKidMainId = null; return null; }
-    const choices = shuffle(KID_MAINS);
-    const pick = choices.find(k=>k.id!==lastKidMainId) || choices[0];
+    const kyu = KYUSHOKU[fmtDate(dateForDay(i))];
+    const avoidTag = kyu && kyu.tag;
+    let pool = KID_MAINS.filter(k=>!hasTag(k,avoidTag) && k.id!==lastKidMainId);
+    if(pool.length===0) pool = KID_MAINS.filter(k=>k.id!==lastKidMainId);
+    if(pool.length===0) pool = KID_MAINS.slice();
+    const pick = shuffle(pool)[0];
     lastKidMainId = pick.id;
     return pick.id;
   });
@@ -502,6 +558,9 @@ function render(){
     const m = findMain(week[i].mainId);
     const sp = findSoup(week[i].soupId);
     const km = week[i].kidMainId ? findKidMain(week[i].kidMainId) : null;
+    const dateStr = fmtDate(dateForDay(i));
+    const kyu = KYUSHOKU[dateStr];
+    const kyuNote = kyu ? `<div class="side-note" style="margin-top:.5rem;">🍱 給食: ${kyu.dish}${kyu.tag?'(この系統は夕食で回避)':''}</div>` : '';
     const row = document.createElement('div');
     row.className = 'day';
     const kidBlock = km ? `
@@ -515,7 +574,7 @@ function render(){
         </div>` : `
         <div class="kidtip"><b>取り分けメモ:</b> ${m.tip}</div>`;
     row.innerHTML = `
-      <div class="dname">${d}</div>
+      <div class="dname">${d}<div style="font-size:.62rem;color:var(--dim);font-weight:400;">${dateStr.slice(5).replace('-','/')}</div></div>
       <div class="slot">
         <label>主菜(毎日調理)</label>
         <select data-idx="${i}" data-kind="main">
@@ -538,6 +597,7 @@ function render(){
         <div class="meta"><span class="badge ${CUI_CLASS[sp.cuisine]}">${sp.cuisine}</span></div>
         <div class="side-note">${sp.note}</div>
         <div class="side-note" style="color:var(--yo);">👨‍🍳 ${sp.chef}</div>
+        ${kyuNote}
       </div>
     `;
     cont.appendChild(row);
@@ -633,6 +693,15 @@ function renderShopping(){
 
 document.getElementById('genBtn').addEventListener('click', generateWeek);
 document.getElementById('printBtn').addEventListener('click', ()=>window.print());
+const weekStartInput = document.getElementById('weekStartInput');
+weekStartInput.value = fmtDate(weekStart);
+weekStartInput.addEventListener('change', e=>{
+  if(e.target.value){
+    weekStart = mondayOf(new Date(e.target.value+'T00:00:00'));
+    weekStartInput.value = fmtDate(weekStart);
+    generateWeek();
+  }
+});
 
 generateWeek();
 </script>
