@@ -38,6 +38,9 @@
 | [ ] | alter | 変える、変化させる(changeよりややフォーマル・専門的。質や性質を部分的に変えるニュアンス) | Each one will alter how you feel about it. | 2026-09-17 |
 | [ ] | penne | ペンネ(先端が斜めに切られた筒状パスタ)。発音は /ˈpɛneɪ/ または /ˈpɛni/、揺れがある | That penne was pretty good. | 2026-09-17 |
 | [ ] | tear(動詞: 引き裂く) | 引き裂く、破る。発音は /tɛər/(hairと同じ音)。過去形 tore、過去分詞 torn。名詞「涙」の tear /tɪər/(hereと同じ音)とは綴りが同じで発音・意味が全く違うので要注意 | I tore my shirt. / tear something to shreds | 2026-09-17 |
+| [ ] | get away with | (悪いことをしても)許される、逃げ切る、無事に済んでいる | He always gets away with being late. | 2026-09-25 |
+| [ ] | sub-par | 標準以下の、平均以下の(par はゴルフ用語の「基準スコア」から) | The service was sub-par. | 2026-09-25 |
+| [ ] | single out | (集団の中から)特定の一人・一つを選び出す、特に取り上げる(良い意味の表彰にも、悪い意味の名指し批判にも使う) | She was singled out for her outstanding performance. / Why am I always the one being singled out? | 2026-09-20 |
 
 ## 表現・イディオム (Expressions)
 
@@ -77,6 +80,16 @@
 | [ ] | tear something to shreds | 誰か・何かをズタズタに引き裂く。実際の行為ではなく、怒りの強さを大げさに表す誇張表現 | I'm so angry I could tear somebody to shreds! | 2026-09-17 |
 | [ ] | hold true | 当てはまる、成り立つ、真実である | This holds true for any language you're using, too. | 2026-09-17 |
 | [ ] | greatly / much appreciated | 大変感謝される、大いにありがたく思われる | I'm a good friend and greatly appreciated. | 2026-09-17 |
+| [ ] | land (a job/client/deal) | (仕事・契約・顧客などを)勝ち取る、獲得する(苦労して/うまく掴み取るニュアンス) | She landed a great job at a top company. / We landed a new client this week. | 2026-09-22 |
+| [ ] | promote / hire from within | (外部採用ではなく)社内から昇格・採用する | Our company always tries to promote from within. | 2026-09-20 |
+| [ ] | tap (a card) | ICカードなどをタッチする、かざす | All you have to do is tap your Suica. | 2026-09-22 |
+| [ ] | All you have to do is ~ | 〜するだけでいい(後ろは動詞の原形が続くことが多い) | All you have to do is tap your Suica. | 2026-09-22 |
+| [ ] | What are the chances (that) ~? | 〜の可能性はどれくらい?(確率を尋ねる) / What are the chances! で「そんな偶然ある?!」という驚きの感嘆にもなる | What are the chances it will rain tomorrow? / I ran into my old classmate abroad. What are the chances! | 2026-09-24 |
+| [ ] | The chances are (that) ~ / Chances are, ~ | おそらく〜だろう、十中八九〜だ(口語では The を省いて Chances are, ~ の形が頻出) | Chances are, it'll rain tomorrow. | 2026-09-24 |
+| [ ] | There is a good chance (that) ~ | 〜の可能性が高い(good/strong/slimなどで度合いを調整できる) | There is a good chance that he'll agree to the plan. | 2026-09-24 |
+| [ ] | cover a wide range of ~ / range from X to Y | 〜を幅広くカバーする、XからYまで多岐にわたる | My day-to-day work covers a wide range of tasks. | 2026-09-25 |
+| [ ] | behind-the-scenes (work) | 裏方の、舞台裏の(業務) | behind-the-scenes tasks like coordinating meeting schedules | 2026-09-25 |
+| [ ] | turn ~ into ... | 〜を…に落とし込む、変換する | turning strategy into actual media execution | 2026-09-25 |
 
 ## 業務フレーズ (Work Phrases)
 
@@ -117,6 +130,7 @@
 | [ ] | follow up | 追いかける・再確認する | 2026-08-19 |
 | [ ] | lock | 内容をFIXする | 2026-08-19 |
 | [ ] | provide | 提供する | 2026-08-19 |
+| [ ] | day-to-day | 日々の、普段の(業務など) | my day-to-day responsibilities | 2026-09-25 |
 
 ## 文法メモ (Grammar Notes)
 
@@ -179,6 +193,10 @@
 - **so + 形容詞 + (that省略) + could + 動詞**
   「とても〜なので…できるくらいだ」。口語では "that" が省略されることが多い。"could" は「(その気になれば)〜できる」という可能性・程度の誇張を表す。
   - 例: *I'm so angry I could tear somebody to shreds!*
+
+- **good の「量・程度が大きい」用法(a good chance / a good amount など)**
+  "good" は「質が良い」だけでなく、名詞の前で「かなりの、相当な」という**程度・分量**を表すこともある。"a good chance"(高い可能性)は「chanceの質が良い」ではなく「十分な量のchance = 可能性が高い」という意味。
+  - 例: *a good chance*(高い可能性)/ *a good amount of money*(かなりの額)/ *a good while*(かなり長い間)/ *a good many people*(かなり多くの人)
 
 ## 添削メモ (Corrections)
 
