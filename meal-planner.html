@@ -406,7 +406,12 @@ const QUICK_SOUPS = [
 {id:'corn_soup',name:'中華風コーンスープ',cuisine:'中',
  ing:[{n:'クリームコーン缶',q:1,u:'缶',c:'その他'},{n:'卵',q:1,u:'個',c:'卵・乳製品'},{n:'鶏がらスープの素',q:1,u:'小さじ',c:'調味料'}],
  note:'とろみで飲みやすく、子どもも好みやすい味。',
- chef:'仕上げの水溶き片栗粉は火を止めてから加えるとダマにならない。'}
+ chef:'仕上げの水溶き片栗粉は火を止めてから加えるとダマにならない。'},
+{id:'carrot_potage',name:'にんじんスープ(コンソメ不使用)',cuisine:'洋',
+ ing:[{n:'にんじん(薄切り)',q:2,u:'本(約300g)',c:'野菜'},{n:'玉ねぎ(薄切り)',q:0.5,u:'個(約100g)',c:'野菜'},{n:'牛乳',q:400,u:'ml',c:'卵・乳製品'},{n:'バター',q:20,u:'g',c:'卵・乳製品'}],
+ steps:['鍋にバターを溶かし、玉ねぎと塩ひとつまみを入れ弱火で炒める','にんじんと塩ひとつまみを加え、軽く炒める','水をヒタヒタに注ぎ、水分が半量になるまで煮る','ミキサーに③と牛乳半量(200ml)を入れ、滑らかになるまで混ぜる','鍋に戻し、残りの牛乳200mlを加えて温め、塩で味を調える'],
+ note:'コンソメ不使用でにんじん本来の甘みを活かした味。取り分けなしでそのままお子さまにも出せる。',
+ chef:'玉ねぎを炒める時ににんじんの色味を保つため焦がさないよう注意し、焦げそうなら水を少し足す。仕上げの塩はにんじんの甘みを感じられるよう味を見ながら調整する。(natsumi_omotenashiさんのレシピを参考)'}
 ];
 
 // 大人の主菜がお子さま向きでない日(魚料理・煮込み・中華の一部など)に、
@@ -625,6 +630,7 @@ function render(){
           ${QUICK_SOUPS.map(x=>`<option value="${x.id}" ${x.id===sp.id?'selected':''}>${x.name}</option>`).join('')}
         </select>
         <div class="meta"><span class="badge ${CUI_CLASS[sp.cuisine]}">${sp.cuisine}</span></div>
+        ${sp.steps ? `<ol class="steps">${sp.steps.map(st=>`<li>${st}</li>`).join('')}</ol>` : ''}
         <div class="side-note">${sp.note}</div>
         <div class="side-note" style="color:var(--yo);">👨‍🍳 ${sp.chef}</div>
         ${kyuNote}
